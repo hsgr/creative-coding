@@ -1,0 +1,216 @@
+#+TITLE: Creating coding meetup - week 1 <2016-10-16 Κυρ>
+* SuperCollider
+** Homepage of SC3
+- https://supercollider.github.io/
+*** The SuperCollider Book
+You can download all the code examples.
+- http://supercolliderbook.net/
+
+* SC3 features
+** Language (sclang) / Server (scsynth) / IDE
+SC3 has 2 major parts: the _language side_ or *sclang* and the _server side_ or *scsynth*.  Language side is where the user writes the program and server side is where the sound synthesis happens.  SC IDE is an application established from version 3.6 and on which enclose both sclang and scsynth in a handy [[https://en.wikipedia.org/wiki/Integrated_development_environment][IDE]].  See [[http://doc.sccode.org/Guides/ClientVsServer.html][Client vs Server]] help file online.
+
+#+CAPTION: SuperCollider application
+[[./img/scapp.png]]
+
+
+#+RESULTS:
+[[file:./img/scide.png]]
+
+Language and server side extensions: https://github.com/supercollider/sc3-plugins
+
+#+BEGIN_SRC sclang
+Platform.userExtensionDir // show user's extension path
+#+END_SRC
+
+** Class hierarchy tree
+SC3 has an Object Oriented language (sclang) with features from functional languages, and a C-like syntax.
+
+All entities are objects, which inherit from the root class [[http://doc.sccode.org/Guides/Intro-to-Objects.html][Object]].
+
+#+RESULTS:
+[[file:./img/sc3classhierarchy.png]]
+
+
+** Basic elements of SC language
+- Classes: Begins with an uppercase. (eg. =Class=, =Array= )
+- Methods: Begins with a lowercase. (eg. =.post;= =.mirror;= =neg(1);= )
+- Variables: No need to predefine the type of a variable. Three types of variables: interpreter, local and environmental, as follows:
+  + Every lowercase single letter. (eg. =a;= =d=9;= =f={1+1}=; )
+  + Use of var identifier. ( =var nameOfVariable;= =var rho=0.05;= )
+  + Environmental variables starting with a tidle =~= and lowercase. (eg. =~theta=pi;= )
+- Arguments: They start with a lowercase and they follow the special keyword =arg= ,
+or just included in =| |= . (eg. =arg a=0, beta;= or =|alpha=2|= )
+- Symbols: Symbols have a unique representation and they start with a backslash =\= ,
+or included in single quotes. (eg. =\alphabeta;= 'gamma'; ).
+- Functions: A function consists within curly brackets ={ }= . (eg. ={|a| a.not;}= )
+- Collections: Many types of collections. (eg. =[a,1,2];= =List[0,1]= )
+- Strings: Alphanumeric sequences in double-quotes.
+
+** sclang basics
+
+
+- Receivers, messages, arguments
+- Collections
+- Functions
+- Strings
+- Symbols
+
+*** Precedence
+The order of execution of binary operators is from left to right.  No operation (+,-,*,/,**) has any privilege.
+
+#+BEGIN_SRC sclang
+1+2*3
+1*2+3
+1+2**2 // 2**n <=> 2 to the power of n
+1**2+1
+#+END_SRC
+
+*** Messages
+
+#+BEGIN_SRC sclang
+[1,2,3,4].reverse.mirror; // precedence applies also for messages
+[1,2,3,4].mirror.reverse;
+
+[1.23, 1.256, 12.34].round
+[1.23, 1.256, 12.34].round(0.1) // 0.1 is an argument
+#+END_SRC
+
+*** Methods
+
+#+BEGIN_SRC sclang
+1.rand
+#+END_SRC
+
+#+BEGIN_SRC dot :file ./img/method.png :cmdline -Kdot -Tpng
+
+digraph G {
+//rankdir=LR
+node[shape=box]
+
+receiver[label="receiver\n1"]
+message[label="message\n.rand"]
+method[label="rand { _Rand; this.primitiveFailed}"]
+return[label="return value\n0"]
+
+receiver -> message[dir=back];
+receiver -> method;
+method -> return
+
+{rank=same; receiver; message; }
+
+}
+
+#+END_SRC
+
+#+CAPTION: Method flow in SC3, image adopted by SuperCollider Book, Chapter 5 by I. Zannos.
+[[file:./img/method.png]]
+
+*** Collections
+
+#+BEGIN_SRC sclang
+[1, 2, 3, 4].class
+List[1, 2, 3, 4]
+Array.with(2 , \three , " four " ) ;
+Array.geom(100 ,1e5 ,2).mirror.plot ;
+[1 ,2 ,3 ,4].put ([0 ,1].choose, nil ) ;
+List[1 , 2 , 3 , 4].collect({ arg item , i ; item + 10 }) ;
+(1..4) collect: [ \a , \b , _ ]
+#+END_SRC
+
+*** Strings
+
+#+BEGIN_SRC sclang
+"this is a string"
+
+"this is a string" == "this is a string"
+"this is a string" === "this is a string" // not identical (see Symbols below)
+#+END_SRC
+
+*** Symbols
+
+#+BEGIN_SRC sclang
+\thisIsASymbol
+'thisIsASymbol' // different
+
+\thisIsASymbol == 'thisIsASymbol'
+\thisIsASymbol === 'thisIsASymbol'
+#+END_SRC
+
+** Control Structures
+Few examples for writing an if statement, a case statement, a do loop and a while loop.  See [[http://doc.sccode.org/Reference/Control-Structures.html][Control Structures]] help file.
+
+#+BEGIN_SRC sclang
+// if ( expr , trueFunc , falseFunc ) ;
+if(10.rand > 5 , { " true " } , { " false " }) ;
+if(10.isPrime) { " true " } { " false " }; // alternative syntax
+// do ( collection , function )
+// or collection . do ( function )
+10.do{ arg i ; i.postln ; };
+(2 ,4..20) do: { | item , i | " item = ".post ; item.postln ; " i = ".post ; i.postln };
+do(10 , { | i | i . post ; }) ; // all these are alternative syntaxes
+// case
+(
+i = 10. rand ;
+case
+{ i < 3 } { " small " }
+{ (i > 3) &&( i < 7) } { " medium " }
+{ i > 7 } { " big " };
+)
+// while
+(
+i =0;
+while ( { i < 5 } , { i = i + 1; i.post ; } ) ;
+)
+
+#+END_SRC
+
+* Server side
+
+Start your sound engine.
+#+BEGIN_SRC sclang
+s.boot; // start your sound engine
+s.volume.gui; // create a gui slider to control the volume
+s.meter; // create a gui with input/output levels
+#+END_SRC
+
+** UGen
+The UGen class provide language side representation of the unit generators 3 available on the server. Their language description is similar to class description, although their are actually defined as plug-ins, written in C++ code. A unit generator can generate or modify audio signals. They are capable to input/output floating point data, in audio-rate ( =*ar= ), control-rate ( =*kr= ) and constant-rate ( =*ir= ). All calculations take place on the server.
+
+Examples below were adopted from the SuperCollider Book Chapter 1 by David Michael Cottle.  Go to [[http://supercolliderbook.net/][SuperCollider Book]] download the code.zip and open the file Ch1code.scd in the Ch 1 Tutorial.
+
+- To execute the code =Ctrl + RET= or =CMD + RET=.
+#+BEGIN_SRC sclang
+{LFNoise1.ar}.play  // play a series of random numbers
+                    // by default the left channel is the
+
+{LFNoise1.ar(10000)}.plot // plot those numbers
+
+{LFNoise1.ar(10000)}.scope // play and show on a scope
+#+END_SRC
+
+#+BEGIN_SRC sclang
+play({SinOsc.ar(LFNoise1.kr(7, mul: 600, add: 1000), 0.2)}) // Ctrl + . or CMD + . to stop sound
+
+play({RLPF.ar(Dust.ar([9, 11]), LFNoise1.ar(1/[3, 4], 1500, 1600), 0.02)})
+#+END_SRC
+
+
+Nested example:
+#+BEGIN_SRC sclang
+(
+play(
+	{
+		CombN.ar(
+			SinOsc.ar(
+				midicps(
+					LFNoise0.ar(2, 18,
+						LFSaw.ar([5, 5.123], 0, 3, 80)
+					)
+				),
+				0, 0.4),
+			1, 0.3, 2)
+	}
+)
+)
+#+END_SRC

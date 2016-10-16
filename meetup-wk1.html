@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Creating coding meetup - week 1 <span class="timestamp-wrapper"><span class="timestamp">&lt;2016-10-16 Κυρ&gt;</span></span></title>
+<!-- 2016-10-16 Κυρ 20:20 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Georgios Diapoulis" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+href="http://sachachua.com/blog/wp-content/themes/sacha-v3/foundation/css/foundation.min.css"></link>
+<link rel="stylesheet" type="text/css" href="http://sachachua.com/org-export.css"></link>
+<link rel="stylesheet" type="text/css" href="http://sachachua.com/blog/wp-content/themes/sacha-v3/style.css"></link>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<a name="top" id="top"></a>
+</div>
+<div id="content">
+<h1 class="title">Creating coding meetup - week 1 <span class="timestamp-wrapper"><span class="timestamp">&lt;2016-10-16 Κυρ&gt;</span></span></h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. SuperCollider</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Homepage of SC3</a>
+<ul>
+<li><a href="#sec-1-1-1">1.1.1. The SuperCollider Book</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-2">2. SC3 features</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Language (sclang) / Server (scsynth) / IDE</a></li>
+<li><a href="#sec-2-2">2.2. Class hierarchy tree</a></li>
+<li><a href="#sec-2-3">2.3. Basic elements of SC language</a></li>
+<li><a href="#sec-2-4">2.4. sclang basics</a>
+<ul>
+<li><a href="#sec-2-4-1">2.4.1. Precedence</a></li>
+<li><a href="#sec-2-4-2">2.4.2. Messages</a></li>
+<li><a href="#sec-2-4-3">2.4.3. Methods</a></li>
+<li><a href="#sec-2-4-4">2.4.4. Collections</a></li>
+<li><a href="#sec-2-4-5">2.4.5. Strings</a></li>
+<li><a href="#sec-2-4-6">2.4.6. Symbols</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-5">2.5. Control Structures</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Server side</a>
+<ul>
+<li><a href="#sec-3-1">3.1. UGen</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> SuperCollider</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Homepage of SC3</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li><a href="https://supercollider.github.io/">https://supercollider.github.io/</a>
+</li>
+</ul>
+</div>
+<div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> The SuperCollider Book</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+You can download all the code examples.
+</p>
+<ul class="org-ul">
+<li><a href="http://supercolliderbook.net/">http://supercolliderbook.net/</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> SC3 features</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Language (sclang) / Server (scsynth) / IDE</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+SC3 has 2 major parts: the <span class="underline">language side</span> or <b>sclang</b> and the <span class="underline">server side</span> or <b>scsynth</b>.  Language side is where the user writes the program and server side is where the sound synthesis happens.  SC IDE is an application established from version 3.6 and on which enclose both sclang and scsynth in a handy <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a>.  See <a href="http://doc.sccode.org/Guides/ClientVsServer.html">Client vs Server</a> help file online.
+</p>
+
+
+<div class="figure">
+<p><img src="./img/scapp.png" alt="scapp.png" />
+</p>
+<p><span class="figure-number">Figure 1:</span> SuperCollider application</p>
+</div>
+
+
+
+<div class="figure">
+<p><img src="./img/scide.png" alt="scide.png" />
+</p>
+</div>
+
+<p>
+Language and server side extensions: <a href="https://github.com/supercollider/sc3-plugins">https://github.com/supercollider/sc3-plugins</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang"><span class="org-type">Platform</span>.userExtensionDir <span class="org-comment-delimiter">// </span><span class="org-comment">show user's extension path</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Class hierarchy tree</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+SC3 has an Object Oriented language (sclang) with features from functional languages, and a C-like syntax.
+</p>
+
+<p>
+All entities are objects, which inherit from the root class <a href="http://doc.sccode.org/Guides/Intro-to-Objects.html">Object</a>.
+</p>
+
+
+<div class="figure">
+<p><img src="./img/sc3classhierarchy.png" alt="sc3classhierarchy.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Basic elements of SC language</h3>
+<div class="outline-text-3" id="text-2-3">
+<ul class="org-ul">
+<li>Classes: Begins with an uppercase. (eg. <code>Class</code>, <code>Array</code> )
+</li>
+<li>Methods: Begins with a lowercase. (eg. <code>.post;</code> <code>.mirror;</code> <code>neg(1);</code> )
+</li>
+<li>Variables: No need to predefine the type of a variable. Three types of variables: interpreter, local and environmental, as follows:
+<ul class="org-ul">
+<li>Every lowercase single letter. (eg. <code>a;</code> <code>d=9;</code> <code>f={1+1}</code>; )
+</li>
+<li>Use of var identifier. ( <code>var nameOfVariable;</code> <code>var rho=0.05;</code> )
+</li>
+<li>Environmental variables starting with a tidle <code>~</code> and lowercase. (eg. <code>~theta=pi;</code> )
+</li>
+</ul>
+</li>
+<li>Arguments: They start with a lowercase and they follow the special keyword <code>arg</code> ,
+</li>
+</ul>
+<p>
+or just included in <code>| |</code> . (eg. <code>arg a=0, beta;</code> or <code>|alpha=2|</code> )
+</p>
+<ul class="org-ul">
+<li>Symbols: Symbols have a unique representation and they start with a backslash <code>\</code> ,
+</li>
+</ul>
+<p>
+or included in single quotes. (eg. <code>\alphabeta;</code> 'gamma'; ).
+</p>
+<ul class="org-ul">
+<li>Functions: A function consists within curly brackets <code>{ }</code> . (eg. <code>{|a| a.not;}</code> )
+</li>
+<li>Collections: Many types of collections. (eg. <code>[a,1,2];</code> <code>List[0,1]</code> )
+</li>
+<li>Strings: Alphanumeric sequences in double-quotes.
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> sclang basics</h3>
+<div class="outline-text-3" id="text-2-4">
+<ul class="org-ul">
+<li>Receivers, messages, arguments
+</li>
+<li>Collections
+</li>
+<li>Functions
+</li>
+<li>Strings
+</li>
+<li>Symbols
+</li>
+</ul>
+</div>
+
+<div id="outline-container-sec-2-4-1" class="outline-4">
+<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> Precedence</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<p>
+The order of execution of binary operators is from left to right.  No operation (+,-,*,/,**) has any privilege.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">1+2*3
+1*2+3
+1+2**2 <span class="org-comment-delimiter">// </span><span class="org-comment">2**n &lt;=&gt; 2 to the power of n</span>
+1**2+1
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-2" class="outline-4">
+<h4 id="sec-2-4-2"><span class="section-number-4">2.4.2</span> Messages</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<div class="org-src-container">
+
+<pre class="src src-sclang">[1,2,3,4].reverse.mirror; <span class="org-comment-delimiter">// </span><span class="org-comment">precedence applies also for messages</span>
+[1,2,3,4].mirror.reverse;
+
+[1.23, 1.256, 12.34].round
+[1.23, 1.256, 12.34].round(0.1) <span class="org-comment-delimiter">// </span><span class="org-comment">0.1 is an argument</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-3" class="outline-4">
+<h4 id="sec-2-4-3"><span class="section-number-4">2.4.3</span> Methods</h4>
+<div class="outline-text-4" id="text-2-4-3">
+<div class="org-src-container">
+
+<pre class="src src-sclang">1.rand
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./img/method.png" alt="method.png" />
+</p>
+<p><span class="figure-number">Figure 4:</span> Method flow in SC3, image adopted by SuperCollider Book, Chapter 5 by I. Zannos.</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-4" class="outline-4">
+<h4 id="sec-2-4-4"><span class="section-number-4">2.4.4</span> Collections</h4>
+<div class="outline-text-4" id="text-2-4-4">
+<div class="org-src-container">
+
+<pre class="src src-sclang">[1, 2, 3, 4].class
+<span class="org-type">List</span>[1, 2, 3, 4]
+<span class="org-type">Array</span>.with(2 , <span class="org-constant">\three</span> , <span class="org-string">" four "</span> ) ;
+<span class="org-type">Array</span>.geom(100 ,1e5 ,2).mirror.plot ;
+[1 ,2 ,3 ,4].put ([0 ,1].choose, <span class="org-builtin">nil</span> ) ;
+<span class="org-type">List</span>[1 , 2 , 3 , 4].collect({ <span class="org-keyword">arg</span> item , i ; item + 10 }) ;
+(1..4) <span class="org-variable-name">collect:</span> [ <span class="org-constant">\a</span> , <span class="org-constant">\b</span> , _ ]
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-5" class="outline-4">
+<h4 id="sec-2-4-5"><span class="section-number-4">2.4.5</span> Strings</h4>
+<div class="outline-text-4" id="text-2-4-5">
+<div class="org-src-container">
+
+<pre class="src src-sclang"><span class="org-string">"this is a string"</span>
+
+<span class="org-string">"this is a string"</span> == <span class="org-string">"this is a string"</span>
+<span class="org-string">"this is a string"</span> === <span class="org-string">"this is a string"</span> <span class="org-comment-delimiter">// </span><span class="org-comment">not identical (see Symbols below)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-6" class="outline-4">
+<h4 id="sec-2-4-6"><span class="section-number-4">2.4.6</span> Symbols</h4>
+<div class="outline-text-4" id="text-2-4-6">
+<div class="org-src-container">
+
+<pre class="src src-sclang"><span class="org-constant">\thisIsASymbol</span>
+<span class="org-constant">'thisIsASymbol'</span> <span class="org-comment-delimiter">// </span><span class="org-comment">different</span>
+
+<span class="org-constant">\thisIsASymbol</span> == <span class="org-constant">'thisIsASymbol'</span>
+<span class="org-constant">\thisIsASymbol</span> === <span class="org-constant">'thisIsASymbol'</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Control Structures</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+Few examples for writing an if statement, a case statement, a do loop and a while loop.  See <a href="http://doc.sccode.org/Reference/Control-Structures.html">Control Structures</a> help file.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang"><span class="org-comment-delimiter">// </span><span class="org-comment">if ( expr , trueFunc , falseFunc ) ;</span>
+<span class="org-function-name">if</span>(10.rand &gt; 5 , { <span class="org-string">" true "</span> } , { <span class="org-string">" false "</span> }) ;
+<span class="org-function-name">if</span>(10.isPrime) { <span class="org-string">" true "</span> } { <span class="org-string">" false "</span> }; <span class="org-comment-delimiter">// </span><span class="org-comment">alternative syntax</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">do ( collection , function )</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">or collection . do ( function )</span>
+10.do{ <span class="org-keyword">arg</span> i ; i.postln ; };
+(2 ,4..20) <span class="org-variable-name">do:</span> { | item , i | <span class="org-string">" item = "</span>.post ; item.postln ; <span class="org-string">" i = "</span>.post ; i.postln };
+do(10 , { | i | i . post ; }) ; <span class="org-comment-delimiter">// </span><span class="org-comment">all these are alternative syntaxes</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">case</span>
+(
+i = 10. rand ;
+case
+{ i &lt; 3 } { <span class="org-string">" small "</span> }
+{ (i &gt; 3) &amp;&amp;( i &lt; 7) } { <span class="org-string">" medium "</span> }
+{ i &gt; 7 } { <span class="org-string">" big "</span> };
+)
+<span class="org-comment-delimiter">// </span><span class="org-comment">while</span>
+(
+i =0;
+<span class="org-function-name">while</span> ( { i &lt; 5 } , { i = i + 1; i.post ; } ) ;
+)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Server side</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Start your sound engine.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sclang">s.boot; <span class="org-comment-delimiter">// </span><span class="org-comment">start your sound engine</span>
+s.volume.gui; <span class="org-comment-delimiter">// </span><span class="org-comment">create a gui slider to control the volume</span>
+s.meter; <span class="org-comment-delimiter">// </span><span class="org-comment">create a gui with input/output levels</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> UGen</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+The UGen class provide language side representation of the unit generators 3 available on the server. Their language description is similar to class description, although their are actually defined as plug-ins, written in C++ code. A unit generator can generate or modify audio signals. They are capable to input/output floating point data, in audio-rate ( <code>*ar</code> ), control-rate ( <code>*kr</code> ) and constant-rate ( <code>*ir</code> ). All calculations take place on the server.
+</p>
+
+<p>
+Examples below were adopted from the SuperCollider Book Chapter 1 by David Michael Cottle.  Go to <a href="http://supercolliderbook.net/">SuperCollider Book</a> download the code.zip and open the file Ch1code.scd in the Ch 1 Tutorial.
+</p>
+
+<ul class="org-ul">
+<li>To execute the code <code>Ctrl + RET</code> or <code>CMD + RET</code>.
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sclang">{<span class="org-type">LFNoise1</span>.<span class="org-function-name">ar</span>}.play  <span class="org-comment-delimiter">// </span><span class="org-comment">play a series of random numbers</span>
+                    <span class="org-comment-delimiter">// </span><span class="org-comment">by default the left channel is the</span>
+
+{<span class="org-type">LFNoise1</span>.<span class="org-function-name">ar</span>(10000)}.plot <span class="org-comment-delimiter">// </span><span class="org-comment">plot those numbers</span>
+
+{<span class="org-type">LFNoise1</span>.<span class="org-function-name">ar</span>(10000)}.scope <span class="org-comment-delimiter">// </span><span class="org-comment">play and show on a scope</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">play({<span class="org-type">SinOsc</span>.<span class="org-function-name">ar</span>(<span class="org-type">LFNoise1</span>.<span class="org-function-name">kr</span>(7, <span class="org-variable-name">mul:</span> 600, <span class="org-variable-name">add:</span> 1000), 0.2)}) <span class="org-comment-delimiter">// </span><span class="org-comment">Ctrl + . or CMD + . to stop sound</span>
+
+play({<span class="org-type">RLPF</span>.<span class="org-function-name">ar</span>(<span class="org-type">Dust</span>.<span class="org-function-name">ar</span>([9, 11]), <span class="org-type">LFNoise1</span>.<span class="org-function-name">ar</span>(1/[3, 4], 1500, 1600), 0.02)})
+</pre>
+</div>
+
+
+<p>
+Nested example:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sclang">(
+play(
+        {
+                <span class="org-type">CombN</span>.<span class="org-function-name">ar</span>(
+                        <span class="org-type">SinOsc</span>.<span class="org-function-name">ar</span>(
+                                midicps(
+                                        <span class="org-type">LFNoise0</span>.<span class="org-function-name">ar</span>(2, 18,
+                                                <span class="org-type">LFSaw</span>.<span class="org-function-name">ar</span>([5, 5.123], 0, 3, 80)
+                                        )
+                                ),
+                                0, 0.4),
+                        1, 0.3, 2)
+        }
+)
+)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+
+<style type="text/css">
+.back-to-top {
+    position: fixed;
+    bottom: 2em;
+    right: 0px;
+    text-decoration: none;
+    color: #000000;
+    background-color: rgba(235, 235, 235, 0.80);
+    font-size: 12px;
+    padding: 1em;
+    display: none;
+}
+
+.back-to-top:hover {
+    background-color: rgba(135, 135, 135, 0.50);
+}
+</style>
+
+<div class="back-to-top">
+<a href="#top">Back to top</a> | <a href="mailto:gediapou@student.jyu.fi">E-mail me</a>
+<p></p>
+<center>
+<a href="http://users.jyu.fi/~gediapou">Georgios Diapoulis</a>
+</center>
+</div>
+
+<script type="text/javascript">
+    var offset = 220;
+    var duration = 500;
+    jQuery(window).scroll(function() {
+        if (jQuery(this).scrollTop() > offset) {
+            jQuery('.back-to-top').fadeIn(duration);
+        } else {
+            jQuery('.back-to-top').fadeOut(duration);
+        }
+    });
+</script>
+</div>
+</body>
+</html>
