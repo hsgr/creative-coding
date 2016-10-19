@@ -14,8 +14,8 @@ SC3 has 2 major parts: the _language side_ or *sclang* and the _server side_ or 
 [[./img/scapp.png]]
 
 
-#+RESULTS:
-[[file:./img/scide.png]]
+#+CAPTION: SuperCollider extensions
+[[./img/scide.png]]
 
 Language and server side extensions: https://github.com/supercollider/sc3-plugins
 
@@ -28,8 +28,8 @@ SC3 has an Object Oriented language (sclang) with features from functional langu
 
 All entities are objects, which inherit from the root class [[http://doc.sccode.org/Guides/Intro-to-Objects.html][Object]].
 
-#+RESULTS:
-[[file:./img/sc3classhierarchy.png]]
+#+CAPTION: SuperCollider class hierarchy tree.
+[[./img/sc3classhierarchy.png]]
 
 
 ** Basic elements of SC language
