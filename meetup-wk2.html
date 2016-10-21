@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Sounds and GUI</title>
+<!-- 2016-10-21 Παρ 05:15 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Georgios Diapoulis" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+href="http://sachachua.com/blog/wp-content/themes/sacha-v3/foundation/css/foundation.min.css"></link>
+<link rel="stylesheet" type="text/css" href="http://sachachua.com/org-export.css"></link>
+<link rel="stylesheet" type="text/css" href="http://sachachua.com/blog/wp-content/themes/sacha-v3/style.css"></link>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<a name="top" id="top"></a>
+</div>
+<div id="content">
+<h1 class="title">Sounds and GUI</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Basic keyboard shortcuts</a></li>
+<li><a href="#sec-2">2. Function</a></li>
+<li><a href="#sec-3">3. SynthDef</a>
+<ul>
+<li><a href="#sec-3-1">3.1. A synth with no arguments</a></li>
+<li><a href="#sec-3-2">3.2. A synth with arguments</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. GUI</a>
+<ul>
+<li><a href="#sec-4-1">4.1. GUI and UGen</a></li>
+<li><a href="#sec-4-2">4.2. GUI and SynthDef</a></li>
+<li><a href="#sec-4-3">4.3. GUI, Buffers and Routine</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Basic keyboard shortcuts</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li><b>Evaluate region</b>: <code>Ctrl + RET</code> (Control and Return)
+<ul class="org-ul">
+<li>Evaluates a code chunk within brackets <code>( )</code>
+</li>
+</ul>
+</li>
+<li><b>Evaluate line</b>: <code>Shift + RET</code>
+</li>
+<li><b>Stop sound forcefully</b>: <code>Ctrl + .</code> (Control and period)
+</li>
+<li><b>Boot Server</b>: <code>Ctrl + B</code>
+</li>
+<li><b>Recompile Library</b>: <code>Ctrl + Shift + L</code>
+</li>
+<li><b>Open help file</b>: Highlight keyword and press <code>Ctrl + D</code>
+</li>
+<li><b>Open source code</b>: Highlight keyword and press <code>Ctrl + I</code>
+</li>
+</ul>
+
+<p>
+On MacOS instead of <code>Ctrl</code> use <code>Cmd</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Function</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+A function is enclosed within curly brackets <code>{ }</code> and is <b>evaluated</b> when using the method <code>value</code>.
+</p>
+
+<p>
+See the example below from <a href="http://doc.sccode.org/Classes/Function.html">Function</a> SC3 help file.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">(
+<span class="org-keyword">var</span> a, b, c;
+a = { [100, 200, 300].choose }; <span class="org-comment-delimiter">// </span><span class="org-comment">a function is enclosed within curly brackets</span>
+b = { 10.rand + 1 }; <span class="org-comment-delimiter">// </span><span class="org-comment">another Function</span>
+c = a + b; <span class="org-comment-delimiter">// </span><span class="org-comment">c is a Function.</span>
+c.value.postln; <span class="org-comment-delimiter">// </span><span class="org-comment">evaluate c and print the result</span>
+)
+</pre>
+</div>
+
+<p>
+A function with <b>arguments</b>:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sclang">f = { |a, b| (a * b).postln }; <span class="org-comment-delimiter">// </span><span class="org-comment">|a, b| are the arguments</span>
+f.value(3, 10);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> SynthDef</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+A <a href="http://doc.sccode.org/Classes/SynthDef.html">SynthDef</a> is a language side representation of a synth definition on the server.  This is the proper way to go in order to define sounds and call them in the language.  They are more efficient than UGens.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> A synth with no arguments</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+A synth with no arguments (no external control of it).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sclang"><span class="org-type">SynthDef</span>(<span class="org-constant">\def_noArgs</span>, { <span class="org-type">Out</span>.<span class="org-function-name">ar</span>(0, <span class="org-type">LPF</span>.<span class="org-function-name">ar</span>(<span class="org-type">PinkNoise</span>.<span class="org-function-name">ar</span>(1), 550))}).add;
+
+a = <span class="org-type">Synth</span>(<span class="org-constant">\def_noArgs</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">play the sound</span>
+a.free; <span class="org-comment-delimiter">// </span><span class="org-comment">stop the sound and release the Synth</span>
+        <span class="org-comment-delimiter">// </span><span class="org-comment">(check the incremental values on the Post Window)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> A synth with arguments</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+
+<pre class="src src-sclang"><span class="org-type">SynthDef</span>(<span class="org-constant">\def_args</span>, { | freq = 440 |
+    <span class="org-type">Out</span>.<span class="org-function-name">ar</span>(0,
+        <span class="org-type">Pan2</span>.<span class="org-function-name">ar</span>(
+            <span class="org-type">SinOsc</span>.<span class="org-function-name">ar</span>(freq, 0, 0.2) * <span class="org-type">Line</span>.<span class="org-function-name">kr</span>(1, 0, 1, <span class="org-variable-name">doneAction:</span> 2) <span class="org-comment-delimiter">// </span><span class="org-comment">Line releases the Synth</span>
+        )
+    )
+}).add;
+)
+
+a = <span class="org-type">Synth</span>(<span class="org-constant">\def_args</span>);
+a = <span class="org-type">Synth</span>(<span class="org-constant">\def_args</span>, [<span class="org-constant">\freq</span>, 330]); <span class="org-comment-delimiter">// </span><span class="org-comment">change the frequency</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> GUI</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+An <a href="http://doc.sccode.org/Guides/GUI-Introduction.html">Introduction to GUI</a> and a <a href="http://doc.sccode.org/Overviews/GUI-Classes.html">List of GUI Classes</a> are available from on <a href="http://sccode.org/">sccode.org</a>.
+</p>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> GUI and UGen</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+
+<pre class="src src-sclang">(
+s.waitForBoot({
+        w = <span class="org-type">Window</span>.new;
+        b = <span class="org-type">Button</span>(w, <span class="org-type">Rect</span>(20, 20, 80, 26))
+              .states_([[<span class="org-string">"play"</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.rand]])
+              .mouseDownAction_({
+                a = {<span class="org-type">EnvGen</span>.<span class="org-function-name">kr</span>(<span class="org-type">Env</span>.adsr, <span class="org-variable-name">doneAction:</span>2) * <span class="org-type">SinOsc</span>.<span class="org-function-name">ar</span>(440, 0, 0.4)}.play;
+        })
+        .action_({ <span class="org-comment-delimiter">// </span><span class="org-comment">an action sets the value to the View when something happens (ie. a button pressed)</span>
+                a.release(0.3); <span class="org-comment-delimiter">// </span><span class="org-comment">set the action to release the sound</span>
+        });
+        w.front;
+})
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> GUI and SynthDef</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+The code below defines a synth and you can listen the sound using a button.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang"><span class="org-type">SynthDef</span>(<span class="org-constant">\noise</span>, { | amp = 0.2 | <span class="org-type">Out</span>.<span class="org-function-name">ar</span>(0, <span class="org-type">PinkNoise</span>.<span class="org-function-name">ar</span>(amp)); }).add;
+a = <span class="org-type">Synth</span>(<span class="org-constant">\noise</span>);
+a.set(<span class="org-constant">\amp</span>, 0.3); <span class="org-comment-delimiter">// </span><span class="org-comment">set the argument while the Synth is playing</span>
+a.free;
+
+(
+<span class="org-keyword">var</span> w, butt, sound;
+<span class="org-comment-delimiter">// </span><span class="org-comment">define a window</span>
+w = <span class="org-type">Window</span>.new(<span class="org-string">"first piece"</span>, <span class="org-type">Rect</span>(0, 0, 200, 200));
+w.front; <span class="org-comment-delimiter">// </span><span class="org-comment">make the window</span>
+w.onClose = { sound.free };
+<span class="org-comment-delimiter">// </span><span class="org-comment">make the button</span>
+butt = <span class="org-type">Button</span>(w, <span class="org-type">Rect</span>(0, 0, 100, 100));
+<span class="org-comment-delimiter">//</span><span class="org-comment">define the states of the button</span>
+butt.states = [[<span class="org-string">"start"</span>], [<span class="org-string">"stop"</span>]];
+
+butt.action = { | v |
+    <span class="org-function-name">if</span> (v.value == 1)  {
+      sound = <span class="org-type">Synth</span>(<span class="org-constant">'noise2'</span>);
+      w.onClose({
+                  { butt.value = 0 }.defer;
+      });
+    }{
+      sound.free;
+    }
+};
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> GUI, Buffers and Routine</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+A sequencer that uses buffers to load samples.
+</p>
+
+<p>
+Load the buffers and define the synth.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sclang"><span class="org-comment-delimiter">// </span><span class="org-comment">sounds files from freesound.org</span>
+<span class="org-comment-delimiter">/*</span>
+<span class="org-comment">http://www.freesound.org/people/datasoundsample/sounds/41947/</span>
+<span class="org-comment">http://www.freesound.org/people/datasoundsample/sounds/41948/</span>
+<span class="org-comment">http://www.freesound.org/people/datasoundsample/sounds/41942/</span>
+<span class="org-comment">http://www.freesound.org/people/datasoundsample/sounds/41944/</span>
+<span class="org-comment">*/</span>
+(
+<span class="org-comment-delimiter">// </span><span class="org-comment">make sure to boot the server before loading the samples</span>
+s.waitForBoot {
+        <span class="org-comment-delimiter">// </span><span class="org-comment">load samples from relative path</span>
+        p = (<span class="org-keyword">thisProcess</span>.nowExecutingPath.dirname++<span class="org-string">"/samples/*"</span>).pathMatch;
+        <span class="org-comment-delimiter">// </span><span class="org-comment">collect samples to buffers</span>
+        c = p.collect{|item| <span class="org-type">Buffer</span>.read(s, item) };
+}
+)
+<span class="org-comment-delimiter">// </span><span class="org-comment">define the SynthDef (synth definition)</span>
+(
+<span class="org-comment-delimiter">// </span><span class="org-comment">buffdrums</span>
+<span class="org-type">SynthDef</span>(<span class="org-constant">\buffdrums</span>, { |bufnum=0, pan=0.0, amp=0.5|
+        <span class="org-type">Out</span>.<span class="org-function-name">ar</span>(0, <span class="org-type">Pan2</span>.<span class="org-function-name">ar</span>(<span class="org-type">PlayBuf</span>.<span class="org-function-name">ar</span>(1, bufnum, <span class="org-variable-name">doneAction:</span> 2), pan, amp))
+}).add;
+
+)
+<span class="org-comment-delimiter">// </span><span class="org-comment">play drum hits</span>
+<span class="org-type">Synth</span>(<span class="org-constant">\buffdrums</span>, [<span class="org-constant">\bufnum</span>, c[0]]);
+<span class="org-type">Synth</span>(<span class="org-constant">\buffdrums</span>, [<span class="org-constant">\bufnum</span>, c[1]]);
+<span class="org-type">Synth</span>(<span class="org-constant">\buffdrums</span>, [<span class="org-constant">\bufnum</span>, c[2]]);
+<span class="org-type">Synth</span>(<span class="org-constant">\buffdrums</span>, [<span class="org-constant">\bufnum</span>, c[3]]);
+</pre>
+</div>
+
+<p>
+Make the GUI and play the routine.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">(
+w = <span class="org-type">Window</span>.new(<span class="org-string">"Grid"</span>);
+
+a = [
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.green], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.yellow]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.green], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.yellow]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.green], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.yellow]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.green], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.yellow]])
+            .action_({ | butt | butt.value })
+];
+
+b = [
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value }),
+        <span class="org-type">Button</span>(w)
+            .states_([[<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.white], [<span class="org-string">""</span>, <span class="org-type">Color</span>.black, <span class="org-type">Color</span>.red]])
+            .action_({ | butt | butt.value })
+];
+
+w.layout_( <span class="org-type">GridLayout</span>.rows(
+        [ a[0], a[1], a[2], a[3] ],
+        [ b[0], b[1], b[2], b[3], [<span class="org-type">Slider</span>(), <span class="org-variable-name">rows:</span>4]],
+        [ b[4], b[5], b[6], b[7] ],
+        [ b[8], b[9], b[10], b[11] ],
+        [ b[12], b[13], b[14], b[15] ],
+        [[<span class="org-type">Slider</span>().orientation_(<span class="org-constant">\horizontal</span>), <span class="org-variable-name">columns:</span>4]],
+        [[<span class="org-type">Slider</span>().orientation_(<span class="org-constant">\horizontal</span>), <span class="org-variable-name">columns:</span>4]],
+        [[<span class="org-type">Slider</span>().orientation_(<span class="org-constant">\horizontal</span>), <span class="org-variable-name">columns:</span>4]],
+        [[<span class="org-type">Slider</span>().orientation_(<span class="org-constant">\horizontal</span>), <span class="org-variable-name">columns:</span>4]]
+)).front;
+)
+
+<span class="org-comment-delimiter">//</span><span class="org-comment">a[0].valueAction = 1;</span>
+<span class="org-comment-delimiter">//</span><span class="org-comment">b[0].value;</span>
+
+(
+t = 0.3;
+r = <span class="org-type">Routine</span> {
+        <span class="org-function-name">loop</span> {
+                4 <span class="org-variable-name">do:</span> { |i|
+                        a[i].valueAction  = 1; <span class="org-comment-delimiter">// </span><span class="org-comment">switch on the current beat</span>
+                        a[(i+1)%4].valueAction  = 0; <span class="org-comment-delimiter">// </span><span class="org-comment">switch off all other beats</span>
+                        a[(i+2)%4].valueAction  = 0;
+                        a[(i+3)%4].valueAction  = 0;
+                        <span class="org-comment-delimiter">// </span><span class="org-comment">play the sounds</span>
+                        4 <span class="org-variable-name">do:</span> { |j|
+                                <span class="org-function-name">if</span>( (b[j].value==1) &amp;&amp; (i%4==j) ){
+                                        <span class="org-type">Synth</span>(<span class="org-constant">\buffdrums</span>, [<span class="org-constant">\bufnum</span>, c[3]]);
+                                };
+                                <span class="org-function-name">if</span>( (b[j+4].value==1) &amp;&amp; (i%4==j) ){
+                                        <span class="org-type">Synth</span>(<span class="org-constant">\buffdrums</span>, [<span class="org-constant">\bufnum</span>, c[2]]);
+                                };
+                                <span class="org-function-name">if</span>( (b[j+8].value==1) &amp;&amp; (i%4==j) ){
+                                        <span class="org-type">Synth</span>(<span class="org-constant">\buffdrums</span>, [<span class="org-constant">\bufnum</span>, c[1]]);
+                                };
+                                <span class="org-function-name">if</span>( (b[j+12].value==1) &amp;&amp; (i%4==j) ){
+                                        <span class="org-type">Synth</span>(<span class="org-constant">\buffdrums</span>, [<span class="org-constant">\bufnum</span>, c[0]]);
+                                };
+                        };
+                        t.wait; <span class="org-comment-delimiter">// </span><span class="org-comment">t values below ~0.04 will not produce accurate sequencing</span>
+                };
+        };
+};
+<span class="org-comment-delimiter">// </span><span class="org-comment">start the routine</span>
+r.play(<span class="org-type">AppClock</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">AppClock is used with GUI</span>
+)
+<span class="org-comment-delimiter">// </span><span class="org-comment">stop the routine</span>
+r.stop;
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+
+<style type="text/css">
+.back-to-top {
+    position: fixed;
+    bottom: 2em;
+    right: 0px;
+    text-decoration: none;
+    color: #000000;
+    background-color: rgba(235, 235, 235, 0.80);
+    font-size: 12px;
+    padding: 1em;
+    display: none;
+}
+
+.back-to-top:hover {
+    background-color: rgba(135, 135, 135, 0.50);
+}
+</style>
+
+<div class="back-to-top">
+<a href="#top">Back to top</a> | <a href="mailto:gediapou@student.jyu.fi">E-mail me</a>
+<p></p>
+<center>
+<a href="http://users.jyu.fi/~gediapou">Georgios Diapoulis</a>
+</center>
+</div>
+
+<script type="text/javascript">
+    var offset = 220;
+    var duration = 500;
+    jQuery(window).scroll(function() {
+        if (jQuery(this).scrollTop() > offset) {
+            jQuery('.back-to-top').fadeIn(duration);
+        } else {
+            jQuery('.back-to-top').fadeOut(duration);
+        }
+    });
+</script>
+</div>
+</body>
+</html>
