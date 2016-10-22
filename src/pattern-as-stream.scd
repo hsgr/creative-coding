@@ -11,10 +11,11 @@ SynthDef(\help_sinegrain,
 
 (
 var a;
-a = Pn(Pshuf([1, 2, 2, 3, 3, 3], 4)).asStream;
+a = Pn(Pshuf([1, 2, 2, 3, 3, 3], 4)).asStream; // repeat pattern four times
+
 {
     loop {
-        Synth(\help_sinegrain, [\freq, a.next * 600 + 300]);
+        Synth(\help_sinegrain, [\freq, a.next * 600 + 300]); // sets the next value of the pattern
         0.2.wait;
     }
 }.fork; // fork is alternative syntax for Routine
