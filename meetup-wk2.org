@@ -59,11 +59,11 @@ SynthDef(\def_args, { | freq = 440 |
 }).add;
 )
 
-a = Synth(\def_args);
+a = Synth(\def_args); // you don't have to free the Synth doneAction: 2 does that for you
 a = Synth(\def_args, [\freq, 330]); // change the frequency
 #+END_SRC
 
-* GUI
+* GUI and sequencers
 
 An [[http://doc.sccode.org/Guides/GUI-Introduction.html][Introduction to GUI]] and a [[http://doc.sccode.org/Overviews/GUI-Classes.html][List of GUI Classes]] are available from on [[http://sccode.org/][sccode.org]].
 
@@ -95,7 +95,7 @@ a.set(\amp, 0.3); // set the argument while the Synth is playing
 a.free;
 
 (
-var w, butt, sound;
+var w, butt, sound; // w is not an interpreter's var -- it's a local var
 // define a window
 w = Window.new("first piece", Rect(0, 0, 200, 200));
 w.front; // make the window
@@ -124,7 +124,7 @@ A sequencer that uses buffers to load samples.
 
 Load the buffers and define the synth.
 #+BEGIN_SRC sclang :tangle ./src/grid-sequencer-defs.scd
-// sounds files from freesound.org
+// you can use the following sound files from freesound.org
 /*
 http://www.freesound.org/people/datasoundsample/sounds/41947/
 http://www.freesound.org/people/datasoundsample/sounds/41948/
@@ -134,7 +134,7 @@ http://www.freesound.org/people/datasoundsample/sounds/41944/
 (
 // make sure to boot the server before loading the samples
 s.waitForBoot {
-	// load samples from relative path
+	// load samples from relative path (make a subfolder in the working directory with name 'samples')
 	p = (thisProcess.nowExecutingPath.dirname++"/samples/*").pathMatch;
 	// collect samples to buffers
 	c = p.collect{|item| Buffer.read(s, item) };
@@ -277,84 +277,112 @@ r.stop;
 *** Grid sequencer and sliders
 #+BEGIN_SRC sclang :tangle ./src/grid-sequencer-sliders.scd
 (
-w = Window.new("Grid");
+w = Window.new("Grid"); // a, b, w are interpreter's vars
 
 a = [
 	Button(w)
-            .states_([["", Color.black, Color.green], ["", Color.black, Color.yellow]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.green], ["", Color.black, Color.yellow]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.green], ["", Color.black, Color.yellow]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.green], ["", Color.black, Color.yellow]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.green], ["", Color.black, Color.yellow]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.green], ["", Color.black, Color.yellow]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.green], ["", Color.black, Color.yellow]])
-            .action_({ | butt | butt.value })
+	.states_([["", Color.black, Color.green], ["", Color.black, Color.yellow]])
+	.action_({ | butt | butt.value })
 ];
 
 b = [
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value }),
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value }),
 	Button(w)
-            .states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
-            .action_({ | butt | butt.value })
+	.states_([["", Color.black, Color.white], ["", Color.black, Color.red]])
+	.action_({ | butt | butt.value })
 ];
 
 w.layout_( GridLayout.rows(
 	[ a[0], a[1], a[2], a[3] ],
-	[ b[0], b[1], b[2], b[3], [Slider(), rows:4]], // for amplitude
-        [ b[4], b[5], b[6], b[7] ],
-        [ b[8], b[9], b[10], b[11] ],
-        [ b[12], b[13], b[14], b[15] ],
-        [[Slider().orientation_(\horizontal), columns:4]], // for panning
-	[[Slider().orientation_(\horizontal), columns:4]],
-	[[Slider().orientation_(\horizontal), columns:4]],
-	[[Slider().orientation_(\horizontal), columns:4]]
+	[ b[0], b[1], b[2], b[3], [ p = Slider(w), rows:4] ], // control amp with p
+	[ b[4], b[5], b[6], b[7] ],
+	[ b[8], b[9], b[10], b[11] ],
+	[ b[12], b[13], b[14], b[15] ],
+	[
+		[
+			k = Slider(w) // bufnum = 3
+			.orientation_(\horizontal)
+			.value_(0.5),
+			columns:4
+		]
+	],
+	[
+		[
+			l = Slider(w) // bufnum = 2
+			.orientation_(\horizontal)
+			.value_(0.5),
+			columns:4
+		]
+	],
+	[
+		[
+			m = Slider(w) // bufnum = 1
+			.orientation_(\horizontal)
+			.value_(0.5),
+			columns:4
+		]
+	],
+	[
+		[
+			n = Slider(w) // bufnum = 0
+			.orientation_(\horizontal)
+			.value_(0.5),
+			columns:4
+		]
+	]
 )).front;
 )
 
@@ -372,17 +400,18 @@ r = Routine {
 			a[(i+3)%4].valueAction  = 0;
 			// play the sounds
 			4 do: { |j|
+				// control panning
 				if( (b[j].value==1) && (i%4==j) ){
-					Synth(\buffdrums, [\bufnum, c[3]]);
+					Synth(\buffdrums, [\bufnum, c[3], \pan, (k.value * 2 - 1)]);
 				};
 				if( (b[j+4].value==1) && (i%4==j) ){
-					Synth(\buffdrums, [\bufnum, c[2]]);
+					Synth(\buffdrums, [\bufnum, c[2], \pan, (l.value * 2 - 1)]);
 				};
 				if( (b[j+8].value==1) && (i%4==j) ){
-					Synth(\buffdrums, [\bufnum, c[1]]);
+					Synth(\buffdrums, [\bufnum, c[1], \pan, (m.value * 2 - 1)]);
 				};
 				if( (b[j+12].value==1) && (i%4==j) ){
-					Synth(\buffdrums, [\bufnum, c[0]]);
+					Synth(\buffdrums, [\bufnum, c[0], \pan, (n.value * 2 - 1)]);
 				};
 			};
 			t.wait; // t values below ~0.04 will not produce accurate sequencing
@@ -392,6 +421,77 @@ r = Routine {
 // start the routine
 r.play(AppClock); // AppClock is used with GUI
 )
+
 // stop the routine
 r.stop;
+#+END_SRC
+
+* Sequencing using patterns
+
+See [[http://doc.sccode.org/Classes/Pattern.html][Pattern]] help file.  Some popular pattern classes are =Pbind=, =Pseq=, =Pwhite=, =Prand=, =Ppar=, =Prout=, =Pn=.
+
+#+BEGIN_SRC sclang :tangle ./src/pattern-sequencing.scd
+(
+s.waitForBoot{
+	// all sounds (buffers) are loaded from the same synthdef
+	SynthDef(\buff_pat, { |bufnum=0| Out.ar(0, PlayBuf.ar(1, bufnum, doneAction: 2)) }).add;
+	// path to samples
+	p = (thisProcess.nowExecutingPath.dirname++"/samples/*").pathMatch;
+	// collect samples to buffers
+	c = p.collect{|item| Buffer.read(s, item) };
+
+	s.sync; // to wait for asynchronous things to complete
+
+	p = Ppar([
+		Pbind(\instrument, \buff_pat, \dur, 0.25, \bufnum, Prand(c.collect(_.bufnum)))
+		], inf // repeat for ever
+	).play;
+};
+)
+#+END_SRC
+
+A handy way to play with patterns is performed using method =asStream=.  The example below is from [[http://doc.sccode.org/Classes/Pn.html][Pn]] help file.
+
+#+BEGIN_SRC sclang :tangle ./src/pattern-as-stream.scd
+// sound example
+(
+SynthDef(\help_sinegrain,
+    { arg out=0, freq=440, sustain=0.05;
+        var env;
+        env = EnvGen.kr(Env.perc(0.01, sustain, 0.2), doneAction:2);
+        Out.ar(out, SinOsc.ar(freq, 0, env))
+    }).add;
+)
+
+(
+var a;
+a = Pn(Pshuf([1, 2, 2, 3, 3, 3], 4)).asStream; // repeat pattern four times
+
+{
+    loop {
+        Synth(\help_sinegrain, [\freq, a.next * 600 + 300]); // sets the next value of the pattern
+        0.2.wait;
+    }
+}.fork; // fork is alternative syntax for Routine
+)
+#+END_SRC
+
+
+* Demand rate UGens
+
+See [[http://doc.sccode.org/Classes/Demand.html][Demand]], [[http://doc.sccode.org/Classes/Duty.html][Duty]] help files.
+
+#+BEGIN_SRC sclang :tangle ./src/demand-sequencing.scd
+(
+    {
+        var freq;
+        freq = Duty.kr(
+                Drand([0.01, 0.2, 0.4], inf), // demand ugen as durations
+                0,
+                Dseq([204, 400, 201, 502, 300, 200], inf)
+            );
+        SinOsc.ar(freq * [1, 1.01]) * 0.1
+
+    }.play;
+)
 #+END_SRC

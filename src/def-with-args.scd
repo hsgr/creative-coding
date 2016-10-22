@@ -9,5 +9,5 @@ SynthDef(\def_args, { | freq = 440 |
 }).add;
 )
 
-a = Synth(\def_args);
+a = Synth(\def_args); // you don't have to free the Synth doneAction: 2 does that for you
 a = Synth(\def_args, [\freq, 330]); // change the frequency

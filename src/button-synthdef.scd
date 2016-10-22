@@ -17,7 +17,7 @@ butt.states = [["start"], ["stop"]];
 
 butt.action = { | v |
     if (v.value == 1)  {
-      sound = Synth('noise2');
+      sound = Synth('noise');
       w.onClose({
                   { butt.value = 0 }.defer;
       });

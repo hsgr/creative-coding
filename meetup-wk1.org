@@ -5,6 +5,8 @@
 *** The SuperCollider Book
 You can download all the code examples.
 - http://supercolliderbook.net/
+*** SC3 help online
+- http://doc.sccode.org/
 
 * SC3 features
 ** Language (sclang) / Server (scsynth) / IDE

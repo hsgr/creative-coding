@@ -1,5 +1,5 @@
 
-// sounds files from freesound.org
+// you can use the following sound files from freesound.org
 /*
 http://www.freesound.org/people/datasoundsample/sounds/41947/
 http://www.freesound.org/people/datasoundsample/sounds/41948/
@@ -9,7 +9,7 @@ http://www.freesound.org/people/datasoundsample/sounds/41944/
 (
 // make sure to boot the server before loading the samples
 s.waitForBoot {
-        // load samples from relative path
+        // load samples from relative path (make a subfolder in the working directory with name 'samples')
         p = (thisProcess.nowExecutingPath.dirname++"/samples/*").pathMatch;
         // collect samples to buffers
         c = p.collect{|item| Buffer.read(s, item) };
