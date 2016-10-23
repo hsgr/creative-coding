@@ -495,3 +495,34 @@ See [[http://doc.sccode.org/Classes/Demand.html][Demand]], [[http://doc.sccode.o
     }.play;
 )
 #+END_SRC
+
+* How to make a recording
+
+** The hard way
+Defining a class to record the output of SC3.
+
+#+BEGIN_SRC sclang :tangle ./src/Record.sc
+Record {
+	*start {
+		{
+			Server.default.prepareForRecord;
+			0.1.wait;
+			Server.default.record;
+		}.fork;
+	}
+
+	*stop { Server.default.stopRecording; }
+}
+#+END_SRC
+
+Save the class as a file =Record.sc= in your =Platform.userExtensionDir= folder, and recompile the class library.
+#+BEGIN_SRC sclang
+Platform.userExtensionDir; // Extensions available only to your user account
+Platform.systemExtensionDir; // Extensions available to all users on the machine
+#+END_SRC
+
+When you have recompile the library execute =Record.start= to record and =Record.stop= to stop the recording.
+
+** An easy way
+
+You can open the server's GUI with the command =s.makeGui=, press the record button and record.

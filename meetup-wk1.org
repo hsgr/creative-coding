@@ -7,7 +7,8 @@ You can download all the code examples.
 - http://supercolliderbook.net/
 *** SC3 help online
 - http://doc.sccode.org/
-
+*** Users forum and mailing list
+- http://new-supercollider-mailing-lists-forums-use-these.2681727.n2.nabble.com/SuperCollider-Users-New-Use-this-f2676391.html
 * SC3 features
 ** Language (sclang) / Server (scsynth) / IDE
 SC3 has 2 major parts: the _language side_ or *sclang* and the _server side_ or *scsynth*.  Language side is where the user writes the program and server side is where the sound synthesis happens.  SC IDE is an application established from version 3.6 and on which enclose both sclang and scsynth in a handy [[https://en.wikipedia.org/wiki/Integrated_development_environment][IDE]].  See [[http://doc.sccode.org/Guides/ClientVsServer.html][Client vs Server]] help file online.
