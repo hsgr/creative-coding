@@ -1,0 +1,114 @@
+* Processing basics
+
+[[http://processing.org/][Processing]] is a Java-based programming environment for making visualizations.  A basic script has two main structures, a =void setup()= and a =void draw()= code blocks.  In the former you define initialization settings, and in the latter you run time-dependent processes.  The =void draw()= loop frequency is define using the =frameRate()=.  The default rate is 60fps.
+** Simple script in Processing
+
+#+BEGIN_SRC java
+void setup(){
+  size(400, 400);  // size of the window
+  background(255); // color of backroung (monochrome)
+                 // 3 arguments for RGB colors
+  frameRate(30);
+  smooth();      // apply smooth filter in graphics
+}
+
+void draw(){
+  int i; // a local variable
+  // apply modulo to frameCount
+  i = frameCount%256; // frameCount starts from value 1 in void draw
+                      //            has the value 0 in void setup
+  textAlign(CENTER);
+  fill(i);
+  textSize(45);
+  text("Hello World", width/2, height/2);
+
+  println(i); // print and change line
+}
+#+END_SRC
+
+
+* SC3 and Processing via OSC
+
+Processing OSC communication is based on the [[http://www.sojamo.de/libraries/oscP5/][oscP5]] library.
+
+Run this script in Processing.
+
+#+BEGIN_SRC java
+import oscP5.*;
+import netP5.*;
+OscP5 oscP5;
+
+float x; // global variable
+
+void setup() {
+  size(400, 300);
+  frameRate(24);
+  background(0);
+  smooth();
+
+  OscProperties properties = new OscProperties();
+  properties.setListeningPort(47120); // osc receive port (from sc)
+  oscP5 = new OscP5(this, properties);
+}
+
+void oscEvent(OscMessage msg) {
+  if (msg.checkAddrPattern("/sc3p5")) {
+    x = msg.get(0).floatValue(); // receive floats from sc
+  }
+}
+
+void draw() {
+  background(x, x, x);
+  println("POST: ", x);
+  // draw rect
+  stroke(256-x/2, 256-x*abs(sin(x)), 256-x/4);
+  strokeWeight(4);
+  fill(256-x/2, 256-x, 256-x*abs(sin(x)));
+  translate(width/2, height/2);
+  rotate(x%64);
+  rect(x%64, x%64, x*abs(sin(x))%128, x*abs(sin(x))%128, 6);
+  saveFrame("./img/rect###.png");
+}
+#+END_SRC
+
+
+Run this script in SC3.
+
+#+BEGIN_SRC sclang
+//o = OSCFunc({|msg, time, addr, recvPort| \matching.postln}, '/SC3_to_P5', n); // path matching
+//o.free;
+
+s.boot;
+
+n = NetAddr("127.0.0.1", 47120);  // open 47120 on localhost server
+
+(
+SynthDef(\blip, { | freq = 440, amp = 0.85, att = 0.01, rel = 0.06, ffreq = 1000 |
+    var sig, env, lfo;
+    sig = SinOsc.ar(freq, 0, amp);
+    env = EnvGen.ar(Env.perc(att, rel), doneAction:2);
+    lfo = SinOsc.kr(rel * ffreq);
+
+    Out.ar(0, Pan2.ar(RHPF.ar(sig*env, ffreq), SinOsc.kr(211*lfo)))
+}).add;
+)
+
+Synth(\blip);
+
+(
+f = fork {
+    loop {
+        256 do: { |i|
+            n.sendMsg("/sc3p5", i.asFloat); // send OSC message to P5
+            Synth(\blip, [\freq, 440+i, \ffreq, 1000+i*2]);
+            ((i+1).reciprocal*2).wait;
+        }
+    }
+};
+)
+
+f.stop;
+#+END_SRC
+* SuperCollider client for Processing
+
+- http://www.erase.net/projects/processing-sc/
