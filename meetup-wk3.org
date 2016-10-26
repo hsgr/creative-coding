@@ -1,30 +1,82 @@
+#+TITLE: Audiovisual applications using SuperCollider and Processingc
 * Processing basics
 
 [[http://processing.org/][Processing]] is a Java-based programming environment for making visualizations.  A basic script has two main structures, a =void setup()= and a =void draw()= code blocks.  In the former you define initialization settings, and in the latter you run time-dependent processes.  The =void draw()= loop frequency is define using the =frameRate()=.  The default rate is 60fps.
 ** Simple script in Processing
 
-#+BEGIN_SRC java
+#+BEGIN_SRC java :tangle ./src/helloText.pde
 void setup(){
   size(400, 400);  // size of the window
   background(255); // color of backroung (monochrome)
-                 // 3 arguments for RGB colors
+                   // 3 arguments for RGB colors
   frameRate(30);
-  smooth();      // apply smooth filter in graphics
+  smooth();        // apply smooth filter in graphics
 }
 
 void draw(){
   int i; // a local variable
-  // apply modulo to frameCount
-  i = frameCount%256; // frameCount starts from value 1 in void draw
-                      //            has the value 0 in void setup
+                      // modulo will have effect only if u comment if condition
+  i = frameCount%256; // frameCount: starts from value 1 in void draw
+                      //           : has the value 0 in void setup
   textAlign(CENTER);
   fill(i);
   textSize(45);
   text("Hello World", width/2, height/2);
 
-  println(i); // print and change line
+  println(i);   // print and change line frameCount
+
+  if(i == 255){
+    noLoop();   // stop when fades out
+  }
+
 }
 #+END_SRC
+
+#+CAPTION: Output of the script above (1.1)
+#+ATTR_HTML: width="300" style="border:2px solid black;"
+[[./img/animation.gif]]
+
+** Push style
+
+It is possible to load different =fill()=, =stroke()=, =strokeWeight()= and similar functions based on [[https://processing.org/reference/pushStyle_.html][pushStyle()]] function.
+
+#+BEGIN_SRC java :tangle ./src/pushStyle.pde
+void setup(){
+  size(300, 300);
+  background(255);
+  smooth();
+  // frameRate(2);
+}
+
+void draw(){
+  float x = width/3;
+  float y = height/2;
+  // println(frameCount);
+
+  smooth();
+
+  pushStyle();
+  stroke(255, 180, 23, 23);   // yellow circle style
+  strokeWeight(30);
+  ellipse(x, y, y, y);
+  pushStyle();              // it builds on the current style information
+  stroke(255, 23, 32, 80);  // red circle style
+  strokeWeight(20);
+  ellipse(2*x, y, y, y);
+  pushStyle();
+  stroke(0, 12, 241, 120);
+  strokeWeight(30);
+  point(x, y);
+  popStyle();
+  popStyle();
+  popStyle();
+
+  //saveFrame("circle.png");
+}
+#+END_SRC
+
+#+CAPTION: The output of the script above (1.2 Push style)
+[[./img/pushStyle.png]]
 
 
 * SC3 and Processing via OSC
@@ -75,9 +127,6 @@ void draw() {
 Run this script in SC3.
 
 #+BEGIN_SRC sclang
-//o = OSCFunc({|msg, time, addr, recvPort| \matching.postln}, '/SC3_to_P5', n); // path matching
-//o.free;
-
 s.boot;
 
 n = NetAddr("127.0.0.1", 47120);  // open 47120 on localhost server
