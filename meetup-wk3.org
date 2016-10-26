@@ -1,7 +1,11 @@
-#+TITLE: Audiovisual applications using SuperCollider and Processingc
+#+TITLE: Audiovisual applications using Processing and SuperCollider
 * Processing basics
 
 [[http://processing.org/][Processing]] is a Java-based programming environment for making visualizations.  A basic script has two main structures, a =void setup()= and a =void draw()= code blocks.  In the former you define initialization settings, and in the latter you run time-dependent processes.  The =void draw()= loop frequency is define using the =frameRate()=.  The default rate is 60fps.
+
+- Processing Reference Online :: https://processing.org/reference/
+- HINT :: Install [[https://atom.io/][Atom editor]] and install the packages [[https://atom.io/packages/processing][processing]] (run sketches) and [[https://atom.io/packages/processing-language][processing-language]] (syntax highlighting)
+
 ** Simple script in Processing
 
 #+BEGIN_SRC java :tangle ./src/helloText.pde
@@ -28,7 +32,6 @@ void draw(){
   if(i == 255){
     noLoop();   // stop when fades out
   }
-
 }
 #+END_SRC
 
@@ -70,7 +73,6 @@ void draw(){
   popStyle();
   popStyle();
   popStyle();
-
   //saveFrame("circle.png");
 }
 #+END_SRC
@@ -78,14 +80,116 @@ void draw(){
 #+CAPTION: The output of the script above (1.2 Push style)
 [[./img/pushStyle.png]]
 
+** Audio library for Processing
+[[http://code.compartmental.net/tools/minim/][Minim]] is a library which enables Processing to process audio information.
 
+
+#+BEGIN_SRC java ./src/minimInput.pde
+import ddf.minim.*;
+
+Minim minim;
+AudioInput in;
+
+void setup(){
+  size(400, 400, P3D);
+  frameRate(24);
+  minim = new Minim(this);
+  minim.debugOn();
+
+  // get a line in from Minim, default bit depth is 16
+  in = minim.getLineIn(Minim.STEREO, 512);
+}
+
+void draw(){
+  background(0);
+  stroke(255);
+  smooth();
+
+  float x = width;
+  float y = height;
+  float angle = 1.019;
+  float r = 0.0;
+
+  translate(width/2, height/2);
+
+  r = 10.0;
+
+  for(int i = 0; i < in.bufferSize()-1; i+=8){
+      for(int j = 1; j <= 17; j++){
+      for(int k = i; k <= j; k++){
+        rotate(2*PI/19.0*in.right.get(i));
+        stroke(255, (j-k)*angle);
+        strokeWeight(1.91 + abs(in.left.get(i)*402));
+        beginShape(LINES);
+        // beginShape( TRIANGLE_FAN );
+        vertex(in.left.get(i)*r, j*r, k*r); // left channel
+        vertex(in.right.get(i)*r*x/5,i*r, -j*r);  // right channel
+        endShape();
+      }
+    }
+  }
+}
+
+void stop(){
+  // always close Minim audio classes when you are done with them
+  in.close();
+  minim.stop();
+
+  super.stop();
+}
+#+END_SRC
 * SC3 and Processing via OSC
 
 Processing OSC communication is based on the [[http://www.sojamo.de/libraries/oscP5/][oscP5]] library.
 
-Run this script in Processing.
+** Send OSC messages from Processing to SC3
+- Run this script in Processing ::  see [[http://www.sojamo.de/libraries/oscP5/examples/oscP5sendReceive/oscP5sendReceive.pde][oscP5sendReceive]]
 
-#+BEGIN_SRC java
+#+BEGIN_SRC java :tangle ./src/p5toSC.pde
+import oscP5.*;
+import netP5.*;
+
+OscP5 oscP5;
+NetAddress myRemoteLocation;
+
+void setup() {
+  size(400,400);
+  frameRate(25);
+  /* start oscP5, listening for incoming messages at port 12000 */
+  oscP5 = new OscP5(this,12000);
+  /* myRemoteLocation is a NetAddress. a NetAddress takes 2 parameters,
+   * an ip address and a port number. myRemoteLocation is used as parameter in
+   * oscP5.send() when sending osc packets to another computer, device,
+   * application.
+   */
+  myRemoteLocation = new NetAddress("127.0.0.1",12000);
+}
+
+void draw() {
+  background(0);
+}
+
+void mousePressed() {
+  OscMessage myMessage = new OscMessage("/test");
+  myMessage.add(int(random(123))); /* add an int to the osc message */
+  /* send the message */
+  oscP5.send(myMessage, myRemoteLocation);
+}
+#+END_SRC
+
+- Run this script in SC3 ::
+
+#+BEGIN_SRC sclang :tangle ./src/p5toSC.scd
+thisProcess.openUDPPort(12000); // open port 12000 to rcv from p5
+thisProcess.openPorts; // list all open ports
+o = OSCFunc({|msg, time, addr, recvPort| \matching.postln; msg.postln; }, '/test');
+o.free;
+#+END_SRC
+
+** Send OSC message from SC3 to Processing
+- Run this script in Processing ::
+
+#+BEGIN_SRC java :tangle ./src/scP5.pde
 import oscP5.*;
 import netP5.*;
 OscP5 oscP5;
@@ -119,14 +223,14 @@ void draw() {
   translate(width/2, height/2);
   rotate(x%64);
   rect(x%64, x%64, x*abs(sin(x))%128, x*abs(sin(x))%128, 6);
-  saveFrame("./img/rect###.png");
+  // saveFrame("./img/rect###.png");
 }
 #+END_SRC
 
 
-Run this script in SC3.
+- Run this script in SC3 ::
 
-#+BEGIN_SRC sclang
+#+BEGIN_SRC sclang :tangle ./src/scP5.scd
 s.boot;
 
 n = NetAddr("127.0.0.1", 47120);  // open 47120 on localhost server
@@ -158,6 +262,55 @@ f = fork {
 
 f.stop;
 #+END_SRC
-* SuperCollider client for Processing
 
-- http://www.erase.net/projects/processing-sc/
+The output of these two programs looks like the video below.
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xJ8jNIcciSI" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** SuperCollider client for Processing
+There is a SuperCollider library ([[http://www.erase.net/projects/processing-sc/][processing-sc]]) which makes possible to send message to sclang.
+
+#+BEGIN_SRC java :tangle ./src/processingSClib.pde
+import oscP5.*;
+import netP5.*;
+import supercollider.*;
+
+Synth synthTri;
+Synth synthSaw;
+
+void setup(){
+  size(400, 400);
+  background(0);
+
+  synthTri = new Synth("lftri");
+  synthSaw = new Synth("lfsaw");
+
+  synthTri.set("amp", 0.0);
+  synthSaw.set("amp", 0.0);
+  synthTri.create();
+  synthSaw.create();
+}
+
+void draw(){
+  synthTri.set("amp", 0.1);
+  synthTri.set("freq", 200+mouseX);
+  synthSaw.set("amp", 0.1);
+  synthSaw.set("freq", 200+mouseY);
+}
+#+END_SRC
+
+#+BEGIN_SRC sclang :tangle ./src/processingSClib.scd
+s.waitForBoot{
+
+  SynthDef("lftri", { | freq = 400, amp = 0.1 |
+    Out.ar(0, FreeVerb.ar(LFTri.ar(freq, 0, amp))!2)
+  }).add;
+
+  SynthDef("lfsaw", { | freq = 400, amp = 0.1 |
+    Out.ar(0, FreeVerb.ar(LFSaw.ar(freq, 0, amp))!2)
+  }).add;
+
+}
+#+END_SRC

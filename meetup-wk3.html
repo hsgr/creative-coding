@@ -3,8 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Audiovisual applications using SuperCollider and Processingc</title>
-<!-- 2016-10-26 Τετ 04:26 -->
+<title>Audiovisual applications using Processing and SuperCollider</title>
+<!-- 2016-10-26 Τετ 09:08 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Georgios Diapoulis" />
@@ -145,7 +145,7 @@ for the JavaScript code in this tag.
 <a name="top" id="top"></a>
 </div>
 <div id="content">
-<h1 class="title">Audiovisual applications using SuperCollider and Processingc</h1>
+<h1 class="title">Audiovisual applications using Processing and SuperCollider</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -154,10 +154,16 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1-1">1.1. Simple script in Processing</a></li>
 <li><a href="#sec-1-2">1.2. Push style</a></li>
+<li><a href="#sec-1-3">1.3. Audio library for Processing</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">2. SC3 and Processing via OSC</a></li>
-<li><a href="#sec-3">3. SuperCollider client for Processing</a></li>
+<li><a href="#sec-2">2. SC3 and Processing via OSC</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Send OSC messages from Processing to SC3</a></li>
+<li><a href="#sec-2-2">2.2. Send OSC message from SC3 to Processing</a></li>
+<li><a href="#sec-2-3">2.3. SuperCollider client for Processing</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -167,7 +173,15 @@ for the JavaScript code in this tag.
 <p>
 <a href="http://processing.org/">Processing</a> is a Java-based programming environment for making visualizations.  A basic script has two main structures, a <code>void setup()</code> and a <code>void draw()</code> code blocks.  In the former you define initialization settings, and in the latter you run time-dependent processes.  The <code>void draw()</code> loop frequency is define using the <code>frameRate()</code>.  The default rate is 60fps.
 </p>
+
+<dl class="org-dl">
+<dt> Processing Reference Online </dt><dd><a href="https://processing.org/reference/">https://processing.org/reference/</a>
+</dd>
+<dt> HINT </dt><dd>Install <a href="https://atom.io/">Atom editor</a> and install the packages <a href="https://atom.io/packages/processing">processing</a> (run sketches) and <a href="https://atom.io/packages/processing-language">processing-language</a> (syntax highlighting)
+</dd>
+</dl>
 </div>
+
 <div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1"><span class="section-number-3">1.1</span> Simple script in Processing</h3>
 <div class="outline-text-3" id="text-1-1">
@@ -196,7 +210,6 @@ for the JavaScript code in this tag.
   <span class="org-keyword">if</span>(i == 255){
     noLoop();   <span class="org-comment-delimiter">// </span><span class="org-comment">stop when fades out</span>
   }
-
 }
 </pre>
 </div>
@@ -248,7 +261,6 @@ It is possible to load different <code>fill()</code>, <code>stroke()</code>, <co
   popStyle();
   popStyle();
   popStyle();
-
   <span class="org-comment-delimiter">//</span><span class="org-comment">saveFrame("circle.png");</span>
 }
 </pre>
@@ -262,8 +274,16 @@ It is possible to load different <code>fill()</code>, <code>stroke()</code>, <co
 </div>
 </div>
 </div>
-</div>
 
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Audio library for Processing</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+<a href="http://code.compartmental.net/tools/minim/">Minim</a> is a library which enables Processing to process audio information.
+</p>
+</div>
+</div>
+</div>
 
 <div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2"><span class="section-number-2">2</span> SC3 and Processing via OSC</h2>
@@ -271,10 +291,71 @@ It is possible to load different <code>fill()</code>, <code>stroke()</code>, <co
 <p>
 Processing OSC communication is based on the <a href="http://www.sojamo.de/libraries/oscP5/">oscP5</a> library.
 </p>
+</div>
 
-<p>
-Run this script in Processing.
-</p>
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Send OSC messages from Processing to SC3</h3>
+<div class="outline-text-3" id="text-2-1">
+<dl class="org-dl">
+<dt> Run this script in Processing </dt><dd>see <a href="http://www.sojamo.de/libraries/oscP5/examples/oscP5sendReceive/oscP5sendReceive.pde">oscP5sendReceive</a>
+</dd>
+</dl>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span class="org-keyword">import</span> <span class="org-constant">oscP5</span>.*;
+<span class="org-keyword">import</span> <span class="org-constant">netP5</span>.*;
+
+<span class="org-type">OscP5</span> <span class="org-variable-name">oscP5</span>;
+<span class="org-type">NetAddress</span> <span class="org-variable-name">myRemoteLocation</span>;
+
+<span class="org-type">void</span> <span class="org-function-name">setup</span>() {
+  size(400,400);
+  frameRate(25);
+  <span class="org-comment-delimiter">/* </span><span class="org-comment">start oscP5, listening for incoming messages at port 12000 */</span>
+  oscP5 = <span class="org-keyword">new</span> <span class="org-type">OscP5</span>(<span class="org-keyword">this</span>,12000);
+  <span class="org-comment-delimiter">/* </span><span class="org-comment">myRemoteLocation is a NetAddress. a NetAddress takes 2 parameters,</span>
+<span class="org-comment">   * an ip address and a port number. myRemoteLocation is used as parameter in</span>
+<span class="org-comment">   * oscP5.send() when sending osc packets to another computer, device,</span>
+<span class="org-comment">   * application.</span>
+<span class="org-comment">   */</span>
+  myRemoteLocation = <span class="org-keyword">new</span> <span class="org-type">NetAddress</span>(<span class="org-string">"127.0.0.1"</span>,12000);
+}
+
+<span class="org-type">void</span> <span class="org-function-name">draw</span>() {
+  background(0);
+}
+
+<span class="org-type">void</span> <span class="org-function-name">mousePressed</span>() {
+  <span class="org-type">OscMessage</span> <span class="org-variable-name">myMessage</span> = <span class="org-keyword">new</span> <span class="org-type">OscMessage</span>(<span class="org-string">"/test"</span>);
+  myMessage.add(<span class="org-type">int</span>(random(123))); <span class="org-comment-delimiter">/* </span><span class="org-comment">add an int to the osc message */</span>
+  <span class="org-comment-delimiter">/* </span><span class="org-comment">send the message */</span>
+  oscP5.send(myMessage, myRemoteLocation);
+}
+</pre>
+</div>
+
+<dl class="org-dl">
+<dt> Run this script in SC3 </dt><dd></dd>
+</dl>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang"><span class="org-keyword">thisProcess</span>.openUDPPort(12000); <span class="org-comment-delimiter">// </span><span class="org-comment">open port 12000 to rcv from p5</span>
+<span class="org-keyword">thisProcess</span>.openPorts; <span class="org-comment-delimiter">// </span><span class="org-comment">list all open ports</span>
+o = <span class="org-type">OSCFunc</span>({|msg, time, addr, recvPort| <span class="org-constant">\matching</span>.postln; msg.postln; }, <span class="org-constant">'/test'</span>);
+o.free;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Send OSC message from SC3 to Processing</h3>
+<div class="outline-text-3" id="text-2-2">
+<dl class="org-dl">
+<dt> Run this script in Processing </dt><dd></dd>
+</dl>
 
 <div class="org-src-container">
 
@@ -311,15 +392,15 @@ Run this script in Processing.
   translate(width/2, height/2);
   rotate(x%64);
   rect(x%64, x%64, x*abs(sin(x))%128, x*abs(sin(x))%128, 6);
-  saveFrame(<span class="org-string">"./img/rect###.png"</span>);
+  <span class="org-comment-delimiter">// </span><span class="org-comment">saveFrame("./img/rect###.png");</span>
 }
 </pre>
 </div>
 
 
-<p>
-Run this script in SC3.
-</p>
+<dl class="org-dl">
+<dt> Run this script in SC3 </dt><dd></dd>
+</dl>
 
 <div class="org-src-container">
 
@@ -355,15 +436,69 @@ f = fork {
 f.stop;
 </pre>
 </div>
+
+<p>
+The output of these two programs looks like the video below.
+</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xJ8jNIcciSI" frameborder="0" allowfullscreen></iframe>
 </div>
 </div>
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> SuperCollider client for Processing</h2>
-<div class="outline-text-2" id="text-3">
-<ul class="org-ul">
-<li><a href="http://www.erase.net/projects/processing-sc/">http://www.erase.net/projects/processing-sc/</a>
-</li>
-</ul>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> SuperCollider client for Processing</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+There is a SuperCollider library (<a href="http://www.erase.net/projects/processing-sc/">processing-sc</a>) which makes possible to send message to sclang.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span class="org-keyword">import</span> <span class="org-constant">oscP5</span>.*;
+<span class="org-keyword">import</span> <span class="org-constant">netP5</span>.*;
+<span class="org-keyword">import</span> <span class="org-constant">supercollider</span>.*;
+
+<span class="org-type">Synth</span> <span class="org-variable-name">synthTri</span>;
+<span class="org-type">Synth</span> <span class="org-variable-name">synthSaw</span>;
+
+<span class="org-type">void</span> <span class="org-function-name">setup</span>(){
+  size(400, 400);
+  background(0);
+
+  synthTri = <span class="org-keyword">new</span> <span class="org-type">Synth</span>(<span class="org-string">"lftri"</span>);
+  synthSaw = <span class="org-keyword">new</span> <span class="org-type">Synth</span>(<span class="org-string">"lfsaw"</span>);
+
+  synthTri.set(<span class="org-string">"amp"</span>, 0.0);
+  synthSaw.set(<span class="org-string">"amp"</span>, 0.0);
+  synthTri.create();
+  synthSaw.create();
+}
+
+<span class="org-type">void</span> <span class="org-function-name">draw</span>(){
+  synthTri.set(<span class="org-string">"amp"</span>, 0.1);
+  synthTri.set(<span class="org-string">"freq"</span>, 200+mouseX);
+  synthSaw.set(<span class="org-string">"amp"</span>, 0.1);
+  synthSaw.set(<span class="org-string">"freq"</span>, 200+mouseY);
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">s.waitForBoot{
+
+  <span class="org-type">SynthDef</span>(<span class="org-string">"lftri"</span>, { | freq = 400, amp = 0.1 |
+    <span class="org-type">Out</span>.<span class="org-function-name">ar</span>(0, <span class="org-type">FreeVerb</span>.<span class="org-function-name">ar</span>(<span class="org-type">LFTri</span>.<span class="org-function-name">ar</span>(freq, 0, amp))!2)
+  }).add;
+
+  <span class="org-type">SynthDef</span>(<span class="org-string">"lfsaw"</span>, { | freq = 400, amp = 0.1 |
+    <span class="org-type">Out</span>.<span class="org-function-name">ar</span>(0, <span class="org-type">FreeVerb</span>.<span class="org-function-name">ar</span>(<span class="org-type">LFSaw</span>.<span class="org-function-name">ar</span>(freq, 0, amp))!2)
+  }).add;
+
+}
+</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
