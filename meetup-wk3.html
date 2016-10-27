@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Audiovisual applications using Processing and SuperCollider</title>
-<!-- 2016-10-26 Τετ 19:42 -->
+<!-- 2016-10-28 Παρ 00:11 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Georgios Diapoulis" />
@@ -162,6 +162,22 @@ for the JavaScript code in this tag.
 <li><a href="#sec-2-1">2.1. Send OSC messages from Processing to SC3</a></li>
 <li><a href="#sec-2-2">2.2. Send OSC message from SC3 to Processing</a></li>
 <li><a href="#sec-2-3">2.3. SuperCollider client for Processing</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. supercolliderjs &amp; processingjs</a>
+<ul>
+<li><a href="#sec-3-1">3.1. processingjs</a>
+<ul>
+<li><a href="#sec-3-1-1">3.1.1. index.html</a></li>
+<li><a href="#sec-3-1-2">3.1.2. processingjs</a></li>
+<li><a href="#sec-3-1-3">3.1.3. Processing script</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-2">3.2. supercollidejs</a>
+<ul>
+<li><a href="#sec-3-2-1">3.2.1. Print sclang output on your browser</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -554,6 +570,177 @@ There is a SuperCollider library (<a href="http://www.erase.net/projects/process
 
 }
 </pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> supercolliderjs &amp; processingjs</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> processingjs</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+You can take the advantage of javascript to implement Processing sketches on the web.
+</p>
+
+<dl class="org-dl">
+<dt> Quickstart </dt><dd><a href="http://processingjs.org/articles/jsQuickStart.html">http://processingjs.org/articles/jsQuickStart.html</a>
+</dd>
+<dt> Download </dt><dd><a href="http://processingjs.org/download/">http://processingjs.org/download/</a>
+</dd>
+</dl>
+
+<p>
+You need 3 parts to run a script on the web.
+</p>
+
+<ul class="org-ul">
+<li>An html file, for convenience assume an <code>index.html</code>
+</li>
+<li>A processing script
+</li>
+<li>The <a href="https://raw.githubusercontent.com/processing-js/processing-js/v1.4.8/processing.min.js">processing.min.js</a>
+</li>
+</ul>
+
+<p>
+In the directory that we have the <code>index.js</code> we create a <code>src/</code> folder which contains our <code>*.pde</code> sketch.  The processingjs code is retrieved from the web.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> index.html</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<pre class="example">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Hello Web - Processing.js Test&lt;/title&gt;
+  &lt;script src="https://raw.githubusercontent.com/processing-js/processing-js/v1.4.8/processing.min.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Processing.js Test&lt;/h1&gt;
+  &lt;p&gt;This is my first Processing.js web-based sketch:&lt;/p&gt;
+  &lt;canvas data-processing-sources="./src/processingjs_mouseOver.pde"&gt;&lt;/canvas&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-1-2" class="outline-4">
+<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> processingjs</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<ul class="org-ul">
+<li><a href="http://processingjs.org/download/">http://processingjs.org/download/</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-1-3" class="outline-4">
+<h4 id="sec-3-1-3"><span class="section-number-4">3.1.3</span> Processing script</h4>
+<div class="outline-text-4" id="text-3-1-3">
+<div class="org-src-container">
+
+<pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">setup</span>(){
+  size(400, 400, P3D);
+  frameRate(8);
+}
+
+<span class="org-type">void</span> <span class="org-function-name">draw</span>(){
+  background(0);
+  stroke(255);
+  smooth();
+
+  <span class="org-type">float</span> <span class="org-variable-name">x</span> = width;
+  <span class="org-type">float</span> <span class="org-variable-name">y</span> = height;
+  <span class="org-type">float</span> <span class="org-variable-name">angle</span> = 1.019 * frameCount%24;
+  <span class="org-type">float</span> <span class="org-variable-name">r</span> = 0.0;
+
+  translate(width/2, height/2);
+
+  r = 10.0;
+
+  <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; <span class="org-type">int</span>(mouseX); i+=3){
+    <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">j</span> = 1; j &lt;= (<span class="org-type">int</span>(<span class="org-type">mouseY</span>)/3); j++){
+      <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">k</span> = i; k &lt;= j; k++){
+        rotate(2*PI/19.0*i);
+        stroke(255, 23, 55, (j-k)*angle);
+        strokeWeight(1.91 + abs(i*402));
+        beginShape(LINES);
+        <span class="org-comment-delimiter">// </span><span class="org-comment">beginShape( TRIANGLE_FAN );</span>
+        vertex(r, j*r, k*r); <span class="org-comment-delimiter">// </span><span class="org-comment">left channel</span>
+        vertex(r*x/5,i*r, -j*r);  <span class="org-comment-delimiter">// </span><span class="org-comment">right channel</span>
+        endShape();
+      }
+    }
+  }
+}
+</pre>
+</div>
+
+<dl class="org-dl">
+<dt> Preview on html file </dt><dd>Mouse over the image to interact with it.  Start from top left corner.
+</dd>
+</dl>
+
+<script src="https://raw.githubusercontent.com/processing-js/processing-js/v1.4.8/processing.min.js"></script>
+<canvas data-processing-sources="./src/processingjs_mouseOver.pde"></canvas>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> supercollidejs</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+You can install SuperCollider on Atom editor, which is shipped with <a href="https://github.com/crucialfelix/supercolliderjs">supercollidejs</a>.
+</p>
+
+<dl class="org-dl">
+<dt> See online docs </dt><dd><a href="http://supercolliderjs.readthedocs.io/en/latest/configuration.html">http://supercolliderjs.readthedocs.io/en/latest/configuration.html</a>
+</dd>
+<dt> SuperCollider package for Atom </dt><dd><a href="https://atom.io/packages/supercollider">https://atom.io/packages/supercollider</a>
+</dd>
+</dl>
+</div>
+
+<div id="outline-container-sec-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> Print sclang output on your browser</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+The script below prints the output of sclang (<code>(1..10).asString</code>) in your browser.  You have to make a folder in your supercollidejs root directory in order to find the <code>index.js</code> file.  Then you open your browser and go to <code>127.0.0.1:8000</code> to see the output.
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">sc</span> = require(<span class="org-string">'../index.js'</span>);
+<span class="org-keyword">var</span> <span class="org-variable-name">http</span> = require(<span class="org-string">'http'</span>);
+
+<span class="org-keyword">var</span> <span class="org-variable-name">s</span> = http.createServer(<span class="org-keyword">function</span>(<span class="org-variable-name">req</span>, <span class="org-variable-name">res</span>){
+
+    sc.lang.boot({debug: <span class="org-constant">false</span>}).then(<span class="org-keyword">function</span>(<span class="org-variable-name">sclang</span>) {
+
+        sclang.interpret(<span class="org-string">'(1..10).asString'</span>).then(<span class="org-keyword">function</span>(<span class="org-variable-name">answer</span>){
+            console.log(<span class="org-string">'array = '</span> + answer);
+            <span class="org-comment-delimiter">//</span><span class="org-comment">return answer;</span>
+            res.writeHead(200, { <span class="org-string">'content-type'</span>: <span class="org-string">'text/plain'</span> });
+            res.end(<span class="org-string">'ANSWER: '</span> + answer);
+            console.log(answer);
+
+        }, console.error);
+
+    });
+
+});
+
+s.listen(8000);
+</pre>
+</div>
 </div>
 </div>
 </div>

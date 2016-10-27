@@ -314,3 +314,117 @@ s.waitForBoot{
 
 }
 #+END_SRC
+
+* supercolliderjs & processingjs
+
+** processingjs
+You can take the advantage of javascript to implement Processing sketches on the web.
+
+- Quickstart :: http://processingjs.org/articles/jsQuickStart.html
+- Download :: http://processingjs.org/download/
+
+You need 3 parts to run a script on the web.
+
+- An html file, for convenience assume an =index.html=
+- A processing script
+- The [[https://raw.githubusercontent.com/processing-js/processing-js/v1.4.8/processing.min.js][processing.min.js]]
+
+In the directory that we have the =index.js= we create a =src/= folder which contains our =*.pde= sketch.  The processingjs code is retrieved from the web.
+
+*** index.html
+#+BEGIN_EXAMPLE
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hello Web - Processing.js Test</title>
+  <script src="https://raw.githubusercontent.com/processing-js/processing-js/v1.4.8/processing.min.js"></script>
+</head>
+<body>
+  <h1>Processing.js Test</h1>
+  <p>This is my first Processing.js web-based sketch:</p>
+  <canvas data-processing-sources="./src/processingjs_mouseOver.pde"></canvas>
+</body>
+</html>
+#+END_EXAMPLE
+
+*** processingjs
+- http://processingjs.org/download/
+
+*** Processing script
+#+BEGIN_SRC java :tangle ./src/processingjs_mouseOver.pde
+void setup(){
+  size(400, 400, P3D);
+  frameRate(8);
+}
+
+void draw(){
+  background(0);
+  stroke(255);
+  smooth();
+
+  float x = width;
+  float y = height;
+  float angle = 1.019 * frameCount%24;
+  float r = 0.0;
+
+  translate(width/2, height/2);
+
+  r = 10.0;
+
+  for(int i = 0; i < int(mouseX); i+=3){
+    for(int j = 1; j <= (int(mouseY)/3); j++){
+      for(int k = i; k <= j; k++){
+        rotate(2*PI/19.0*i);
+        stroke(255, 23, 55, (j-k)*angle);
+        strokeWeight(1.91 + abs(i*402));
+        beginShape(LINES);
+        // beginShape( TRIANGLE_FAN );
+        vertex(r, j*r, k*r); // left channel
+        vertex(r*x/5,i*r, -j*r);  // right channel
+        endShape();
+      }
+    }
+  }
+}
+#+END_SRC
+
+- Preview on html file :: Mouse over the image to interact with it.  Start from top left corner.
+
+#+BEGIN_HTML
+<script src="https://raw.githubusercontent.com/processing-js/processing-js/v1.4.8/processing.min.js"></script>
+<canvas data-processing-sources="./src/processingjs_mouseOver.pde"></canvas>
+#+END_HTML
+
+** supercollidejs
+You can install SuperCollider on Atom editor, which is shipped with [[https://github.com/crucialfelix/supercolliderjs][supercollidejs]].
+
+- See online docs :: http://supercolliderjs.readthedocs.io/en/latest/configuration.html
+- SuperCollider package for Atom :: https://atom.io/packages/supercollider
+
+*** Print sclang output on your browser
+The script below prints the output of sclang (=(1..10).asString=) in your browser.  You have to make a folder in your supercollidejs root directory in order to find the =index.js= file.  Then you open your browser and go to =127.0.0.1:8000= to see the output.
+
+
+#+BEGIN_SRC js :tangle ./src/sc3-http.js
+var sc = require('../index.js');
+var http = require('http');
+
+var s = http.createServer(function(req, res){
+
+    sc.lang.boot({debug: false}).then(function(sclang) {
+
+        sclang.interpret('(1..10).asString').then(function(answer){
+            console.log('array = ' + answer);
+            //return answer;
+            res.writeHead(200, { 'content-type': 'text/plain' });
+            res.end('ANSWER: ' + answer);
+            console.log(answer);
+
+        }, console.error);
+
+    });
+
+});
+
+s.listen(8000);
+#+END_SRC
