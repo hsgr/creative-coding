@@ -8,6 +8,8 @@
 
 ** Simple script in Processing
 
+- Link to processing script below :: [[./src/helloText.pde]]
+
 #+BEGIN_SRC java :tangle ./src/helloText.pde
 void setup(){
   size(400, 400);  // size of the window
@@ -42,6 +44,8 @@ void draw(){
 ** Push style
 
 It is possible to load different =fill()=, =stroke()=, =strokeWeight()= and similar functions based on [[https://processing.org/reference/pushStyle_.html][pushStyle()]] function.
+
+- Link to processing script below :: [[./src/pushStyle.pde]]
 
 #+BEGIN_SRC java :tangle ./src/pushStyle.pde
 void setup(){
@@ -83,8 +87,9 @@ void draw(){
 ** Audio library for Processing
 [[http://code.compartmental.net/tools/minim/][Minim]] is a library which enables Processing to process audio information.
 
+- Link to processing script below :: [[./src/minimInput.pde]]
 
-#+BEGIN_SRC java ./src/minimInput.pde
+#+BEGIN_SRC java :tangle ./src/minimInput.pde
 import ddf.minim.*;
 
 Minim minim;
@@ -123,7 +128,7 @@ void draw(){
         beginShape(LINES);
         // beginShape( TRIANGLE_FAN );
         vertex(in.left.get(i)*r, j*r, k*r); // left channel
-        vertex(in.right.get(i)*r*x/5,i*r, -j*r);  // right channel
+        vertex(in.right.get(i)*r*x/5, i*r, -j*r);  // right channel
         endShape();
       }
     }
@@ -145,6 +150,8 @@ Processing OSC communication is based on the [[http://www.sojamo.de/libraries/os
 ** Send OSC messages from Processing to SC3
 - Run this script in Processing ::  see [[http://www.sojamo.de/libraries/oscP5/examples/oscP5sendReceive/oscP5sendReceive.pde][oscP5sendReceive]]
 
+- Link to processing script below :: [[./src/p5toSC.pde]]
+
 #+BEGIN_SRC java :tangle ./src/p5toSC.pde
 import oscP5.*;
 import netP5.*;
@@ -153,16 +160,16 @@ OscP5 oscP5;
 NetAddress myRemoteLocation;
 
 void setup() {
-  size(400,400);
+  size(400, 400);
   frameRate(25);
   /* start oscP5, listening for incoming messages at port 12000 */
-  oscP5 = new OscP5(this,12000);
+  oscP5 = new OscP5(this, 12000);
   /* myRemoteLocation is a NetAddress. a NetAddress takes 2 parameters,
    * an ip address and a port number. myRemoteLocation is used as parameter in
    * oscP5.send() when sending osc packets to another computer, device,
    * application.
    */
-  myRemoteLocation = new NetAddress("127.0.0.1",12000);
+  myRemoteLocation = new NetAddress("127.0.0.1", 12000);
 }
 
 void draw() {
@@ -177,7 +184,7 @@ void mousePressed() {
 }
 #+END_SRC
 
-- Run this script in SC3 ::
+- Link to SC3 script below :: [[./src/p5toSC.scd]]
 
 #+BEGIN_SRC sclang :tangle ./src/p5toSC.scd
 thisProcess.openUDPPort(12000); // open port 12000 to rcv from p5
@@ -187,7 +194,8 @@ o.free;
 #+END_SRC
 
 ** Send OSC message from SC3 to Processing
-- Run this script in Processing ::
+
+- Link to processing script below :: [[./src/scP5.pde]]
 
 #+BEGIN_SRC java :tangle ./src/scP5.pde
 import oscP5.*;
@@ -228,7 +236,7 @@ void draw() {
 #+END_SRC
 
 
-- Run this script in SC3 ::
+- Link to SC3 script below :: [[./src/scP5.scd]]
 
 #+BEGIN_SRC sclang :tangle ./src/scP5.scd
 s.boot;
@@ -272,6 +280,8 @@ The output of these two programs looks like the video below.
 ** SuperCollider client for Processing
 There is a SuperCollider library ([[http://www.erase.net/projects/processing-sc/][processing-sc]]) which makes possible to send message to sclang.
 
+- Link to processing script below :: [[./src/processingSClib.pde]]
+
 #+BEGIN_SRC java :tangle ./src/processingSClib.pde
 import oscP5.*;
 import netP5.*;
@@ -301,6 +311,8 @@ void draw(){
 }
 #+END_SRC
 
+- Link to SC3 script below :: [[./src/processingSClib.scd]]
+
 #+BEGIN_SRC sclang :tangle ./src/processingSClib.scd
 s.waitForBoot{
 
@@ -315,6 +327,29 @@ s.waitForBoot{
 }
 #+END_SRC
 
+* SC3 and Pure Data OSC communication
+
+- Link to SC3 script below :: [[./src/sc3pd-osc.scd]]
+#+BEGIN_SRC sclang :tangle ./src/sc3pd-osc.scd
+// SENDING TO PD
+b = NetAddr.new("127.0.0.1", 6000); // address and port to send to pd
+b.sendMsg("/hello", \asymbol); // send to path \hello
+b.sendMsg("/there", *["pack it", 10.rand]); // use asterisk (*) to send an array
+
+// RECEIVING FROM PD
+thisProcess.openUDPPort(9000);
+thisProcess.openPorts;
+// receiving messages from pd in the path '/test' -- no port is needed
+o = OSCFunc({ arg msg, time, addr, recvPort; [msg, time, addr, recvPort].postln; }, '/test'); // create OSC responder
+o.free;
+#+END_SRC
+
+- Link to pd patch :: [[./src/sc3pd-osc.pd]]
+
+#+CAPTION: Pure Data patch
+[[./img/pd-osc.png]]
+
+
 * supercolliderjs & processingjs
 
 ** processingjs
@@ -323,7 +358,7 @@ You can take the advantage of javascript to implement Processing sketches on the
 - Quickstart :: http://processingjs.org/articles/jsQuickStart.html
 - Download :: http://processingjs.org/download/
 
-You need 3 parts to run a script on the web.
+You need 3 parts to run a processing script on the web:
 
 - An html file, for convenience assume an =index.html=
 - A processing script
@@ -348,7 +383,11 @@ In the directory that we have the =index.js= we create a =src/= folder which con
 #+END_EXAMPLE
 
 *** processingjs
+
 - http://processingjs.org/download/
+
+
+- Link to processing script below :: [[./src/processingjs_mouseOver.pde]]
 
 *** Processing script
 #+BEGIN_SRC java :tangle ./src/processingjs_mouseOver.pde
@@ -401,8 +440,9 @@ You can install SuperCollider on Atom editor, which is shipped with [[https://gi
 - SuperCollider package for Atom :: https://atom.io/packages/supercollider
 
 *** Print sclang output on your browser
-The script below prints the output of sclang (=(1..10).asString=) in your browser.  You have to make a folder in your supercollidejs root directory in order to find the =index.js= file.  You run on your terminal =node sc3-http.js=.  Then you open your browser and go to =127.0.0.1:8000= to see the output.
+The script below prints the output of sclang (=(1..10).asString=) in your browser.  You have to make a folder in your supercollidejs root directory and put =sc3-http.js= script, in order the to find the =index.js= (see 1st line on script below).  You run on your terminal =node sc3-http.js=.  Then you open your browser and go to =127.0.0.1:8000= to see the output, or you can inspect from terminal using =curl http://localhost:8000/=.
 
+- Link to js script below :: [[./src/sc3-http.js]]
 
 #+BEGIN_SRC js :tangle ./src/sc3-http.js
 var sc = require('../index.js');

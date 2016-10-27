@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Audiovisual applications using Processing and SuperCollider</title>
-<!-- 2016-10-28 Παρ 00:18 -->
+<!-- 2016-10-28 Παρ 02:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Georgios Diapoulis" />
@@ -164,18 +164,19 @@ for the JavaScript code in this tag.
 <li><a href="#sec-2-3">2.3. SuperCollider client for Processing</a></li>
 </ul>
 </li>
-<li><a href="#sec-3">3. supercolliderjs &amp; processingjs</a>
+<li><a href="#sec-3">3. SC3 and Pure Data OSC communication</a></li>
+<li><a href="#sec-4">4. supercolliderjs &amp; processingjs</a>
 <ul>
-<li><a href="#sec-3-1">3.1. processingjs</a>
+<li><a href="#sec-4-1">4.1. processingjs</a>
 <ul>
-<li><a href="#sec-3-1-1">3.1.1. index.html</a></li>
-<li><a href="#sec-3-1-2">3.1.2. processingjs</a></li>
-<li><a href="#sec-3-1-3">3.1.3. Processing script</a></li>
+<li><a href="#sec-4-1-1">4.1.1. index.html</a></li>
+<li><a href="#sec-4-1-2">4.1.2. processingjs</a></li>
+<li><a href="#sec-4-1-3">4.1.3. Processing script</a></li>
 </ul>
 </li>
-<li><a href="#sec-3-2">3.2. supercollidejs</a>
+<li><a href="#sec-4-2">4.2. supercollidejs</a>
 <ul>
-<li><a href="#sec-3-2-1">3.2.1. Print sclang output on your browser</a></li>
+<li><a href="#sec-4-2-1">4.2.1. Print sclang output on your browser</a></li>
 </ul>
 </li>
 </ul>
@@ -201,6 +202,11 @@ for the JavaScript code in this tag.
 <div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1"><span class="section-number-3">1.1</span> Simple script in Processing</h3>
 <div class="outline-text-3" id="text-1-1">
+<dl class="org-dl">
+<dt> Link to processing script below </dt><dd><a href="./src/helloText.pde">./src/helloText.pde</a>
+</dd>
+</dl>
+
 <div class="org-src-container">
 
 <pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">setup</span>(){
@@ -245,6 +251,11 @@ for the JavaScript code in this tag.
 <p>
 It is possible to load different <code>fill()</code>, <code>stroke()</code>, <code>strokeWeight()</code> and similar functions based on <a href="https://processing.org/reference/pushStyle_.html">pushStyle()</a> function.
 </p>
+
+<dl class="org-dl">
+<dt> Link to processing script below </dt><dd><a href="./src/pushStyle.pde">./src/pushStyle.pde</a>
+</dd>
+</dl>
 
 <div class="org-src-container">
 
@@ -298,6 +309,10 @@ It is possible to load different <code>fill()</code>, <code>stroke()</code>, <co
 <a href="http://code.compartmental.net/tools/minim/">Minim</a> is a library which enables Processing to process audio information.
 </p>
 
+<dl class="org-dl">
+<dt> Link to processing script below </dt><dd><a href="./src/minimInput.pde">./src/minimInput.pde</a>
+</dd>
+</dl>
 
 <div class="org-src-container">
 
@@ -372,6 +387,9 @@ Processing OSC communication is based on the <a href="http://www.sojamo.de/libra
 <dl class="org-dl">
 <dt> Run this script in Processing </dt><dd>see <a href="http://www.sojamo.de/libraries/oscP5/examples/oscP5sendReceive/oscP5sendReceive.pde">oscP5sendReceive</a>
 </dd>
+
+<dt> Link to processing script below </dt><dd><a href="./src/p5toSC.pde">./src/p5toSC.pde</a>
+</dd>
 </dl>
 
 <div class="org-src-container">
@@ -409,7 +427,8 @@ Processing OSC communication is based on the <a href="http://www.sojamo.de/libra
 </div>
 
 <dl class="org-dl">
-<dt> Run this script in SC3 </dt><dd></dd>
+<dt> Link to SC3 script below </dt><dd><a href="./src/p5toSC.scd">./src/p5toSC.scd</a>
+</dd>
 </dl>
 
 <div class="org-src-container">
@@ -427,7 +446,8 @@ o.free;
 <h3 id="sec-2-2"><span class="section-number-3">2.2</span> Send OSC message from SC3 to Processing</h3>
 <div class="outline-text-3" id="text-2-2">
 <dl class="org-dl">
-<dt> Run this script in Processing </dt><dd></dd>
+<dt> Link to processing script below </dt><dd><a href="./src/scP5.pde">./src/scP5.pde</a>
+</dd>
 </dl>
 
 <div class="org-src-container">
@@ -472,7 +492,8 @@ o.free;
 
 
 <dl class="org-dl">
-<dt> Run this script in SC3 </dt><dd></dd>
+<dt> Link to SC3 script below </dt><dd><a href="./src/scP5.scd">./src/scP5.scd</a>
+</dd>
 </dl>
 
 <div class="org-src-container">
@@ -525,6 +546,11 @@ The output of these two programs looks like the video below.
 There is a SuperCollider library (<a href="http://www.erase.net/projects/processing-sc/">processing-sc</a>) which makes possible to send message to sclang.
 </p>
 
+<dl class="org-dl">
+<dt> Link to processing script below </dt><dd><a href="./src/processingSClib.pde">./src/processingSClib.pde</a>
+</dd>
+</dl>
+
 <div class="org-src-container">
 
 <pre class="src src-java"><span class="org-keyword">import</span> <span class="org-constant">oscP5</span>.*;
@@ -556,6 +582,11 @@ There is a SuperCollider library (<a href="http://www.erase.net/projects/process
 </pre>
 </div>
 
+<dl class="org-dl">
+<dt> Link to SC3 script below </dt><dd><a href="./src/processingSClib.scd">./src/processingSClib.scd</a>
+</dd>
+</dl>
+
 <div class="org-src-container">
 
 <pre class="src src-sclang">s.waitForBoot{
@@ -576,11 +607,49 @@ There is a SuperCollider library (<a href="http://www.erase.net/projects/process
 </div>
 
 <div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> supercolliderjs &amp; processingjs</h2>
+<h2 id="sec-3"><span class="section-number-2">3</span> SC3 and Pure Data OSC communication</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1"><span class="section-number-3">3.1</span> processingjs</h3>
-<div class="outline-text-3" id="text-3-1">
+<dl class="org-dl">
+<dt> Link to SC3 script below </dt><dd><a href="./src/sc3pd-osc.scd">./src/sc3pd-osc.scd</a>
+</dd>
+</dl>
+<div class="org-src-container">
+
+<pre class="src src-sclang"><span class="org-comment-delimiter">// </span><span class="org-comment">SENDING TO PD</span>
+b = <span class="org-type">NetAddr</span>.new(<span class="org-string">"127.0.0.1"</span>, 6000); <span class="org-comment-delimiter">// </span><span class="org-comment">address and port to send to pd</span>
+b.sendMsg(<span class="org-string">"/hello"</span>, <span class="org-constant">\asymbol</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">send to path \hello</span>
+b.sendMsg(<span class="org-string">"/there"</span>, *[<span class="org-string">"pack it"</span>, 10.rand]); <span class="org-comment-delimiter">// </span><span class="org-comment">use asterisk (*) to send an array</span>
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">RECEIVING FROM PD</span>
+<span class="org-keyword">thisProcess</span>.openUDPPort(9000);
+<span class="org-keyword">thisProcess</span>.openPorts;
+<span class="org-comment-delimiter">// </span><span class="org-comment">receiving messages from pd in the path '/test' -- no port is needed</span>
+o = <span class="org-type">OSCFunc</span>({ <span class="org-keyword">arg</span> msg, time, addr, recvPort; [msg, time, addr, recvPort].postln; }, <span class="org-constant">'/test'</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">create OSC responder</span>
+o.free;
+</pre>
+</div>
+
+<dl class="org-dl">
+<dt> Link to pd patch </dt><dd><a href="./src/sc3pd-osc.pd">./src/sc3pd-osc.pd</a>
+</dd>
+</dl>
+
+
+<div class="figure">
+<p><img src="./img/pd-osc.png" alt="pd-osc.png" />
+</p>
+<p><span class="figure-number">Figure 3:</span> Pure Data patch</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> supercolliderjs &amp; processingjs</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> processingjs</h3>
+<div class="outline-text-3" id="text-4-1">
 <p>
 You can take the advantage of javascript to implement Processing sketches on the web.
 </p>
@@ -593,7 +662,7 @@ You can take the advantage of javascript to implement Processing sketches on the
 </dl>
 
 <p>
-You need 3 parts to run a script on the web.
+You need 3 parts to run a processing script on the web:
 </p>
 
 <ul class="org-ul">
@@ -610,9 +679,9 @@ In the directory that we have the <code>index.js</code> we create a <code>src/</
 </p>
 </div>
 
-<div id="outline-container-sec-3-1-1" class="outline-4">
-<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> index.html</h4>
-<div class="outline-text-4" id="text-3-1-1">
+<div id="outline-container-sec-4-1-1" class="outline-4">
+<h4 id="sec-4-1-1"><span class="section-number-4">4.1.1</span> index.html</h4>
+<div class="outline-text-4" id="text-4-1-1">
 <pre class="example">
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -630,23 +699,29 @@ In the directory that we have the <code>index.js</code> we create a <code>src/</
 </div>
 </div>
 
-<div id="outline-container-sec-3-1-2" class="outline-4">
-<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> processingjs</h4>
-<div class="outline-text-4" id="text-3-1-2">
+<div id="outline-container-sec-4-1-2" class="outline-4">
+<h4 id="sec-4-1-2"><span class="section-number-4">4.1.2</span> processingjs</h4>
+<div class="outline-text-4" id="text-4-1-2">
 <ul class="org-ul">
 <li><a href="http://processingjs.org/download/">http://processingjs.org/download/</a>
 </li>
 </ul>
+
+
+<dl class="org-dl">
+<dt> Link to processing script below </dt><dd><a href="./src/processingjs_mouseOver.pde">./src/processingjs_mouseOver.pde</a>
+</dd>
+</dl>
 </div>
 </div>
 
-<div id="outline-container-sec-3-1-3" class="outline-4">
-<h4 id="sec-3-1-3"><span class="section-number-4">3.1.3</span> Processing script</h4>
-<div class="outline-text-4" id="text-3-1-3">
+<div id="outline-container-sec-4-1-3" class="outline-4">
+<h4 id="sec-4-1-3"><span class="section-number-4">4.1.3</span> Processing script</h4>
+<div class="outline-text-4" id="text-4-1-3">
 <div class="org-src-container">
 
 <pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">setup</span>(){
-  size(300, 300, P3D);
+  size(400, 400, P3D);
   frameRate(8);
 }
 
@@ -664,12 +739,12 @@ In the directory that we have the <code>index.js</code> we create a <code>src/</
 
   r = 10.0;
 
-  <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; <span class="org-type">int</span>(mouseX); i+=3){
-    <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">j</span> = 1; j &lt;= (<span class="org-type">int</span>(<span class="org-type">mouseY</span>))/3); j++){
+  <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; <span class="org-type">mouseX</span>; i+=3){
+    <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">j</span> = 1; j &lt;= (mouseY/3); j++){
       <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">k</span> = i; k &lt;= j; k++){
         rotate(2*PI/19.0*i);
         stroke(255, 23, 55, (j-k)*angle);
-        strokeWeight(1.91 + abs(i*402));
+        strokeWeight(1.91+i*402);
         beginShape(LINES);
         vertex(r, j*r, k*r);
         vertex(r*x/5,i*r, -j*r);
@@ -692,9 +767,9 @@ In the directory that we have the <code>index.js</code> we create a <code>src/</
 </div>
 </div>
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2"><span class="section-number-3">3.2</span> supercollidejs</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> supercollidejs</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
 You can install SuperCollider on Atom editor, which is shipped with <a href="https://github.com/crucialfelix/supercolliderjs">supercollidejs</a>.
 </p>
@@ -707,13 +782,17 @@ You can install SuperCollider on Atom editor, which is shipped with <a href="htt
 </dl>
 </div>
 
-<div id="outline-container-sec-3-2-1" class="outline-4">
-<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> Print sclang output on your browser</h4>
-<div class="outline-text-4" id="text-3-2-1">
+<div id="outline-container-sec-4-2-1" class="outline-4">
+<h4 id="sec-4-2-1"><span class="section-number-4">4.2.1</span> Print sclang output on your browser</h4>
+<div class="outline-text-4" id="text-4-2-1">
 <p>
-The script below prints the output of sclang (<code>(1..10).asString</code>) in your browser.  You have to make a folder in your supercollidejs root directory in order to find the <code>index.js</code> file.  You run on your terminal <code>node sc3-http.js</code>.  Then you open your browser and go to <code>127.0.0.1:8000</code> to see the output.
+The script below prints the output of sclang (<code>(1..10).asString</code>) in your browser.  You have to make a folder in your supercollidejs root directory and put <code>sc3-http.js</code> script, in order the to find the <code>index.js</code> (see 1st line on script below).  You run on your terminal <code>node sc3-http.js</code>.  Then you open your browser and go to <code>127.0.0.1:8000</code> to see the output, or you can inspect from terminal using <code>curl http://localhost:8000/</code>.
 </p>
 
+<dl class="org-dl">
+<dt> Link to js script below </dt><dd><a href="./src/sc3-http.js">./src/sc3-http.js</a>
+</dd>
+</dl>
 
 <div class="org-src-container">
 
