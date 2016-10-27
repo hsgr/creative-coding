@@ -371,16 +371,15 @@ void draw(){
 
   r = 10.0;
 
-  for(int i = 0; i < int(mouseX); i+=3){
-    for(int j = 1; j <= (int(mouseY)/3); j++){
+  for(int i = 0; i < mouseX; i+=3){
+    for(int j = 1; j <= (mouseY/3); j++){
       for(int k = i; k <= j; k++){
         rotate(2*PI/19.0*i);
         stroke(255, 23, 55, (j-k)*angle);
-        strokeWeight(1.91 + abs(i*402));
+        strokeWeight(1.91+i*402);
         beginShape(LINES);
-        // beginShape( TRIANGLE_FAN );
-        vertex(r, j*r, k*r); // left channel
-        vertex(r*x/5,i*r, -j*r);  // right channel
+        vertex(r, j*r, k*r);
+        vertex(r*x/5,i*r, -j*r);
         endShape();
       }
     }
@@ -402,7 +401,7 @@ You can install SuperCollider on Atom editor, which is shipped with [[https://gi
 - SuperCollider package for Atom :: https://atom.io/packages/supercollider
 
 *** Print sclang output on your browser
-The script below prints the output of sclang (=(1..10).asString=) in your browser.  You have to make a folder in your supercollidejs root directory in order to find the =index.js= file.  Then you open your browser and go to =127.0.0.1:8000= to see the output.
+The script below prints the output of sclang (=(1..10).asString=) in your browser.  You have to make a folder in your supercollidejs root directory in order to find the =index.js= file.  You run on your terminal =node sc3-http.js=.  Then you open your browser and go to =127.0.0.1:8000= to see the output.
 
 
 #+BEGIN_SRC js :tangle ./src/sc3-http.js

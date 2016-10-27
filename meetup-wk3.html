@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Audiovisual applications using Processing and SuperCollider</title>
-<!-- 2016-10-28 Παρ 00:11 -->
+<!-- 2016-10-28 Παρ 00:18 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Georgios Diapoulis" />
@@ -646,7 +646,7 @@ In the directory that we have the <code>index.js</code> we create a <code>src/</
 <div class="org-src-container">
 
 <pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">setup</span>(){
-  size(400, 400, P3D);
+  size(300, 300, P3D);
   frameRate(8);
 }
 
@@ -665,15 +665,14 @@ In the directory that we have the <code>index.js</code> we create a <code>src/</
   r = 10.0;
 
   <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; <span class="org-type">int</span>(mouseX); i+=3){
-    <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">j</span> = 1; j &lt;= (<span class="org-type">int</span>(<span class="org-type">mouseY</span>)/3); j++){
+    <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">j</span> = 1; j &lt;= (<span class="org-type">int</span>(<span class="org-type">mouseY</span>))/3); j++){
       <span class="org-keyword">for</span>(<span class="org-type">int</span> <span class="org-variable-name">k</span> = i; k &lt;= j; k++){
         rotate(2*PI/19.0*i);
         stroke(255, 23, 55, (j-k)*angle);
         strokeWeight(1.91 + abs(i*402));
         beginShape(LINES);
-        <span class="org-comment-delimiter">// </span><span class="org-comment">beginShape( TRIANGLE_FAN );</span>
-        vertex(r, j*r, k*r); <span class="org-comment-delimiter">// </span><span class="org-comment">left channel</span>
-        vertex(r*x/5,i*r, -j*r);  <span class="org-comment-delimiter">// </span><span class="org-comment">right channel</span>
+        vertex(r, j*r, k*r);
+        vertex(r*x/5,i*r, -j*r);
         endShape();
       }
     }
@@ -712,7 +711,7 @@ You can install SuperCollider on Atom editor, which is shipped with <a href="htt
 <h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> Print sclang output on your browser</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
-The script below prints the output of sclang (<code>(1..10).asString</code>) in your browser.  You have to make a folder in your supercollidejs root directory in order to find the <code>index.js</code> file.  Then you open your browser and go to <code>127.0.0.1:8000</code> to see the output.
+The script below prints the output of sclang (<code>(1..10).asString</code>) in your browser.  You have to make a folder in your supercollidejs root directory in order to find the <code>index.js</code> file.  You run on your terminal <code>node sc3-http.js</code>.  Then you open your browser and go to <code>127.0.0.1:8000</code> to see the output.
 </p>
 
 
