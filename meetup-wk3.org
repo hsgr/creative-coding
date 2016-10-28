@@ -1,4 +1,6 @@
 #+TITLE: Audiovisual applications using Processing and SuperCollider
+
+
 * Processing basics
 
 [[http://processing.org/][Processing]] is a Java-based programming environment for making visualizations.  A basic script has two main structures, a =void setup()= and a =void draw()= code blocks.  In the former you define initialization settings, and in the latter you run time-dependent processes.  The =void draw()= loop frequency is define using the =frameRate()=.  The default rate is 60fps.
@@ -6,7 +8,7 @@
 - Processing Reference Online :: https://processing.org/reference/
 - HINT :: Install [[https://atom.io/][Atom editor]] and install the packages [[https://atom.io/packages/processing][processing]] (run sketches) and [[https://atom.io/packages/processing-language][processing-language]] (syntax highlighting)
 
-** Simple script in Processing
+** Simple scripts in Processing
 
 - Link to processing script below :: [[./src/helloText.pde]]
 
@@ -41,7 +43,7 @@ void draw(){
 #+ATTR_HTML: width="300" style="border:2px solid black;"
 [[./img/animation.gif]]
 
-** Push style
+*** Push style
 
 It is possible to load different =fill()=, =stroke()=, =strokeWeight()= and similar functions based on [[https://processing.org/reference/pushStyle_.html][pushStyle()]] function.
 

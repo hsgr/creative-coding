@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Audiovisual applications using Processing and SuperCollider</title>
-<!-- 2016-10-28 Παρ 02:47 -->
+<!-- 2016-10-28 Παρ 03:39 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Georgios Diapoulis" />
@@ -152,9 +152,12 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1">1. Processing basics</a>
 <ul>
-<li><a href="#sec-1-1">1.1. Simple script in Processing</a></li>
-<li><a href="#sec-1-2">1.2. Push style</a></li>
-<li><a href="#sec-1-3">1.3. Audio library for Processing</a></li>
+<li><a href="#sec-1-1">1.1. Simple scripts in Processing</a>
+<ul>
+<li><a href="#sec-1-1-1">1.1.1. Push style</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">1.2. Audio library for Processing</a></li>
 </ul>
 </li>
 <li><a href="#sec-2">2. SC3 and Processing via OSC</a>
@@ -184,6 +187,7 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
+
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1"><span class="section-number-2">1</span> Processing basics</h2>
 <div class="outline-text-2" id="text-1">
@@ -200,7 +204,7 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Simple script in Processing</h3>
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Simple scripts in Processing</h3>
 <div class="outline-text-3" id="text-1-1">
 <dl class="org-dl">
 <dt> Link to processing script below </dt><dd><a href="./src/helloText.pde">./src/helloText.pde</a>
@@ -243,11 +247,10 @@ for the JavaScript code in this tag.
 <p><span class="figure-number">Figure 1:</span> Output of the script above (1.1)</p>
 </div>
 </div>
-</div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Push style</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> Push style</h4>
+<div class="outline-text-4" id="text-1-1-1">
 <p>
 It is possible to load different <code>fill()</code>, <code>stroke()</code>, <code>strokeWeight()</code> and similar functions based on <a href="https://processing.org/reference/pushStyle_.html">pushStyle()</a> function.
 </p>
@@ -301,10 +304,11 @@ It is possible to load different <code>fill()</code>, <code>stroke()</code>, <co
 </div>
 </div>
 </div>
+</div>
 
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Audio library for Processing</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Audio library for Processing</h3>
+<div class="outline-text-3" id="text-1-2">
 <p>
 <a href="http://code.compartmental.net/tools/minim/">Minim</a> is a library which enables Processing to process audio information.
 </p>
@@ -354,7 +358,7 @@ It is possible to load different <code>fill()</code>, <code>stroke()</code>, <co
         beginShape(LINES);
         <span class="org-comment-delimiter">// </span><span class="org-comment">beginShape( TRIANGLE_FAN );</span>
         vertex(in.left.get(i)*r, j*r, k*r); <span class="org-comment-delimiter">// </span><span class="org-comment">left channel</span>
-        vertex(in.right.get(i)*r*x/5,i*r, -j*r);  <span class="org-comment-delimiter">// </span><span class="org-comment">right channel</span>
+        vertex(in.right.get(i)*r*x/5, i*r, -j*r);  <span class="org-comment-delimiter">// </span><span class="org-comment">right channel</span>
         endShape();
       }
     }
@@ -401,16 +405,16 @@ Processing OSC communication is based on the <a href="http://www.sojamo.de/libra
 <span class="org-type">NetAddress</span> <span class="org-variable-name">myRemoteLocation</span>;
 
 <span class="org-type">void</span> <span class="org-function-name">setup</span>() {
-  size(400,400);
+  size(400, 400);
   frameRate(25);
   <span class="org-comment-delimiter">/* </span><span class="org-comment">start oscP5, listening for incoming messages at port 12000 */</span>
-  oscP5 = <span class="org-keyword">new</span> <span class="org-type">OscP5</span>(<span class="org-keyword">this</span>,12000);
+  oscP5 = <span class="org-keyword">new</span> <span class="org-type">OscP5</span>(<span class="org-keyword">this</span>, 12000);
   <span class="org-comment-delimiter">/* </span><span class="org-comment">myRemoteLocation is a NetAddress. a NetAddress takes 2 parameters,</span>
 <span class="org-comment">   * an ip address and a port number. myRemoteLocation is used as parameter in</span>
 <span class="org-comment">   * oscP5.send() when sending osc packets to another computer, device,</span>
 <span class="org-comment">   * application.</span>
 <span class="org-comment">   */</span>
-  myRemoteLocation = <span class="org-keyword">new</span> <span class="org-type">NetAddress</span>(<span class="org-string">"127.0.0.1"</span>,12000);
+  myRemoteLocation = <span class="org-keyword">new</span> <span class="org-type">NetAddress</span>(<span class="org-string">"127.0.0.1"</span>, 12000);
 }
 
 <span class="org-type">void</span> <span class="org-function-name">draw</span>() {
