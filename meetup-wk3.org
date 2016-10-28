@@ -1,5 +1,5 @@
 #+OPTIONS: toc:nil
-#+TITLE: Processing, SuperCollider and Pure Data OSC communication, and supercolliderjs & processingjs
+#+TITLE: Processing, SuperCollider OSC communication, and supercolliderjs & processingjs
 
 - [[#processing-basics][1. Processing basics]]
   - [[#simple-scripts-in-processing][1.1. Simple scripts in Processing]]
