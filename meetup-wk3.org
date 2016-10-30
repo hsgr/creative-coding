@@ -352,7 +352,7 @@ s.waitForBoot{
 
 * SC3 and Pure Data OSC communication
 
-In Pure Data you have to install [[y][mrpeach]] for OSC communication.  In SuperCollider check the help file [[http://doc.sccode.org/Guides/OSC_communication.html][OSC communication]].
+In Pure Data you have to install [[http://en.flossmanuals.net/pure-data/network-data/osc/][mrpeach]] for OSC communication.  In SuperCollider check the help file [[http://doc.sccode.org/Guides/OSC_communication.html][OSC communication]].
 
 - Link to SC3 script below :: [[./src/sc3pd-osc.scd]]
 #+BEGIN_SRC sclang :tangle ./src/sc3pd-osc.scd
