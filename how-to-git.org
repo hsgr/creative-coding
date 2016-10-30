@@ -1,4 +1,4 @@
-* Git basic
+* Git basics
 ** Git clone
 
 #+BEGIN_SRC sh
@@ -11,7 +11,8 @@ git clone git@github.com:hsgr/creative-coding.git
 git status # ask if there are any changes in your files
 git add . # add changes to stage - or file name
 git commit -m 'name of commit'
-git push # upload to github
+git push # upload to github //
+# git push origin master
 #+END_SRC
 
 ** Git pull
