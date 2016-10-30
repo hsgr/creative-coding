@@ -1,5 +1,5 @@
 #+OPTIONS: toc:nil
-#+TITLE: Processing, SuperCollider OSC communication, and supercolliderjs & processingjs
+#+TITLE: Processing, SuperCollider and Pure Data OSC communication, and supercolliderjs & processingjs
 
 - [[#processing-basics][1. Processing basics]]
   - [[#simple-scripts-in-processing][1.1. Simple scripts in Processing]]
@@ -11,13 +11,14 @@
   - [[#send-osc-messages-from-processing-to-sc3][2.1. Send OSC messages from Processing to SC3]]
   - [[#send-osc-message-from-sc3-to-processing][2.2. Send OSC message from SC3 to Processing]]
   - [[#supercollider-client-for-processing][2.3. SuperCollider client for Processing]]
-- [[#supercolliderjs-and-processingjs][3. supercolliderjs and processingjs]]
-  - [[#processingjs][3.1. processingjs]]
-    - [[#call-in-html][3.1.1. Call in html]]
-    - [[#get-processingjs-online][3.1.2. Get processingjs online]]
-    - [[#processing-script][3.1.3. Processing script]]
-  - [[#supercollidejs][3.2. supercollidejs]]
-    - [[#print-sclang-output-on-your-browser][3.2.1. Print sclang output on your browser]]
+- [[#sc3-and-pure-data-osc-communication][3. SC3 and Pure Data OSC communication]]
+- [[#supercolliderjs-and-processingjs][4. supercolliderjs and processingjs]]
+  - [[#processingjs][4.1. processingjs]]
+    - [[#call-in-html][4.1.1. Call in html]]
+    - [[#get-processingjs-online][4.1.2. Get processingjs online]]
+    - [[#processing-script][4.1.3. Processing script]]
+  - [[#supercollidejs][4.2. supercollidejs]]
+    - [[#print-sclang-output-on-your-browser][4.2.1. Print sclang output on your browser]]
 
 * Processing basics
 
@@ -348,6 +349,30 @@ s.waitForBoot{
 
 }
 #+END_SRC
+
+* SC3 and Pure Data OSC communication
+
+In Pure Data you have to install [[y][mrpeach]] for OSC communication.  In SuperCollider check the help file [[http://doc.sccode.org/Guides/OSC_communication.html][OSC communication]].
+
+- Link to SC3 script below :: [[./src/sc3pd-osc.scd]]
+#+BEGIN_SRC sclang :tangle ./src/sc3pd-osc.scd
+// SENDING TO PD
+b = NetAddr.new("127.0.0.1", 6000); // address and port to send to pd
+b.sendMsg("/hello", \asymbol); // send to path \hello
+b.sendMsg("/there", *["pack it", 10.rand]); // use asterisk (*) to send an array
+
+// RECEIVING FROM PD
+thisProcess.openUDPPort(9000);
+thisProcess.openPorts;
+// receiving messages from pd in the path '/test' -- no port is needed
+o = OSCFunc({ arg msg, time, addr, recvPort; [msg, time, addr, recvPort].postln; }, '/test'); // create OSC responder
+o.free;
+#+END_SRC
+
+- Link to pd patch :: [[./src/sc3pd-osc.pd]]
+
+#+CAPTION: Pure Data patch
+[[./img/pd-osc.png]]
 
 
 * supercolliderjs and processingjs
