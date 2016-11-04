@@ -1,0 +1,1154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Digital design fundamentals</title>
+<!-- 2016-11-04 Παρ 14:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Georgios Diapoulis" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+href="http://sachachua.com/blog/wp-content/themes/sacha-v3/foundation/css/foundation.min.css"></link>
+<link rel="stylesheet" type="text/css" href="http://sachachua.com/org-export.css"></link>
+<link rel="stylesheet" type="text/css" href="http://sachachua.com/blog/wp-content/themes/sacha-v3/style.css"></link>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<a name="top" id="top"></a>
+</div>
+<div id="content">
+<h1 class="title">Digital design fundamentals</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Basic logic components</a>
+<ul>
+<li><a href="#sec-1-1">1.1. SPDT switches</a>
+<ul>
+<li><a href="#sec-1-1-1">1.1.1. Odd Parity</a></li>
+<li><a href="#sec-1-1-2">1.1.2. Even Parity</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">1.2. Relays</a>
+<ul>
+<li><a href="#sec-1-2-1">1.2.1. Relay 2-to-4</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-3">1.3. Truth tables of logic gates</a>
+<ul>
+<li><a href="#sec-1-3-1">1.3.1. NOT</a></li>
+<li><a href="#sec-1-3-2">1.3.2. AND</a></li>
+<li><a href="#sec-1-3-3">1.3.3. OR</a></li>
+<li><a href="#sec-1-3-4">1.3.4. XOR</a></li>
+<li><a href="#sec-1-3-5">1.3.5. NOR</a></li>
+<li><a href="#sec-1-3-6">1.3.6. XNOR</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Decoder 2-to-4</a></li>
+<li><a href="#sec-3">3. Multiplexer 4-to-1</a></li>
+<li><a href="#sec-4">4. Encoding</a>
+<ul>
+<li><a href="#sec-4-1">4.1. Seven segment display</a>
+<ul>
+<li><a href="#sec-4-1-1">4.1.1. Combiner circuit and truth table</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-5">5. 2s complement</a></li>
+<li><a href="#sec-6">6. Half-Adder and Full-Adder</a></li>
+<li><a href="#sec-7">7. Latch</a></li>
+<li><a href="#sec-8">8. Register</a>
+<ul>
+<li><a href="#sec-8-1">8.1. Shift register</a></li>
+<li><a href="#sec-8-2">8.2. Master-slave register</a></li>
+</ul>
+</li>
+<li><a href="#sec-9">9. Sequential circuits</a>
+<ul>
+<li><a href="#sec-9-1">9.1. Counter</a></li>
+<li><a href="#sec-9-2">9.2. Finite state machine (FSM)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<dl class="org-dl">
+<dt> Copyright notice </dt><dd>The notes below are modified copies of the academic module CS-120 "Digital Design": <a href="http://www.csd.uoc.gr/~hy120/">http://www.csd.uoc.gr/~hy120/</a> copies or posting are not made or distributed for profit or commercial advantage.
+</dd>
+</dl>
+&copy University of Crete.
+<p>
+<a href="http://www.csd.uoc.gr/~hy120/16f/copyright.html">http://www.csd.uoc.gr/~hy120/16f/copyright.html</a>
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Basic logic components</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> SPDT switches</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Switches which have 3 pins (1 input, 2 output).
+</p>
+
+
+
+<div class="figure">
+<p><img src="./img/SPDT.png" alt="SPDT.png" />
+</p>
+<p><span class="figure-number">Figure 1:</span> SPDT switch</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> Odd Parity</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Odd parity is the exclusive OR (XOR).
+</p>
+
+<div class="figure">
+<p><img src="./img/ODD-PARITY.png" alt="ODD-PARITY.png" />
+</p>
+<p><span class="figure-number">Figure 2:</span> Odd parity</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> Even Parity</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+Even parity is the equality check.
+</p>
+
+
+<div class="figure">
+<p><img src="./img/EVEN-PARITY.png" alt="EVEN-PARITY.png" />
+</p>
+<p><span class="figure-number">Figure 3:</span> Even parity</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Relays</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Switches which can be used as memory.  The relay below has a DPDT switch (double SPDT) and a coil.  If the coil is activated (pins: 1, 8) the DPDT switch moves from its default state (input pins: 3, 6 to output pins: 2, 7) to the active state (input pins: 3, 6 to output pins: 4, 5).  Relay have been used as basic memory components or mechanical clocks.
+</p>
+
+
+<div class="figure">
+<p><img src="./img/RELAY.png" alt="RELAY.png" />
+</p>
+<p><span class="figure-number">Figure 4:</span> Relay</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> Relay 2-to-4</h4>
+<div class="outline-text-4" id="text-1-2-1">
+
+<div class="figure">
+<p><img src="./img/RELAY-2-4.png" alt="RELAY-2-4.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Truth tables of logic gates</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> NOT</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">OUTPUT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">A</td>
+<td class="right">NOT A</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="right">0</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">0</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="https://commons.wikimedia.org/wiki/File:Not-gate-en.svg#/media/File:Not-gate-en.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Not-gate-en.svg/1200px-Not-gate-en.svg.png" alt="Not-gate-en.svg"></a><br><a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=829068">Link</a></p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> AND</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">OUTPUT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">A</td>
+<td class="right">B</td>
+<td class="right">A AND B</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="https://commons.wikimedia.org/wiki/File:AND_ANSI_Labelled.svg#/media/File:AND_ANSI_Labelled.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/AND_ANSI_Labelled.svg/1200px-AND_ANSI_Labelled.svg.png" alt="AND ANSI Labelled.svg"></a><br>By <a href="//commons.wikimedia.org/wiki/User:Inductiveload" title="User:Inductiveload">Inductiveload</a> - <span class="int-own-work" lang="en">Own work</span>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=5729013">Link</a></p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> OR</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">OUTPUT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">A</td>
+<td class="right">B</td>
+<td class="right">A OR B</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="https://commons.wikimedia.org/wiki/File:OR_ANSI_Labelled.svg#/media/File:OR_ANSI_Labelled.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/OR_ANSI_Labelled.svg/1200px-OR_ANSI_Labelled.svg.png" alt="OR ANSI Labelled.svg"></a><br>By <a href="//commons.wikimedia.org/wiki/User:Inductiveload" title="User:Inductiveload">Inductiveload</a> - <span class="int-own-work" lang="en">Own work</span>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=5729019">Link</a></p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-4" class="outline-4">
+<h4 id="sec-1-3-4"><span class="section-number-4">1.3.4</span> XOR</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">OUTPUT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">A</td>
+<td class="right">B</td>
+<td class="right">A XOR B</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">0</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="https://commons.wikimedia.org/wiki/File:XOR_ANSI.svg#/media/File:XOR_ANSI.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/XOR_ANSI.svg/1200px-XOR_ANSI.svg.png" alt="XOR ANSI.svg"></a><br>By jjbeard - Own Drawing, made in Inkscape 0.43, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=830757">Link</a></p>
+</div>
+</div>
+<div id="outline-container-sec-1-3-5" class="outline-4">
+<h4 id="sec-1-3-5"><span class="section-number-4">1.3.5</span> NOR</h4>
+<div class="outline-text-4" id="text-1-3-5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">OUTPUT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">A</td>
+<td class="right">B</td>
+<td class="right">A NOR B</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">0</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="https://commons.wikimedia.org/wiki/File:NOR_ANSI_Labelled.svg#/media/File:NOR_ANSI_Labelled.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/NOR_ANSI_Labelled.svg/1200px-NOR_ANSI_Labelled.svg.png" alt="NOR ANSI Labelled.svg"></a><br>By <a href="//commons.wikimedia.org/wiki/User:Inductiveload" title="User:Inductiveload">Inductiveload</a> - <span class="int-own-work" lang="en">Own work</span>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=5729017">Link</a></p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-6" class="outline-4">
+<h4 id="sec-1-3-6"><span class="section-number-4">1.3.6</span> XNOR</h4>
+<div class="outline-text-4" id="text-1-3-6">
+<p>
+XNOR is the logical equality.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">INPUT</th>
+<th scope="col" class="right">OUTPUT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">A</td>
+<td class="right">B</td>
+<td class="right">A NOR B</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="https://commons.wikimedia.org/wiki/File:Xnor-gate-en.svg#/media/File:Xnor-gate-en.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Xnor-gate-en.svg/1200px-Xnor-gate-en.svg.png" alt="Xnor-gate-en.svg"></a><br><a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=829201">Link</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Decoder 2-to-4</h2>
+<div class="outline-text-2" id="text-2">
+<dl class="org-dl">
+<dt> <a href="http://www.cburch.com/logisim/">logisim</a> file </dt><dd><a href="./src/logisim/decoder_2_to_4.circ">./src/logisim/decoder_2_to_4.circ</a>
+</dd>
+</dl>
+
+
+<div class="figure">
+<p><img src="./img/DECODER-2-4-7408.png" alt="DECODER-2-4-7408.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Multiplexer 4-to-1</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Multiplexer 4-to-1 using a decoder 2-to-4.
+</p>
+
+<dl class="org-dl">
+<dt> <a href="http://www.cburch.com/logisim/">logisim</a> file </dt><dd><a href="./src/logisim/multiplexer_4_to_1.circ">./src/logisim/multiplexer_4_to_1.circ</a>
+</dd>
+</dl>
+
+
+
+<div class="figure">
+<p><img src="./img/MUX-4-1.png" alt="MUX-4-1.png" />
+</p>
+</div>
+
+<p>
+A multiplexer's module below.
+</p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Multiplexer_4-to-1.svg#/media/File:Multiplexer_4-to-1.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Multiplexer_4-to-1.svg/1200px-Multiplexer_4-to-1.svg.png" alt="Multiplexer 4-to-1.svg"></a><br>By <a href="https://en.wikipedia.org/wiki/User:Cburnett" class="extiw" title="en:User:Cburnett">en:User:Cburnett</a> - <span class="int-own-work" lang="en">Own work</span>
+<a href="//commons.wikimedia.org/wiki/File:Inkscape_Logo.svg" title="File:Inkscape Logo.svg"></a>
+This <a href="https://en.wikipedia.org/wiki/Vector_images" class="extiw" title="w:Vector images">vector image</a> was created with <a href="//commons.wikimedia.org/wiki/Help:Inkscape" title="Help:Inkscape">Inkscape</a>., <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=1505578">Link</a></p>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Encoding</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Seven segment display</h3>
+<div class="outline-text-3" id="text-4-1">
+<p><a href="https://commons.wikimedia.org/wiki/File:7_segment_display_labeled.svg#/media/File:7_segment_display_labeled.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/7_segment_display_labeled.svg/1200px-7_segment_display_labeled.svg.png" alt="7 segment display labeled.svg"></a><br>By <a href="//commons.wikimedia.org/wiki/User:H2g2bob" title="User:H2g2bob">user:h2g2bob</a> - Own work using Inkscape, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=1451959">Link</a></p>
+</div>
+
+<div id="outline-container-sec-4-1-1" class="outline-4">
+<h4 id="sec-4-1-1"><span class="section-number-4">4.1.1</span> Combiner circuit and truth table</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<p>
+How to print numbers 0-3 to 7-segment alphanumeric display.
+</p>
+
+<ul class="org-ul">
+<li>You need only 2 bits to display numbers 0-3 using binary numbers
+</li>
+<li>Check which LEDs should be switched on (value = 1, ie. logical TRUE) to display number 0
+<ul class="org-ul">
+<li>Repeat for all numbers
+</li>
+</ul>
+</li>
+</ul>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">In0</th>
+<th scope="col" class="right">In1</th>
+<th scope="col" class="left">-</th>
+<th scope="col" class="right">A</th>
+<th scope="col" class="right">B</th>
+<th scope="col" class="right">C</th>
+<th scope="col" class="right">D</th>
+<th scope="col" class="right">E</th>
+<th scope="col" class="right">F</th>
+<th scope="col" class="right">G</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="left">&#xa0;</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="left">&#xa0;</td>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="left">&#xa0;</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="left">&#xa0;</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<dl class="org-dl">
+<dt> How to make the logical functions </dt><dd>Express using basic logic operations (AND, NOT, OR) the output (7-segments) based on the input (2-bits)
+</dd>
+</dl>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">A = NOT( In0' &sdot; In1 )</td>
+</tr>
+
+<tr>
+<td class="left">B = 1</td>
+</tr>
+
+<tr>
+<td class="left">C = NOT( In0 &sdot; In1' )</td>
+</tr>
+
+<tr>
+<td class="left">D = A</td>
+</tr>
+
+<tr>
+<td class="left">E = In1'</td>
+</tr>
+
+<tr>
+<td class="left">F = In0' &sdot; In1'</td>
+</tr>
+
+<tr>
+<td class="left">G = In0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 2s complement</h2>
+<div class="outline-text-2" id="text-5">
+
+<div class="figure">
+<p><img src="./img/2scomplement.png" alt="2scomplement.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Half-Adder and Full-Adder</h2>
+<div class="outline-text-2" id="text-6">
+<dl class="org-dl">
+<dt> <a href="http://www.cburch.com/logisim/">logisim</a> file </dt><dd><a href="./src/logisim/half_full_adder.circ">./src/logisim/half_full_adder.circ</a>
+</dd>
+</dl>
+
+
+
+<div class="figure">
+<p><img src="./img/ADDER.png" alt="ADDER.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Latch</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Latches are basic module for implementing memory.
+</p>
+
+<dl class="org-dl">
+<dt> <a href="http://www.cburch.com/logisim/">logisim</a> file </dt><dd><a href="./src/logisim/latches_RS_D.circ">./src/logisim/latches_RS_D.circ</a>
+</dd>
+</dl>
+
+
+<div class="figure">
+<p><img src="./img/latches.png" alt="latches.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Register</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> Shift register</h3>
+<div class="outline-text-3" id="text-8-1">
+<dl class="org-dl">
+<dt> <a href="http://www.cburch.com/logisim/">logisim</a> file </dt><dd><a href="./src/logisim/shift_register.circ">./src/logisim/shift_register.circ</a>
+</dd>
+</dl>
+
+
+<div class="figure">
+<p><img src="./img/shift-register.png" alt="shift-register.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> Master-slave register</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+The basic memory component.  Below master-slave register activated by positive edge clock.
+</p>
+
+
+<dl class="org-dl">
+<dt> <a href="http://www.cburch.com/logisim/">logisim</a> file </dt><dd><a href="./src/logisim/master_slave_register.circ">./src/logisim/master_slave_register.circ</a>
+</dd>
+</dl>
+
+
+
+<div class="figure">
+<p><img src="./img/master-slave.png" alt="master-slave.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Sequential circuits</h2>
+<div class="outline-text-2" id="text-9">
+</div><div id="outline-container-sec-9-1" class="outline-3">
+<h3 id="sec-9-1"><span class="section-number-3">9.1</span> Counter</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+A 3 bit counter.
+</p>
+
+<dl class="org-dl">
+<dt> <a href="http://www.cburch.com/logisim/">logisim</a> file </dt><dd><a href="./src/logisim/3_bit_counter.circ">./src/logisim/3_bit_counter.circ</a>
+</dd>
+</dl>
+
+
+<div class="figure">
+<p><img src="./img/3bit-counter.png" alt="3bit-counter.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-9-2" class="outline-3">
+<h3 id="sec-9-2"><span class="section-number-3">9.2</span> Finite state machine (FSM)</h3>
+<div class="outline-text-3" id="text-9-2">
+<p>
+FSM for adaptive control of traffic lights.
+</p>
+
+<dl class="org-dl">
+<dt> <a href="http://www.cburch.com/logisim/">logisim</a> file </dt><dd><a href="./src/logisim/analogy_1_to_1.circ">./src/logisim/analogy_1_to_1.circ</a>
+</dd>
+</dl>
+
+
+<div class="figure">
+<p><img src="./img/fsm-1-1.png" alt="fsm-1-1.png" />
+</p>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">S</th>
+<th scope="col" class="right">Ad</th>
+<th scope="col" class="right">Bd</th>
+<th scope="col" class="left">&#xa0;</th>
+<th scope="col" class="left">&#xa0;</th>
+<th scope="col" class="right">Ago</th>
+<th scope="col" class="right">Bgo</th>
+<th scope="col" class="right">nS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="right">0</td>
+<td class="right">0</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="right">0</td>
+<td class="right">1</td>
+<td class="right">1</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="right">1</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="right">1</td>
+<td class="right">0</td>
+<td class="right">0</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>Ago = Ad · [ S + (S')·(Bd') ]
+</li>
+<li>Bgo = Bd · [ S' + (S)·(Ad') ]
+</li>
+<li>nS  =  S · Ad'  +  S' · Bd
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+
+<style type="text/css">
+.back-to-top {
+    position: fixed;
+    bottom: 2em;
+    right: 0px;
+    text-decoration: none;
+    color: #000000;
+    background-color: rgba(235, 235, 235, 0.80);
+    font-size: 12px;
+    padding: 1em;
+    display: none;
+}
+
+.back-to-top:hover {
+    background-color: rgba(135, 135, 135, 0.50);
+}
+</style>
+
+<div class="back-to-top">
+<a href="#top">Back to top</a> | <a href="mailto:gediapou@student.jyu.fi">E-mail me</a>
+<p></p>
+<center>
+<a href="http://users.jyu.fi/~gediapou">Georgios Diapoulis</a>
+</center>
+</div>
+
+<script type="text/javascript">
+    var offset = 220;
+    var duration = 500;
+    jQuery(window).scroll(function() {
+        if (jQuery(this).scrollTop() > offset) {
+            jQuery('.back-to-top').fadeIn(duration);
+        } else {
+            jQuery('.back-to-top').fadeOut(duration);
+        }
+    });
+</script>
+</div>
+</body>
+</html>

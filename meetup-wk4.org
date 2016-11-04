@@ -1,0 +1,272 @@
+#+TITLE: Digital design fundamentals
+
+- Copyright notice :: The notes below are modified copies of the academic module CS-120 "Digital Design": http://www.csd.uoc.gr/~hy120/ copies or posting are not made or distributed for profit or commercial advantage.
+#+HTML:&copy University of Crete.
+http://www.csd.uoc.gr/~hy120/16f/copyright.html
+
+* Basic logic components
+
+** SPDT switches
+Switches which have 3 pins (1 input, 2 output).
+
+
+#+CAPTION: SPDT switch
+[[./img/SPDT.png]]
+
+*** Odd Parity
+
+Odd parity is the exclusive OR (XOR).
+#+CAPTION: Odd parity
+[[./img/ODD-PARITY.png]]
+
+*** Even Parity
+Even parity is the equality check.
+
+#+CAPTION: Even parity
+[[./img/EVEN-PARITY.png]]
+
+
+
+** Relays
+Switches which can be used as memory.  The relay below has a DPDT switch (double SPDT) and a coil.  If the coil is activated (pins: 1, 8) the DPDT switch moves from its default state (input pins: 3, 6 to output pins: 2, 7) to the active state (input pins: 3, 6 to output pins: 4, 5).  Relay have been used as basic memory components or mechanical clocks.
+
+#+CAPTION: Relay
+[[./img/RELAY.png]]
+
+*** Relay 2-to-4
+
+[[./img/RELAY-2-4.png]]
+
+
+** Truth tables of logic gates
+
+*** NOT
+| INPUT | OUTPUT |
+|-------+--------|
+| A     | NOT A  |
+|-------+--------|
+| 0     | 1      |
+| 1     | 0      |
+
+#+BEGIN_HTML
+<p><a href="https://commons.wikimedia.org/wiki/File:Not-gate-en.svg#/media/File:Not-gate-en.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Not-gate-en.svg/1200px-Not-gate-en.svg.png" alt="Not-gate-en.svg"></a><br><a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=829068">Link</a></p>
+#+END_HTML
+
+*** AND
+| INPUT | INPUT |  OUTPUT |
+|-------+-------+---------|
+|     A |     B | A AND B |
+|-------+-------+---------|
+|     0 |     0 |       0 |
+|     0 |     1 |       0 |
+|     1 |     0 |       0 |
+|     1 |     1 |       1 |
+
+#+BEGIN_HTML
+<p><a href="https://commons.wikimedia.org/wiki/File:AND_ANSI_Labelled.svg#/media/File:AND_ANSI_Labelled.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/AND_ANSI_Labelled.svg/1200px-AND_ANSI_Labelled.svg.png" alt="AND ANSI Labelled.svg"></a><br>By <a href="//commons.wikimedia.org/wiki/User:Inductiveload" title="User:Inductiveload">Inductiveload</a> - <span class="int-own-work" lang="en">Own work</span>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=5729013">Link</a></p>
+#+END_HTML
+
+*** OR
+
+| INPUT | INPUT | OUTPUT |
+|-------+-------+--------|
+|     A |     B | A OR B |
+|-------+-------+--------|
+|     0 |     0 |      0 |
+|     0 |     1 |      1 |
+|     1 |     0 |      1 |
+|     1 |     1 |      1 |
+
+#+BEGIN_HTML
+<p><a href="https://commons.wikimedia.org/wiki/File:OR_ANSI_Labelled.svg#/media/File:OR_ANSI_Labelled.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/OR_ANSI_Labelled.svg/1200px-OR_ANSI_Labelled.svg.png" alt="OR ANSI Labelled.svg"></a><br>By <a href="//commons.wikimedia.org/wiki/User:Inductiveload" title="User:Inductiveload">Inductiveload</a> - <span class="int-own-work" lang="en">Own work</span>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=5729019">Link</a></p>
+#+END_HTML
+
+*** XOR
+
+| INPUT | INPUT |  OUTPUT |
+|-------+-------+---------|
+|     A |     B | A XOR B |
+|-------+-------+---------|
+|     0 |     0 |       0 |
+|     0 |     1 |       1 |
+|     1 |     0 |       1 |
+|     1 |     1 |       0 |
+
+#+BEGIN_HTML
+<p><a href="https://commons.wikimedia.org/wiki/File:XOR_ANSI.svg#/media/File:XOR_ANSI.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/XOR_ANSI.svg/1200px-XOR_ANSI.svg.png" alt="XOR ANSI.svg"></a><br>By jjbeard - Own Drawing, made in Inkscape 0.43, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=830757">Link</a></p>
+#+END_HTML
+*** NOR
+
+| INPUT | INPUT |  OUTPUT |
+|-------+-------+---------|
+|     A |     B | A NOR B |
+|-------+-------+---------|
+|     0 |     0 |       1 |
+|     0 |     1 |       0 |
+|     1 |     0 |       0 |
+|     1 |     1 |       0 |
+
+#+BEGIN_HTML
+<p><a href="https://commons.wikimedia.org/wiki/File:NOR_ANSI_Labelled.svg#/media/File:NOR_ANSI_Labelled.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/NOR_ANSI_Labelled.svg/1200px-NOR_ANSI_Labelled.svg.png" alt="NOR ANSI Labelled.svg"></a><br>By <a href="//commons.wikimedia.org/wiki/User:Inductiveload" title="User:Inductiveload">Inductiveload</a> - <span class="int-own-work" lang="en">Own work</span>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=5729017">Link</a></p>
+#+END_HTML
+
+*** XNOR
+XNOR is the logical equality.
+
+| INPUT | INPUT |  OUTPUT |
+|-------+-------+---------|
+|     A |     B | A NOR B |
+|-------+-------+---------|
+|     0 |     0 |       1 |
+|     0 |     1 |       0 |
+|     1 |     0 |       0 |
+|     1 |     1 |       1 |
+
+#+BEGIN_HTML
+<p><a href="https://commons.wikimedia.org/wiki/File:Xnor-gate-en.svg#/media/File:Xnor-gate-en.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Xnor-gate-en.svg/1200px-Xnor-gate-en.svg.png" alt="Xnor-gate-en.svg"></a><br><a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=829201">Link</a></p>
+#+END_HTML
+* Decoder 2-to-4
+
+- [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/decoder_2_to_4.circ]]
+
+[[./img/DECODER-2-4-7408.png]]
+
+* Multiplexer 4-to-1
+Multiplexer 4-to-1 using a decoder 2-to-4.
+
+- [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/multiplexer_4_to_1.circ]]
+
+
+[[./img/MUX-4-1.png]]
+
+A multiplexer's module below.
+#+BEGIN_HTML
+<p><a href="https://commons.wikimedia.org/wiki/File:Multiplexer_4-to-1.svg#/media/File:Multiplexer_4-to-1.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Multiplexer_4-to-1.svg/1200px-Multiplexer_4-to-1.svg.png" alt="Multiplexer 4-to-1.svg"></a><br>By <a href="https://en.wikipedia.org/wiki/User:Cburnett" class="extiw" title="en:User:Cburnett">en:User:Cburnett</a> - <span class="int-own-work" lang="en">Own work</span>
+<a href="//commons.wikimedia.org/wiki/File:Inkscape_Logo.svg" title="File:Inkscape Logo.svg"></a>
+This <a href="https://en.wikipedia.org/wiki/Vector_images" class="extiw" title="w:Vector images">vector image</a> was created with <a href="//commons.wikimedia.org/wiki/Help:Inkscape" title="Help:Inkscape">Inkscape</a>., <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=1505578">Link</a></p>
+#+END_HTML
+* Encoding
+** Seven segment display
+
+#+BEGIN_HTML
+<p><a href="https://commons.wikimedia.org/wiki/File:7_segment_display_labeled.svg#/media/File:7_segment_display_labeled.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/7_segment_display_labeled.svg/1200px-7_segment_display_labeled.svg.png" alt="7 segment display labeled.svg"></a><br>By <a href="//commons.wikimedia.org/wiki/User:H2g2bob" title="User:H2g2bob">user:h2g2bob</a> - Own work using Inkscape, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=1451959">Link</a></p>
+#+END_HTML
+
+*** Combiner circuit and truth table
+
+How to print numbers 0-3 to 7-segment alphanumeric display.
+
+- You need only 2 bits to display numbers 0-3 using binary numbers
+- Check which LEDs should be switched on (value = 1, ie. logical TRUE) to display number 0
+  - Repeat for all numbers
+
+| In0 | In1 | - | A | B | C | D | E | F | G |
+|-----+-----+---+---+---+---+---+---+---+---|
+|   0 |   0 |   | 1 | 1 | 1 | 1 | 1 | 1 | 0 |
+|   0 |   1 |   | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
+|   1 |   0 |   | 1 | 1 | 0 | 1 | 1 | 0 | 1 |
+|   1 |   1 |   | 1 | 1 | 1 | 1 | 0 | 0 | 1 |
+
+
+- How to make the logical functions :: Express using basic logic operations (AND, NOT, OR) the output (7-segments) based on the input (2-bits)
+
+| A = NOT( In0' \cdot In1 ) |
+| B = 1                     |
+| C = NOT( In0 \cdot In1' ) |
+| D = A                     |
+| E = In1'                  |
+| F = In0' \cdot In1'       |
+| G = In0                   |
+
+* 2s complement
+
+[[./img/2scomplement.png]]
+
+
+
+* Half-Adder and Full-Adder
+
+- [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/half_full_adder.circ]]
+
+
+[[./img/ADDER.png]]
+
+* Latch
+
+Latches are basic module for implementing memory.
+
+- [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/latches_RS_D.circ]]
+
+[[./img/latches.png]]
+
+
+* Register
+** Shift register
+
+- [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/shift_register.circ]]
+
+[[./img/shift-register.png]]
+
+** Master-slave register
+
+The basic memory component.  Below master-slave register activated by positive edge clock.
+
+
+- [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/master_slave_register.circ]]
+
+
+[[./img/master-slave.png]]
+
+* Sequential circuits
+** Counter
+
+A 3 bit counter.
+
+- [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/3_bit_counter.circ]]
+
+[[./img/3bit-counter.png]]
+
+** Finite state machine (FSM)
+
+FSM for adaptive control of traffic lights.
+
+- [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/analogy_1_to_1.circ]]
+
+# #+BEGIN_SRC dot :file ./img/fsm-1-1.png :cmdline -Kdot -Tpng
+#   digraph {
+
+#   rankdir=LR
+#   forcelabels=true;
+
+#   s1[label="last\nwas A"]
+#   s2[label="last\nwas B"]
+
+#   s1:e -> s2:nw[label="Bd=>Bgo"]
+#   s2 -> s1[label="Ago<=Ad"]
+
+#   s1:n -> s1:nw[label="(Bd'Ad)\n=>Ago"]
+#   s1:s -> s1:sw[label="(Bd'Ad')"]
+
+#   s2:e -> s2:ne[label="(Ad')(Bd')"]
+#   s2:s -> s2:sw[label="(Ad')(Bd)\n=>Bgo"]
+
+#   }
+# #+END_SRC
+
+
+[[file:./img/fsm-1-1.png]]
+
+| S | Ad | Bd |   |   | Ago | Bgo | nS |
+|---+----+----+---+---+-----+-----+----|
+| 0 |  0 |  0 |   |   |   0 |   0 |  0 |
+| 0 |  0 |  1 |   |   |   0 |   1 |  1 |
+| 0 |  1 |  0 |   |   |   1 |   0 |  0 |
+| 0 |  1 |  1 |   |   |   0 |   1 |  1 |
+| 1 |  0 |  0 |   |   |   0 |   0 |  1 |
+| 1 |  0 |  1 |   |   |   0 |   1 |  1 |
+| 1 |  1 |  0 |   |   |   1 |   0 |  0 |
+| 1 |  1 |  1 |   |   |   1 |   0 |  0 |
+
+- Ago = Ad · [ S + (S')·(Bd') ]
+- Bgo = Bd · [ S' + (S)·(Ad') ]
+- nS  =  S · Ad'  +  S' · Bd
