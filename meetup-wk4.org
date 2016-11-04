@@ -180,6 +180,7 @@ How to print numbers 0-3 to 7-segment alphanumeric display.
 
 * 2s complement
 
+
 [[./img/2scomplement.png]]
 
 
@@ -270,3 +271,18 @@ FSM for adaptive control of traffic lights.
 - Ago = Ad · [ S + (S')·(Bd') ]
 - Bgo = Bd · [ S' + (S)·(Ad') ]
 - nS  =  S · Ad'  +  S' · Bd
+
+** Arithmetic Logic Unit (ALU)
+
+A basic component which can do multiple functions, like addition, subtraction, logical AND etc.
+
+- [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/ALU.circ]]
+
+[[./img/ALU.png]]
+
+| mode: |        |   |              |         |
+|   000 | ALUout |   | A+B          | (add)   |
+|   001 | ALUout |   | A-B          | (sub)   |
+|   010 | ALUout |   | A AND B      | (and)   |
+|   011 | ALUout |   | NOT (A OR B) | (nor)   |
+|   1xx | ALUout |   | B            | (passB) |
