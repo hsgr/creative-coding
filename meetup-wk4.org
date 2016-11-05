@@ -30,8 +30,8 @@ http://www.csd.uoc.gr/~hy120/16f/copyright.html
     - [[#master-slave-register][4.2.2. Master-slave register]]
 - [[#sequential-circuits][5. Sequential circuits]]
   - [[#counter][5.1. Counter]]
-  - [[#finite-state-machine-(FSM)][5.2. Finite state machine (FSM)]]
-  - [[#arithmetic-logic-unit-(ALU)][5.3. Arithmetic logic unit (ALU)]]
+  - [[#finite-state-machine-(fsm)][5.2. Finite state machine (FSM)]]
+  - [[#arithmetic-logic-unit-(alu)][5.3. Arithmetic logic unit (ALU)]]
 
 
 
