@@ -4,6 +4,37 @@
 #+HTML:&copy University of Crete.
 http://www.csd.uoc.gr/~hy120/16f/copyright.html
 
+- [[#basic-logic-components][1. Basic logic components]]
+  - [[#spdt-switches][1.1. SPDT switches]]
+    - [[#odd-parity][1.1.1. Odd parity]]
+    - [[#even-parity][1.1.2. Even parity]]
+  - [[#relays][1.2 Relays]]
+  - [[#truth-tables-of-logic-gates][1.3. Truth tables of logic gates]]
+    - [[#not][1.3.1. NOT]]
+    - [[#and][1.3.2. AND]]
+    - [[#or][1.3.3. OR]]
+    - [[#xor][1.3.4. XOR]]
+    - [[#nor][1.3.5. NOR]]
+    - [[#][1.3.6. XNOR]]
+- [[#combinational-circuits][2. Combinational circuits]]
+  - [[#decoder-2to4][2.1. Decoder 2to4]]
+  - [[#multiplexer-4to1][2.2. Multiplexer 4to1]]
+  - [[#encoding][2.3. Encoding]]
+    - [[#seven-segment-display][2.3.1. Seven segment display]]
+  - [[#adders][2.4. Adders]]
+- [[#2scomplement][3. 2s complement]]
+- [[#memory-components][4. Memory components]]
+  - [[#latch][4.1. Latch]]
+  - [[#register][4.2. Register]]
+    - [[#shift-register][4.2.1. Shift register]]
+    - [[#master-slave-register][4.2.2. Master-slave register]]
+- [[#sequential-circuits][5. Sequential circuits]]
+  - [[#counter][5.1. Counter]]
+  - [[#finite-state-machine-(FSM)][5.2. Finite state machine (FSM)]]
+  - [[#arithmetic-logic-unit-(ALU)][5.3. Arithmetic logic unit (ALU)]]
+
+
+
 * Basic logic components
 
 ** SPDT switches
@@ -126,13 +157,32 @@ XNOR is the logical equality.
 #+BEGIN_HTML
 <p><a href="https://commons.wikimedia.org/wiki/File:Xnor-gate-en.svg#/media/File:Xnor-gate-en.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Xnor-gate-en.svg/1200px-Xnor-gate-en.svg.png" alt="Xnor-gate-en.svg"></a><br><a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=829201">Link</a></p>
 #+END_HTML
-* Decoder 2-to-4
+* Combinational circuits
+
+High level description of combinational circuits.
+
+#+BEGIN_SRC dot :file ./img/combinational-cirsuits.png :cmdline -Kdot -Tpng :exports results
+digraph G{
+
+rankdir=LR
+node[shape=box]
+
+logic[label="Combinational circuit"]
+Inputs -> logic -> Outputs
+
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:./img/combinational-cirsuits.png]]
+
+** Decoder 2to4
 
 - [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/decoder_2_to_4.circ]]
 
 [[./img/DECODER-2-4-7408.png]]
 
-* Multiplexer 4-to-1
+** Multiplexer 4to1
 Multiplexer 4-to-1 using a decoder 2-to-4.
 
 - [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/multiplexer_4_to_1.circ]]
@@ -146,14 +196,14 @@ A multiplexer's module below.
 <a href="//commons.wikimedia.org/wiki/File:Inkscape_Logo.svg" title="File:Inkscape Logo.svg"></a>
 This <a href="https://en.wikipedia.org/wiki/Vector_images" class="extiw" title="w:Vector images">vector image</a> was created with <a href="//commons.wikimedia.org/wiki/Help:Inkscape" title="Help:Inkscape">Inkscape</a>., <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=1505578">Link</a></p>
 #+END_HTML
-* Encoding
-** Seven segment display
+** Encoding
+*** Seven segment display
 
 #+BEGIN_HTML
 <p><a href="https://commons.wikimedia.org/wiki/File:7_segment_display_labeled.svg#/media/File:7_segment_display_labeled.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/7_segment_display_labeled.svg/1200px-7_segment_display_labeled.svg.png" alt="7 segment display labeled.svg"></a><br>By <a href="//commons.wikimedia.org/wiki/User:H2g2bob" title="User:H2g2bob">user:h2g2bob</a> - Own work using Inkscape, <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=1451959">Link</a></p>
 #+END_HTML
 
-*** Combiner circuit and truth table
+**** Combinational circuit and truth table
 
 How to print numbers 0-3 to 7-segment alphanumeric display.
 
@@ -178,22 +228,22 @@ How to print numbers 0-3 to 7-segment alphanumeric display.
 | E = In1'                  |
 | F = In0' \cdot In1'       |
 | G = In0                   |
-
-* 2s complement
-The inner circle shows the unsigned numbers (1s complement), the outer (helix) shows the signed numbers (2s complement).
-
-[[./img/2scomplement.png]]
-
-
-
-* Half-Adder and Full-Adder
+** Adders
+Half-adder and full-adder implementation.
 
 - [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/half_full_adder.circ]]
 
 
 [[./img/ADDER.png]]
 
-* Latch
+
+* 2s complement
+The inner circle shows the unsigned numbers (1s complement), the outer (helix) shows the signed numbers (2s complement).
+
+[[./img/2scomplement.png]]
+
+* Memory components
+** Latch
 
 Latches are basic module for implementing memory.
 
@@ -201,15 +251,14 @@ Latches are basic module for implementing memory.
 
 [[./img/latches.png]]
 
-
-* Register
-** Shift register
+** Register
+*** Shift register
 
 - [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/shift_register.circ]]
 
 [[./img/shift-register.png]]
 
-** Master-slave register
+*** Master-slave register
 
 The basic memory component.  Below master-slave register using two latches RS, activated by positive edge clock.
 
@@ -219,7 +268,31 @@ The basic memory component.  Below master-slave register using two latches RS, a
 
 [[./img/master-slave.png]]
 
+
 * Sequential circuits
+
+High level description of sequential circuits.
+
+#+BEGIN_SRC ditaa :file ./img/sequential-cirsuits.png :exports results
+                  +---------------+
+          Inputs  |               |  Outputs
+        --------->|               |----------->
+                  |               |
+   +---+          | Combinational |
+   |   |          |    circuit    |
+   |   |  State   |               |
++->|   |--------->|               |-----+
+|  |   |          |               |     |
+|  |   |          |               |     |
+|  +-+-+          +---------------+     |
+|    |                                  |
+|            next State                 |
++---------------------------------------+
+#+END_SRC
+
+#+RESULTS:
+[[file:./img/sequential-cirsuits.png]]
+
 ** Counter
 
 A 3 bit counter.
@@ -250,7 +323,7 @@ FSM for adaptive control of traffic lights.  A and B are cars on a crossroad.
 
 - [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/analogy_1_to_1.circ]]
 
-#+BEGIN_SRC dot :file ./img/fsm-1-1.png :cmdline -Kdot -Tpng :exports results
+#+BEGIN_SRC dot :file ./img/fsm-1-1.png :cmdline -Kdot -Tpng :exports none
   digraph {
 
   rankdir=LR
@@ -270,6 +343,9 @@ FSM for adaptive control of traffic lights.  A and B are cars on a crossroad.
 
   }
 #+END_SRC
+
+#+RESULTS:
+[[file:./img/fsm-1-1.png]]
 
 #+CAPTION: One-by-one analogy for traffic control
 [[file:./img/fsm-1-1.png]]
