@@ -335,8 +335,8 @@ FSM for adaptive control of traffic lights.  A and B are cars on a crossroad.
   s1:e -> s2:nw[label="Bd=>Bgo"]
   s2 -> s1[label="Ago<=Ad"]
 
-  s1:n -> s1:nw[label="(Bd'Ad)\n=>Ago"]
-  s1:s -> s1:sw[label="(Bd'Ad')"]
+  s1:n -> s1:nw[label="(Bd')(Ad)\n=>Ago"]
+  s1:s -> s1:sw[label="(Bd')(Ad')"]
 
   s2:e -> s2:ne[label="(Ad')(Bd')"]
   s2:s -> s2:sw[label="(Ad')(Bd)\n=>Bgo"]
