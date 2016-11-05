@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Digital design fundamentals</title>
-<!-- 2016-11-04 Παρ 18:22 -->
+<!-- 2016-11-05 Σαβ 02:57 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Georgios Diapoulis" />
@@ -298,7 +298,12 @@ Switches which can be used as memory.  The relay below has a DPDT switch (double
 <div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3"><span class="section-number-3">1.3</span> Truth tables of logic gates</h3>
 <div class="outline-text-3" id="text-1-3">
-</div><div id="outline-container-sec-1-3-1" class="outline-4">
+<p>
+In principle we need three basic gates to compose every other gate: logical NOT, logical AND, logical OR.
+</p>
+</div>
+
+<div id="outline-container-sec-1-3-1" class="outline-4">
 <h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> NOT</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
@@ -845,6 +850,10 @@ How to print numbers 0-3 to 7-segment alphanumeric display.
 <div id="outline-container-sec-5" class="outline-2">
 <h2 id="sec-5"><span class="section-number-2">5</span> 2s complement</h2>
 <div class="outline-text-2" id="text-5">
+<p>
+The inner circle shows the unsigned numbers (1s complement), the outer (helix) shows the signed numbers (2s complement).
+</p>
+
 
 <div class="figure">
 <p><img src="./img/2scomplement.png" alt="2scomplement.png" />
@@ -916,7 +925,7 @@ Latches are basic module for implementing memory.
 <h3 id="sec-8-2"><span class="section-number-3">8.2</span> Master-slave register</h3>
 <div class="outline-text-3" id="text-8-2">
 <p>
-The basic memory component.  Below master-slave register activated by positive edge clock.
+The basic memory component.  Below master-slave register using two latches RS, activated by positive edge clock.
 </p>
 
 
@@ -962,8 +971,14 @@ A 3 bit counter.
 <h3 id="sec-9-2"><span class="section-number-3">9.2</span> Finite state machine (FSM)</h3>
 <div class="outline-text-3" id="text-9-2">
 <p>
-FSM for adaptive control of traffic lights.
+FSM for adaptive control of traffic lights.  A and B are cars on a crossroad.
 </p>
+
+
+<div class="figure">
+<p><img src="./img/cars.png" alt="cars.png" />
+</p>
+</div>
 
 <dl class="org-dl">
 <dt> <a href="http://www.cburch.com/logisim/">logisim</a> file </dt><dd><a href="./src/logisim/analogy_1_to_1.circ">./src/logisim/analogy_1_to_1.circ</a>
@@ -974,6 +989,13 @@ FSM for adaptive control of traffic lights.
 <div class="figure">
 <p><img src="./img/fsm-1-1.png" alt="fsm-1-1.png" />
 </p>
+</div>
+
+
+<div class="figure">
+<p><img src="./img/fsm-1-1.png" alt="fsm-1-1.png" />
+</p>
+<p><span class="figure-number">Figure 16:</span> One-by-one analogy for traffic control</p>
 </div>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">

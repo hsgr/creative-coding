@@ -39,6 +39,7 @@ Switches which can be used as memory.  The relay below has a DPDT switch (double
 
 
 ** Truth tables of logic gates
+In principle we need three basic gates to compose every other gate: logical NOT, logical AND, logical OR.
 
 *** NOT
 | INPUT | OUTPUT |
@@ -179,7 +180,7 @@ How to print numbers 0-3 to 7-segment alphanumeric display.
 | G = In0                   |
 
 * 2s complement
-
+The inner circle shows the unsigned numbers (1s complement), the outer (helix) shows the signed numbers (2s complement).
 
 [[./img/2scomplement.png]]
 
@@ -210,7 +211,7 @@ Latches are basic module for implementing memory.
 
 ** Master-slave register
 
-The basic memory component.  Below master-slave register activated by positive edge clock.
+The basic memory component.  Below master-slave register using two latches RS, activated by positive edge clock.
 
 
 - [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/master_slave_register.circ]]
@@ -229,32 +230,48 @@ A 3 bit counter.
 
 ** Finite state machine (FSM)
 
-FSM for adaptive control of traffic lights.
+FSM for adaptive control of traffic lights.  A and B are cars on a crossroad.
+
+#+BEGIN_SRC ditaa :file ./img/cars.png :exports results
+-----------------------------------------
+                    AAAA
+-----------------------+   +-------------
+                       | B |
+                       | B |
+                       |   |
+                       |   |
+                       |   |
+                       |   |
+                       |   |
+#+END_SRC
+
+#+RESULTS:
+[[file:./img/cars.png]]
 
 - [[http://www.cburch.com/logisim/][logisim]] file :: [[./src/logisim/analogy_1_to_1.circ]]
 
-# #+BEGIN_SRC dot :file ./img/fsm-1-1.png :cmdline -Kdot -Tpng
-#   digraph {
+#+BEGIN_SRC dot :file ./img/fsm-1-1.png :cmdline -Kdot -Tpng :exports results
+  digraph {
 
-#   rankdir=LR
-#   forcelabels=true;
+  rankdir=LR
+  forcelabels=true;
 
-#   s1[label="last\nwas A"]
-#   s2[label="last\nwas B"]
+  s1[label="last\nwas A"]
+  s2[label="last\nwas B"]
 
-#   s1:e -> s2:nw[label="Bd=>Bgo"]
-#   s2 -> s1[label="Ago<=Ad"]
+  s1:e -> s2:nw[label="Bd=>Bgo"]
+  s2 -> s1[label="Ago<=Ad"]
 
-#   s1:n -> s1:nw[label="(Bd'Ad)\n=>Ago"]
-#   s1:s -> s1:sw[label="(Bd'Ad')"]
+  s1:n -> s1:nw[label="(Bd'Ad)\n=>Ago"]
+  s1:s -> s1:sw[label="(Bd'Ad')"]
 
-#   s2:e -> s2:ne[label="(Ad')(Bd')"]
-#   s2:s -> s2:sw[label="(Ad')(Bd)\n=>Bgo"]
+  s2:e -> s2:ne[label="(Ad')(Bd')"]
+  s2:s -> s2:sw[label="(Ad')(Bd)\n=>Bgo"]
 
-#   }
-# #+END_SRC
+  }
+#+END_SRC
 
-
+#+CAPTION: One-by-one analogy for traffic control
 [[file:./img/fsm-1-1.png]]
 
 | S | Ad | Bd |   |   | Ago | Bgo | nS |
