@@ -9,7 +9,6 @@ var w, butt, sound; // w is not an interpreter's var -- it's a local var
 // define a window
 w = Window.new("first piece", Rect(0, 0, 200, 200));
 w.front; // make the window
-w.onClose = { sound.free };
 // make the button
 butt = Button(w, Rect(0, 0, 100, 100));
 //define the states of the button

@@ -1,5 +1,21 @@
 #+TITLE: Sounds and GUI
 
+- [[#basic-keyboard-shortcuts][1. Basic keyboard shortcuts]]
+- [[#function][2. Function]]
+- [[#synthdef][3. SynthDef]]
+  - [[#a-synth-with-no-arguments][3.1. A synth with no arguments]]
+  - [[#a-synth-with-arguments][3.2. A synth with arguments]]
+- [[#gui-and-sequencers][4. GUI and sequencers]]
+  - [[#gui-and-ugen][4.1. GUI and UGen]]
+  - [[#gui-and-synthdef][4.2. GUI and SynthDef]]
+  - [[#gui,-buffers-and-routine][4.3. GUI, Buffers and Routine]]
+- [[#sequencing-using-patterns][5. Sequencing using patterns]]
+- [[#demand-rate-ugens][6. Demand rate UGens]]
+- [[#how-to-make-a-recording][7. How to make a recording]]
+  - [[#the-hard-way][7.1. The hard way]]
+  - [[#an-easy-way][7.2. An easy way]]
+
+
 * Basic keyboard shortcuts
 - *Evaluate region*: =Ctrl + RET= (Control and Return)
   - Evaluates a code chunk within brackets =( )=
@@ -18,6 +34,8 @@ A function is enclosed within curly brackets ={ }= and is *evaluated* when using
 
 See the example below from [[http://doc.sccode.org/Classes/Function.html][Function]] SC3 help file.
 
+- Link to SC3 script below :: [[./src/simple-func.scd]]
+
 #+BEGIN_SRC sclang :tangle ./src/simple-func.scd
 (
 var a, b, c;
@@ -29,6 +47,9 @@ c.value.postln; // evaluate c and print the result
 #+END_SRC
 
 A function with *arguments*:
+
+- Link to SC3 script below :: [[./src/func-with-args.scd]]
+
 #+BEGIN_SRC sclang :tangle ./src/func-with-args.scd
 f = { |a, b| (a * b).postln }; // |a, b| are the arguments
 f.value(3, 10);
@@ -39,7 +60,11 @@ A [[http://doc.sccode.org/Classes/SynthDef.html][SynthDef]] is a language side r
 
 ** A synth with no arguments
 A synth with no arguments (no external control of it).
+
+- Link to SC3 script below :: [[./src/def-no-args.scd]]
+
 #+BEGIN_SRC sclang :tangle ./src/def-no-args.scd
+
 SynthDef(\def_noArgs, { Out.ar(0, LPF.ar(PinkNoise.ar(1), 550))}).add;
 
 a = Synth(\def_noArgs); // play the sound
@@ -48,6 +73,9 @@ a.free; // stop the sound and release the Synth
 #+END_SRC
 
 ** A synth with arguments
+
+- Link to SC3 script below :: [[./src/def-with-args.scd]]
+
 #+BEGIN_SRC sclang :tangle ./src/def-with-args.scd
 (
 SynthDef(\def_args, { | freq = 440 |
@@ -68,6 +96,9 @@ a = Synth(\def_args, [\freq, 330]); // change the frequency
 An [[http://doc.sccode.org/Guides/GUI-Introduction.html][Introduction to GUI]] and a [[http://doc.sccode.org/Overviews/GUI-Classes.html][List of GUI Classes]] are available from on [[http://sccode.org/][sccode.org]].
 
 ** GUI and UGen
+
+- Link to SC3 script below :: [[./src/button-ugen.scd]]
+
 #+BEGIN_SRC sclang :tangle ./src/button-ugen.scd
 (
 s.waitForBoot({
@@ -88,6 +119,8 @@ s.waitForBoot({
 ** GUI and SynthDef
 The code below defines a synth and you can listen the sound using a button.
 
+- Link to SC3 script below :: [[./src/button-synthdef.scd]]
+
 #+BEGIN_SRC sclang :tangle ./src/button-synthdef.scd
 SynthDef(\noise, { | amp = 0.2 | Out.ar(0, PinkNoise.ar(amp)); }).add;
 a = Synth(\noise);
@@ -99,7 +132,6 @@ var w, butt, sound; // w is not an interpreter's var -- it's a local var
 // define a window
 w = Window.new("first piece", Rect(0, 0, 200, 200));
 w.front; // make the window
-w.onClose = { sound.free };
 // make the button
 butt = Button(w, Rect(0, 0, 100, 100));
 //define the states of the button
@@ -123,6 +155,9 @@ butt.action = { | v |
 A sequencer that uses buffers to load samples.
 
 Load the buffers and define the synth.
+
+- Link to SC3 script below :: [[./src/grid-sequencer-defs.scd]]
+
 #+BEGIN_SRC sclang :tangle ./src/grid-sequencer-defs.scd
 // you can use the following sound files from freesound.org
 /*
@@ -156,6 +191,8 @@ Synth(\buffdrums, [\bufnum, c[3]]);
 #+END_SRC
 
 Make the GUI and play the routine.
+
+- Link to SC3 script below :: [[./src/grid-sequencer.scd]]
 
 #+BEGIN_SRC sclang :tangle ./src/grid-sequencer.scd
 (
@@ -430,6 +467,9 @@ r.stop;
 
 See [[http://doc.sccode.org/Classes/Pattern.html][Pattern]] help file.  Some popular pattern classes are =Pbind=, =Pseq=, =Pwhite=, =Prand=, =Ppar=, =Prout=, =Pn=.
 
+
+- Link to SC3 script below :: [[./src/pattern-sequencing.scd]]
+
 #+BEGIN_SRC sclang :tangle ./src/pattern-sequencing.scd
 (
 s.waitForBoot{
@@ -451,6 +491,8 @@ s.waitForBoot{
 #+END_SRC
 
 A handy way to play with patterns is performed using method =asStream=.  The example below is from [[http://doc.sccode.org/Classes/Pn.html][Pn]] help file.
+
+- Link to SC3 script below :: [[./src/pattern-as-stream.scd]]
 
 #+BEGIN_SRC sclang :tangle ./src/pattern-as-stream.scd
 // sound example
@@ -481,6 +523,8 @@ a = Pn(Pshuf([1, 2, 2, 3, 3, 3], 4)).asStream; // repeat pattern four times
 
 See [[http://doc.sccode.org/Classes/Demand.html][Demand]], [[http://doc.sccode.org/Classes/Duty.html][Duty]] help files.
 
+- Link to SC3 script below :: [[./src/demand-sequencing.scd]]
+
 #+BEGIN_SRC sclang :tangle ./src/demand-sequencing.scd
 (
     {
@@ -501,7 +545,10 @@ See [[http://doc.sccode.org/Classes/Demand.html][Demand]], [[http://doc.sccode.o
 ** The hard way
 Defining a class to record the output of SC3.
 
+- Link to SC3 script below :: [[./src/Record.sc]]
+
 #+BEGIN_SRC sclang :tangle ./src/Record.sc
+// By Ioannis Zannos
 Record {
 	*start {
 		{
