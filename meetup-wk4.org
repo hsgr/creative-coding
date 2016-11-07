@@ -24,10 +24,11 @@ http://www.csd.uoc.gr/~hy120/16f/copyright.html
   - [[#adders][2.4. Adders]]
 - [[#2scomplement][3. 2s complement]]
 - [[#memory-components][4. Memory components]]
-  - [[#latch][4.1. Latch]]
-  - [[#register][4.2. Register]]
-    - [[#shift-register][4.2.1. Shift register]]
-    - [[#master-slave-register][4.2.2. Master-slave register]]
+  - [[#rs-flip-flop-with-relays][4.1. RS Flip-Flop with relays]]
+  - [[#latch][4.2. Latch]]
+  - [[#register][4.3. Register]]
+    - [[#shift-register][4.3.1. Shift register]]
+    - [[#master-slave-register][4.3.2. Master-slave register]]
 - [[#sequential-circuits][5. Sequential circuits]]
   - [[#counter][5.1. Counter]]
   - [[#finite-state-machine-(fsm)][5.2. Finite state machine (FSM)]]
@@ -243,6 +244,12 @@ The inner circle shows the unsigned numbers (1s complement), the outer (helix) s
 [[./img/2scomplement.png]]
 
 * Memory components
+** RS Flip-Flop with relays
+
+Makes use positive feedback to create a latch, 1 bit of mechanical memory.
+
+[[./img/sr-latch-relay.png]]
+
 ** Latch
 
 Latches are basic module for implementing memory.
