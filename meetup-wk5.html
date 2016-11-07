@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Arduino</title>
+<!-- 2016-11-07 Δευ 04:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Georgios Diapoulis" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+href="http://sachachua.com/blog/wp-content/themes/sacha-v3/foundation/css/foundation.min.css"></link>
+<link rel="stylesheet" type="text/css" href="http://sachachua.com/org-export.css"></link>
+<link rel="stylesheet" type="text/css" href="http://sachachua.com/blog/wp-content/themes/sacha-v3/style.css"></link>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<a name="top" id="top"></a>
+</div>
+<div id="content">
+<h1 class="title">Arduino</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Arduino Basics</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Analog and digital pins</a></li>
+<li><a href="#sec-1-2">1.2. Capacitive sensor</a></li>
+<li><a href="#sec-1-3">1.3. RCtime</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Arduino Basics</h2>
+<div class="outline-text-2" id="text-1">
+<dl class="org-dl">
+<dt> Tutorial Foundations </dt><dd><a href="https://www.arduino.cc/en/Tutorial/Foundations">https://www.arduino.cc/en/Tutorial/Foundations</a>
+</dd>
+<dt> Language Reference </dt><dd><a href="https://www.arduino.cc/en/Reference/HomePage">https://www.arduino.cc/en/Reference/HomePage</a>
+</dd>
+</dl>
+
+<p>
+Similar to Processing language <a href="http://arduino.cc/">Arduino</a> has two main structures, a <code>void setup()</code> and a <code>void loop()</code>.  In contrast to processing which uses <code>frameRate()</code> function to update the <code>void loop()</code> function, Arduino's "framerate" depends on the program that you have uploaded to your board (see online topic <a href="http://forum.arduino.cc/index.php?topic=42695.0">here</a>).
+</p>
+
+<p>
+Similar to Processing's window <code>size()</code> function, in Arduino's <code>void setup()</code> you have to define <code>Serial.begin()</code>, which is the speed in bits per second (or baud), that your board is communicating with your computer.
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Analog and digital pins</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+An Arduino has both <a href="https://www.arduino.cc/en/Tutorial/AnalogInputPins">analog</a> and <a href="https://www.arduino.cc/en/Tutorial/DigitalPins">digital</a> pins.  A standard Arduino board, like UNO, Duemilanove etc, has <b>6 analog inputs</b> and <b>14 digital inputs/outputs</b>.
+</p>
+
+<p>
+<code>pinMode()</code> function is used to declare if a pin is an input or an output.  By default Arduino's (Atmega) pins have been set to inputs.  If a pin is defined as INPUT a good value for <b>pullup</b> and <b>pulldown</b> resistor is <b>10KΩ</b>.  Pin 13 has an LED and a resistor on board, which makes it harder to be handle as an input.
+</p>
+
+<p>
+<b>Output pins</b> may provide up to <b>40mA</b> of current, which is enough for LEDs and ICs, but not enough for relays and motors.  Typical resistor values that should be used to output pins in order to protect your board are 470Ω and 1kΩ.
+</p>
+
+<p>
+Analog input pins use a 10 bit resolution (0-1023 integers), and they can be used as digital pins as well (GPIO).  To do so you have to map analog pins using the aliases <code>A0</code> for analog pin 0 (A1 for pin 1 and so forth).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java">pinMode(A0, OUTPUT);
+digitalWrite(A0, HIGH); <span class="org-comment-delimiter">// </span><span class="org-comment">set pullup on analog pin 0</span>
+</pre>
+</div>
+
+<dl class="org-dl">
+<dt> WARNING </dt><dd>By turning on a pullup will affect the values reported by <code>analogRead()</code>.
+</dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Capacitive sensor</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li><a href="http://playground.arduino.cc/Code/CapacitiveSensor">http://playground.arduino.cc/Code/CapacitiveSensor</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> RCtime</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+<a href="https://www.arduino.cc/en/Tutorial/RCtime">https://www.arduino.cc/en/Tutorial/RCtime</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+
+<style type="text/css">
+.back-to-top {
+    position: fixed;
+    bottom: 2em;
+    right: 0px;
+    text-decoration: none;
+    color: #000000;
+    background-color: rgba(235, 235, 235, 0.80);
+    font-size: 12px;
+    padding: 1em;
+    display: none;
+}
+
+.back-to-top:hover {
+    background-color: rgba(135, 135, 135, 0.50);
+}
+</style>
+
+<div class="back-to-top">
+<a href="#top">Back to top</a> | <a href="mailto:gediapou@student.jyu.fi">E-mail me</a>
+<p></p>
+<center>
+<a href="http://users.jyu.fi/~gediapou">Georgios Diapoulis</a>
+</center>
+</div>
+
+<script type="text/javascript">
+    var offset = 220;
+    var duration = 500;
+    jQuery(window).scroll(function() {
+        if (jQuery(this).scrollTop() > offset) {
+            jQuery('.back-to-top').fadeIn(duration);
+        } else {
+            jQuery('.back-to-top').fadeOut(duration);
+        }
+    });
+</script>
+</div>
+</body>
+</html>
