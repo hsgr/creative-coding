@@ -3,8 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Arduino</title>
-<!-- 2016-11-07 Δευ 04:22 -->
+<title>Arduino introduction and interfacing with Processing and SuperCollider</title>
+<!-- 2016-11-08 Τρι 03:27 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Georgios Diapoulis" />
@@ -145,18 +145,33 @@ for the JavaScript code in this tag.
 <a name="top" id="top"></a>
 </div>
 <div id="content">
-<h1 class="title">Arduino</h1>
+<h1 class="title">Arduino introduction and interfacing with Processing and SuperCollider</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#sec-1">1. Arduino Basics</a>
 <ul>
-<li><a href="#sec-1-1">1.1. Analog and digital pins</a></li>
-<li><a href="#sec-1-2">1.2. Capacitive sensor</a></li>
-<li><a href="#sec-1-3">1.3. RCtime</a></li>
+<li><a href="#sec-1-1">1.1. Arduino <b>important links</b></a></li>
+<li><a href="#sec-1-2">1.2. Analog and digital pins</a></li>
+<li><a href="#sec-1-3">1.3. Capacitive sensor</a></li>
+<li><a href="#sec-1-4">1.4. RCtime</a></li>
 </ul>
 </li>
+<li><a href="#sec-2">2. Analog read</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Analog read / binary output</a></li>
+<li><a href="#sec-2-2">2.2. Analog read / PWM output</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Digital read</a></li>
+<li><a href="#sec-4">4. Motor control</a></li>
+<li><a href="#sec-5">5. Arduino and Processing</a>
+<ul>
+<li><a href="#sec-5-1">5.1. Analog input to serial</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. Arduino and SuperCollider</a></li>
 </ul>
 </div>
 </div>
@@ -164,13 +179,6 @@ for the JavaScript code in this tag.
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1"><span class="section-number-2">1</span> Arduino Basics</h2>
 <div class="outline-text-2" id="text-1">
-<dl class="org-dl">
-<dt> Tutorial Foundations </dt><dd><a href="https://www.arduino.cc/en/Tutorial/Foundations">https://www.arduino.cc/en/Tutorial/Foundations</a>
-</dd>
-<dt> Language Reference </dt><dd><a href="https://www.arduino.cc/en/Reference/HomePage">https://www.arduino.cc/en/Reference/HomePage</a>
-</dd>
-</dl>
-
 <p>
 Similar to Processing language <a href="http://arduino.cc/">Arduino</a> has two main structures, a <code>void setup()</code> and a <code>void loop()</code>.  In contrast to processing which uses <code>frameRate()</code> function to update the <code>void loop()</code> function, Arduino's "framerate" depends on the program that you have uploaded to your board (see online topic <a href="http://forum.arduino.cc/index.php?topic=42695.0">here</a>).
 </p>
@@ -181,8 +189,20 @@ Similar to Processing's window <code>size()</code> function, in Arduino's <code>
 </div>
 
 <div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Analog and digital pins</h3>
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Arduino <b>important links</b></h3>
 <div class="outline-text-3" id="text-1-1">
+<dl class="org-dl">
+<dt> Language Reference </dt><dd><a href="https://www.arduino.cc/en/Reference/HomePage">https://www.arduino.cc/en/Reference/HomePage</a>
+</dd>
+<dt> Tutorial Foundations </dt><dd><a href="https://www.arduino.cc/en/Tutorial/Foundations">https://www.arduino.cc/en/Tutorial/Foundations</a>
+</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Analog and digital pins</h3>
+<div class="outline-text-3" id="text-1-2">
 <p>
 An Arduino has both <a href="https://www.arduino.cc/en/Tutorial/AnalogInputPins">analog</a> and <a href="https://www.arduino.cc/en/Tutorial/DigitalPins">digital</a> pins.  A standard Arduino board, like UNO, Duemilanove etc, has <b>6 analog inputs</b> and <b>14 digital inputs/outputs</b>.
 </p>
@@ -210,13 +230,16 @@ digitalWrite(A0, HIGH); <span class="org-comment-delimiter">// </span><span clas
 <dt> WARNING </dt><dd>By turning on a pullup will affect the values reported by <code>analogRead()</code>.
 </dd>
 </dl>
+
+<p>
+If you would like to simulate analog output use the function <code>analogWrite()</code>, which is based on <a href="https://www.arduino.cc/en/Tutorial/PWM">Pulse Width Modulation (PWM)</a>.  <code>analogWrite()</code> range of values is 0-255.
+</p>
 </div>
 </div>
 
-
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Capacitive sensor</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Capacitive sensor</h3>
+<div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li><a href="http://playground.arduino.cc/Code/CapacitiveSensor">http://playground.arduino.cc/Code/CapacitiveSensor</a>
 </li>
@@ -224,14 +247,169 @@ digitalWrite(A0, HIGH); <span class="org-comment-delimiter">// </span><span clas
 </div>
 </div>
 
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="section-number-3">1.3</span> RCtime</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> RCtime</h3>
+<div class="outline-text-3" id="text-1-4">
 <p>
 <a href="https://www.arduino.cc/en/Tutorial/RCtime">https://www.arduino.cc/en/Tutorial/RCtime</a>
 </p>
 </div>
 </div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Analog read</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Analog read / binary output</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>Photoresistor
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Analog read / PWM output</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li>Piezo mic
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Digital read</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>IC FSM to Arduino
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Motor control</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li><a href="http://www.tigoe.net/pcomp/code/circuits/motors/stepper-motors/">http://www.tigoe.net/pcomp/code/circuits/motors/stepper-motors/</a>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Arduino and Processing</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li><a href="http://playground.arduino.cc/Interfacing/ProcesssHackForFirmata">http://playground.arduino.cc/Interfacing/ProcesssHackForFirmata</a>
+</li>
+</ul>
+</div>
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Analog input to serial</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Use a potentiometer to send your analog input to processing.  See tutorial <a href="https://www.arduino.cc/en/Tutorial/Graph">Graph</a>.  Make sure to adjust your serial port properly (see Processing script below <code>Serial.list()[4]</code>).
+</p>
+
+
+<dl class="org-dl">
+<dt> Link to Arduino script </dt><dd><a href="./src/potensiometerGraph.ino">./src/potensiometerGraph.ino</a>
+</dd>
+</dl>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">setup</span>() {
+  <span class="org-comment-delimiter">// </span><span class="org-comment">initialize the serial communication:</span>
+  Serial.begin(9600);
+}
+
+<span class="org-type">void</span> <span class="org-function-name">loop</span>() {
+  <span class="org-comment-delimiter">// </span><span class="org-comment">send the value of analog input 0:</span>
+  Serial.println(analogRead(A0));
+  <span class="org-comment-delimiter">// </span><span class="org-comment">wait a bit for the analog-to-digital converter</span>
+  <span class="org-comment-delimiter">// </span><span class="org-comment">to stabilize after the last reading:</span>
+  delay(2);
+}
+</pre>
+</div>
+
+<dl class="org-dl">
+<dt> Link to Processing script </dt><dd><a href="./src/potensiometerGraph.pde">./src/potensiometerGraph.pde</a>
+</dd>
+</dl>
+
+<p>
+Make sure to have a look at <a href="https://processing.org/reference/libraries/serial/Serial.html">Serial</a> class, <a href="https://www.processing.org/reference/libraries/serial/serialEvent_.html">serialEvent()</a> and <a href="https://processing.org/reference/libraries/serial/Serial_readStringUntil_.html">readStringUntil()</a> functions.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span class="org-keyword">import</span> <span class="org-constant">processing</span>.<span class="org-constant">serial</span>.*;
+
+<span class="org-type">Serial</span> <span class="org-variable-name">myPort</span>;        <span class="org-comment-delimiter">// </span><span class="org-comment">The serial port</span>
+<span class="org-type">int</span> <span class="org-variable-name">xPos</span> = 1;         <span class="org-comment-delimiter">// </span><span class="org-comment">horizontal position of the graph</span>
+<span class="org-type">float</span> <span class="org-variable-name">inByte</span> = 0;
+
+<span class="org-type">void</span> <span class="org-function-name">setup</span> () {
+  <span class="org-comment-delimiter">// </span><span class="org-comment">set the window size:</span>
+  size(400, 300);
+
+  <span class="org-comment-delimiter">// </span><span class="org-comment">List all the available serial ports</span>
+  println(Serial.list());
+
+  <span class="org-comment-delimiter">// </span><span class="org-comment">select your serial port</span>
+  myPort = <span class="org-keyword">new</span> <span class="org-type">Serial</span>(<span class="org-keyword">this</span>, Serial.list()[4], 9600);
+
+  <span class="org-comment-delimiter">// </span><span class="org-comment">don't generate a serialEvent() unless you get a newline character:</span>
+  myPort.bufferUntil(<span class="org-string">'\n'</span>);
+
+  <span class="org-comment-delimiter">// </span><span class="org-comment">set inital background:</span>
+  background(0);
+}
+<span class="org-type">void</span> <span class="org-function-name">draw</span> () {
+  <span class="org-comment-delimiter">// </span><span class="org-comment">draw the line:</span>
+  stroke(127, 34, 255);
+  line(xPos, height, xPos, height - inByte);
+
+  <span class="org-comment-delimiter">// </span><span class="org-comment">at the edge of the screen, go back to the beginning:</span>
+  <span class="org-keyword">if</span> (xPos &gt;= width) {
+    xPos = 0;
+    background(0);
+  } <span class="org-keyword">else</span> {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">increment the horizontal position:</span>
+    xPos++;
+  }
+}
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">a serial event is called when data is available</span>
+<span class="org-type">void</span> <span class="org-function-name">serialEvent</span> (<span class="org-type">Serial</span> <span class="org-variable-name">myPort</span>) {
+  <span class="org-comment-delimiter">// </span><span class="org-comment">get the ASCII string:</span>
+  <span class="org-type">String</span> <span class="org-variable-name">inString</span> = myPort.readStringUntil(<span class="org-string">'\n'</span>);
+
+  <span class="org-keyword">if</span> (inString != <span class="org-constant">null</span>) {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">trim off any whitespace:</span>
+    inString = trim(inString);
+    <span class="org-comment-delimiter">// </span><span class="org-comment">convert to an int and map to the screen height:</span>
+    inByte = <span class="org-type">float</span>(inString);
+    println(inByte);
+    inByte = map(inByte, 0, 1023, 0, height);
+  }
+}
+</pre>
+</div>
+<ul class="org-ul">
+<li><a href="https://www.arduino.cc/en/Tutorial/Graph">https://www.arduino.cc/en/Tutorial/Graph</a>
+</li>
+<li><a href="http://playground.arduino.cc/Interfacing/Processing">http://playground.arduino.cc/Interfacing/Processing</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Arduino and SuperCollider</h2>
 </div>
 </div>
 <div id="postamble" class="status">

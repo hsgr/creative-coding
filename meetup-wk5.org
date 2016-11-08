@@ -1,13 +1,14 @@
-#+TITLE: Arduino
+#+TITLE: Arduino introduction and interfacing with Processing and SuperCollider
 
 * Arduino Basics
-
-- Tutorial Foundations :: https://www.arduino.cc/en/Tutorial/Foundations
-- Language Reference :: https://www.arduino.cc/en/Reference/HomePage
 
 Similar to Processing language [[http://arduino.cc/][Arduino]] has two main structures, a =void setup()= and a =void loop()=.  In contrast to processing which uses =frameRate()= function to update the =void loop()= function, Arduino's "framerate" depends on the program that you have uploaded to your board (see online topic [[http://forum.arduino.cc/index.php?topic=42695.0][here]]).
 
 Similar to Processing's window =size()= function, in Arduino's =void setup()= you have to define =Serial.begin()=, which is the speed in bits per second (or baud), that your board is communicating with your computer.
+
+** Arduino *important links*
+- Language Reference :: https://www.arduino.cc/en/Reference/HomePage
+- Tutorial Foundations :: https://www.arduino.cc/en/Tutorial/Foundations
 
 ** Analog and digital pins
 
@@ -26,9 +27,255 @@ digitalWrite(A0, HIGH); // set pullup on analog pin 0
 
 - WARNING :: By turning on a pullup will affect the values reported by =analogRead()=.
 
+If you would like to simulate analog output use the function =analogWrite()=, which is based on [[https://www.arduino.cc/en/Tutorial/PWM][Pulse Width Modulation (PWM)]].  =analogWrite()= range of values is 0-255.
 
 ** Capacitive sensor
 - http://playground.arduino.cc/Code/CapacitiveSensor
 
 ** RCtime
 https://www.arduino.cc/en/Tutorial/RCtime
+
+* Analog read
+
+** Analog read / binary output
+- Photoresistor
+** Analog read / PWM output
+- Piezo mic
+* Digital read
+- IC FSM to Arduino
+* Motor control
+- http://www.tigoe.net/pcomp/code/circuits/motors/stepper-motors/
+* Arduino and Processing
+- http://playground.arduino.cc/Interfacing/ProcesssHackForFirmata
+** Analog input to serial
+
+Use a potentiometer to send your analog input to processing.  See tutorial [[https://www.arduino.cc/en/Tutorial/Graph][Graph]].  Make sure to adjust your serial port properly (see Processing script below =Serial.list()[4]=).
+
+
+- Link to Arduino script :: [[./src/potensiometerGraph.ino]]
+
+#+BEGIN_SRC java :tangle ./src/potensiometerGraph.ino
+void setup() {
+  // initialize the serial communication:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // send the value of analog input 0:
+  Serial.println(analogRead(A0));
+  // wait a bit for the analog-to-digital converter
+  // to stabilize after the last reading:
+  delay(2);
+}
+#+END_SRC
+
+- Link to Processing script :: [[./src/potensiometerGraph.pde]]
+
+Make sure to have a look at [[https://processing.org/reference/libraries/serial/Serial.html][Serial]] class, [[https://www.processing.org/reference/libraries/serial/serialEvent_.html][serialEvent()]] and [[https://processing.org/reference/libraries/serial/Serial_readStringUntil_.html][readStringUntil()]] functions.
+
+#+BEGIN_SRC java :tangle ./src/potensiometerGraph.pde
+
+import processing.serial.*;
+
+Serial myPort;        // The serial port
+int xPos = 1;         // horizontal position of the graph
+float inByte = 0;
+
+void setup () {
+  // set the window size:
+  size(400, 300);
+
+  // List all the available serial ports
+  println(Serial.list());
+
+  // select your serial port
+  myPort = new Serial(this, Serial.list()[4], 9600);
+
+  // don't generate a serialEvent() unless you get a newline character:
+  myPort.bufferUntil('\n');
+
+  // set inital background:
+  background(0);
+}
+void draw () {
+  // draw the line:
+  stroke(127, 34, 255);
+  line(xPos, height, xPos, height - inByte);
+
+  // at the edge of the screen, go back to the beginning:
+  if (xPos >= width) {
+    xPos = 0;
+    background(0);
+  } else {
+    // increment the horizontal position:
+    xPos++;
+  }
+}
+
+// a serial event is called when data is available
+void serialEvent (Serial myPort) {
+  // get the ASCII string:
+  String inString = myPort.readStringUntil('\n');
+
+  if (inString != null) {
+    // trim off any whitespace:
+    inString = trim(inString);
+    // convert to an int and map to the screen height:
+    inByte = float(inString);
+    println(inByte);
+    inByte = map(inByte, 0, 1023, 0, height);
+  }
+}
+#+END_SRC
+- https://www.arduino.cc/en/Tutorial/Graph
+- http://playground.arduino.cc/Interfacing/Processing
+* Arduino and SuperCollider
+- http://new-supercollider-mailing-lists-forums-use-these.2681727.n2.nabble.com/Data-Transfer-between-SC-and-Arduino-using-Serial-port-td7621470.html#a7621488
+- http://www.fredrikolofsson.com/f0blog/?q=node/605
+- http://comments.gmane.org/gmane.comp.audio.supercollider.user/110415
+** Analog write - Dimmer
+
+- Link to Arduino script :: [[./src/analogWriteDimmer.ino]]
+
+#+BEGIN_SRC java :tangle ./src/analogWriteDimmer.ino
+const int ledPin = 9;      // the pin that the LED is attached to
+
+void setup() {
+  // initialize the serial communication:
+  Serial.begin(9600);
+  // initialize the ledPin as an output:
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  byte brightness;
+
+  // check if data has been sent from the computer:
+  if (Serial.available()) {
+    // read the most recent byte (which will be from 0 to 255):
+    brightness = Serial.read();
+    // set the brightness of the LED:
+    analogWrite(ledPin, brightness);
+  }
+}
+#+END_SRC
+
+- Link to SC3 script :: [[./src/analogWriteDimmer.scd]]
+
+#+BEGIN_SRC sclang :tangle ./src/analogWriteDimmer.scd
+// DIMMER
+
+(
+p = SerialPort(
+    "/dev/ttyUSB0",    //edit to match your port. SerialPort.listDevices
+    baudrate: 9600,    //check that baudrate is the same as in arduino sketch
+    crtscts: true);
+)
+
+//send serial data - slow pulsating
+(
+r = Routine({
+    inf.do{|i|
+        p.put(i.fold(0, 100).linexp(0, 100, 1, 255).asInteger.postln);
+        0.02.wait;
+    };
+}).play;
+)
+
+r.stop;
+p.close;
+#+END_SRC
+** Digital write - GUI with buttons
+
+Based on the example
+
+- Link to Arduino script :: [[./src/analogWriteDimmer.ino]]
+
+#+BEGIN_SRC java :tangle ./src/digitalWriteButtons.ino
+byte digPins[] = {8, 9, 10, 11, 12, 13};
+
+byte val, cnt = 0;
+byte digData[] = {0, 0, 0, 0, 0, 0, 0, 0};
+
+void setup(){
+    Serial.begin(38400);
+    for(byte i = 0; i < 6; i++){
+        pinMode(digPins[i], OUTPUT);
+    }
+}
+
+void loop(){
+    while(Serial.available()){
+        val = Serial.read();
+        if(cnt == 0){
+            if(val == 10){
+                cnt = 1;
+            }
+        } else if(cnt < 7){
+            digData[cnt - 1] = val;
+            cnt++;
+        } else {
+            if(val == 11){
+                for(byte i = 0; i < 6; i++){
+                    digitalWrite(digPins[i], digData[i]);
+                }
+            } else {
+                // serial read error
+            }
+            cnt = 0; // reset counter
+        }
+    }
+    delay(10);
+}
+#+END_SRC
+
+- Link to SC3 script :: [[./src/digitalWriteButtons.scd]]
+
+#+BEGIN_SRC sclang :tangle ./src/digitalWriteButtons.scd
+(
+var name= "/dev/ttyUSB0";	//edit to match your serial device
+var port= SerialPort(name, 38400, crtscts: true);
+var pwm= [10, 0, 0, 0, 0, 0, 0, 11];
+var win= Window("pwm", Rect(99, 99, 260, 200), false);
+Button(win, Rect(10, 10, 30, 170))
+.states_([["pin13", Color.black, Color.white],["pin13", Color.black, Color.green]])
+.action_({|view| pwm.put(1, (view.value).asInteger); port.putAll(pwm.postln)});
+Button(win, Rect(50, 10, 30, 170))
+.states_([["0"],["1"]])
+.action_{|view| pwm.put(2, (view.value).asInteger); port.putAll(pwm.postln)};
+Button(win, Rect(90, 10, 30, 170))
+.states_([["0"],["1"]])
+.action_{|view| pwm.put(3, (view.value).asInteger); port.putAll(pwm.postln)};
+Button(win, Rect(130, 10, 30, 170))
+.states_([["0"],["1"]])
+.action_{|view| pwm.put(4, (view.value).asInteger); port.putAll(pwm.postln)};
+Button(win, Rect(170, 10, 30, 170))
+.states_([["0"],["1"]])
+.action_{|view| pwm.put(5, (view.value).asInteger); port.putAll(pwm.postln)};
+Button(win, Rect(210, 10, 30, 170))
+.states_([["0"],["1"]])
+.action_{|view| pwm.put(6, (view.value).asInteger); port.putAll(pwm.postln)};
+win.front;
+CmdPeriod.doOnce({port.putAll([10, 0, 0, 0, 0, 0, 0, 11]); port.close; win.close});
+//press cmd+. to stop and close window and serial port
+)
+
+(
+var name= "/dev/ttyUSB0";	//edit to match your serial device
+var port= SerialPort(name, 38400, crtscts: true);
+var pwm= [10, 0, 0, 0, 0, 0, 0, 11];
+var win= Window("pwm");
+var v= VLayoutView(w, Rect(99, 99, 300, 300));
+
+Array.fill(6, { | i |
+	Button(win, Rect(0, 0, 50, 50))
+	.states_([["pin"++(8+i).asString, Color.black, Color.white],["pin"++(8+i).asString, Color.black, Color.green]])
+	.action_({|view| pwm.put(i+1, (view.value).asInteger); port.putAll(pwm.postln)});
+});
+win.front;
+CmdPeriod.doOnce({port.putAll([10, 0, 0, 0, 0, 0, 0, 11]); port.close; win.close});
+
+)
+
+
+#+END_SRC
