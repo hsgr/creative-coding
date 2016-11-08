@@ -218,6 +218,8 @@ o.free;
 
 ** Send OSC message from SC3 to Processing
 
+The example below is based on a [[http://sccode.org/1-4Ty][script by Fredrik Olofsson]].
+
 - Link to processing script below :: [[./src/scP5.pde]]
 
 #+BEGIN_SRC java :tangle ./src/scP5.pde
