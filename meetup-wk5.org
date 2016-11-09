@@ -1,12 +1,12 @@
 #+TITLE: Arduino introduction and interfacing with Processing and SuperCollider
 
 - [[#arduino-basics][1. Arduino Basics]]
-  - [[#arduino-*important-links*][1.1. Arduino *important links*]]
+  - [[#arduino-important-links][1.1. Arduino important links]]
   - [[#serial-communication][1.2. Serial communication]]
   - [[#analog-and-digital-pins][1.3. Analog and digital pins]]
 - [[#analog-read][2. Analog read]]
-  - [[#analog-read-pwm-output][2.1. Analog read - PWM output]]
-  - [[#analog-read-binary-output][2.2. Analog read - binary output]]
+  - [[#analog-read-pwm-output][2.1. Analog read-PWM output]]
+  - [[#analog-read-binary-output][2.2. Analog read-binary output]]
 - [[#motor-control][3. Motor control]]
   - [[#servo-control-using-a-potentiometer][3.1 Servo control using a potentiometer]]
   - [[#stepper-control][3.2 Stepper control]]
@@ -14,8 +14,8 @@
   - [[#read-integer-number][4.1. Read integer number]]
   - [[#arduino-input-to-serial][4.2. Analog input to serial]]
 - [[#arduino-and-supercollider][5. Arduino and SuperCollider]]
-  - [[#analog-write-dimmer][5.1. Analog write - Dimmer]]
-  - [[#digital-write-gui-with-buttons][5.2. Digital write - GUI with buttons]]
+  - [[#analog-write-dimmer][5.1. Analog write-Dimmer]]
+  - [[#digital-write-gui-with-buttons][5.2. Digital write-GUI with buttons]]
 - [[#appendix][6. Appendix]]
   - [[#resistor-color-code][6.1. Resistor color code]]
 
@@ -25,7 +25,7 @@
 Similar to Processing language [[http://arduino.cc/][Arduino]] has two main structures, a =void setup()= and a =void loop()=.  In contrast to processing which uses =frameRate()= function to update the =void loop()= function, Arduino's "framerate" depends on the program that you have uploaded to your board (see online topic [[http://forum.arduino.cc/index.php?topic=42695.0][here]]).
 
 
-** Arduino *important links*
+** Arduino important links
 - Language Reference :: https://www.arduino.cc/en/Reference/HomePage
 - Tutorial Foundations :: https://www.arduino.cc/en/Tutorial/Foundations
 
@@ -59,7 +59,7 @@ If you would like to simulate analog output use the function =analogWrite()=, wh
 
 * Analog read
 
-** Analog read - PWM output
+** Analog read-PWM output
 
 A simple example using a photoresistor for analog input and an LED for binary output.  Original article below:
 
@@ -94,7 +94,7 @@ void loop() {
 }
 #+END_SRC
 
-** Analog read - binary output
+** Analog read-binary output
 A piezoelectric sensor that triggers a state transition.
 
 - Online example :: https://www.arduino.cc/en/Tutorial/KnockSensor
@@ -268,7 +268,7 @@ void serialEvent (Serial myPort)
 # - http://www.fredrikolofsson.com/f0blog/?q=node/605
 # - http://comments.gmane.org/gmane.comp.audio.supercollider.user/110415
 
-** Analog write - Dimmer
+** Analog write-Dimmer
 - *SuperCollider \rightarrow Arduino*
 
 - Link to Arduino script :: [[./src/analogWriteDimmer.ino]]
@@ -324,7 +324,7 @@ r = Routine({
 r.stop;
 p.close;
 #+END_SRC
-** Digital write - GUI with buttons
+** Digital write-GUI with buttons
 - *SuperCollider \rightarrow Arduino*
 
 A simple protocol for serial communication, based on the example by [[http://www.fredrikolofsson.com/f0blog/?q=node/605][Fredrik Olofsson]].
