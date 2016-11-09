@@ -84,13 +84,12 @@ A piezoelectric sensor that triggers a state transition.
   - 10kΩ resistor or potentiometer (depends on the sensor, see sensor's datasheet)
   - LED
 
-http://static.flickr.com/28/53535494_73f63436cb_o.jpg
-
+[[./img/piezo-knock_bb.png]]
 
 
 #+BEGIN_SRC java
 int ledPin = 13;
-int knockSensor = 0;
+int knockSensor = A0;
 byte val = 0;
 int statePin = LOW;
 int THRESHOLD = 100;
@@ -117,8 +116,6 @@ void loop()
 [[file:./img/piezo-states.png]]
 
 
-* Digital read
-- IC FSM to Arduino
 * Motor control
 - http://www.tigoe.net/pcomp/code/circuits/motors/stepper-motors/
 ** Servo control using a potentiometer
@@ -147,7 +144,7 @@ void loop() {
 }
 #+END_SRC
 
-
+** Stepper control
 * Arduino and Processing
 - http://playground.arduino.cc/Interfacing/ProcesssHackForFirmata
 ** Read integer number
@@ -158,6 +155,10 @@ We are going to use a potentiometer to make graphics in Processing.  Use a poten
 
 
 - Link to Arduino script :: [[./src/potensiometerGraph.ino]]
+
+- https://www.arduino.cc/en/Tutorial/Graph
+- http://playground.arduino.cc/Interfacing/Processing
+
 
 #+BEGIN_SRC java
 void setup()
@@ -241,12 +242,11 @@ void serialEvent (Serial myPort)
   }
 }
 #+END_SRC
-- https://www.arduino.cc/en/Tutorial/Graph
-- http://playground.arduino.cc/Interfacing/Processing
+
 * Arduino and SuperCollider
-- http://new-supercollider-mailing-lists-forums-use-these.2681727.n2.nabble.com/Data-Transfer-between-SC-and-Arduino-using-Serial-port-td7621470.html#a7621488
-- http://www.fredrikolofsson.com/f0blog/?q=node/605
-- http://comments.gmane.org/gmane.comp.audio.supercollider.user/110415
+# - http://new-supercollider-mailing-lists-forums-use-these.2681727.n2.nabble.com/Data-Transfer-between-SC-and-Arduino-using-Serial-port-td7621470.html#a7621488
+# - http://www.fredrikolofsson.com/f0blog/?q=node/605
+# - http://comments.gmane.org/gmane.comp.audio.supercollider.user/110415
 
 ** Analog write - Dimmer
 - *SuperCollider \rightarrow Arduino*
@@ -411,6 +411,7 @@ CmdPeriod.doOnce({port.putAll([10, 0, 0, 0, 0, 0, 0, 11]); port.close; w.close})
 *** Using port registers
 - https://www.arduino.cc/en/Reference/PortManipulation
 - http://playground.arduino.cc/Code/BitMath#introduction
+
 
 * Appendix
 ** Resistor color codes
