@@ -36,18 +36,87 @@ digitalWrite(A0, HIGH); // set pullup on analog pin 0
 
 If you would like to simulate analog output use the function =analogWrite()=, which is based on [[https://www.arduino.cc/en/Tutorial/PWM][Pulse Width Modulation (PWM)]].  =analogWrite()= range of values is 0-255.
 
-*** Capacitive sensor
-- http://playground.arduino.cc/Code/CapacitiveSensor
-
-*** RCtime
-https://www.arduino.cc/en/Tutorial/RCtime
 
 * Analog read
 
-** Analog read / binary output
-- Photoresistor
-** Analog read / PWM output
-- Piezo mic
+** Analog read - PWM output
+
+A simple example using a photoresistor for analog input and an LED for binary output.  Original article below:
+
+- Online example :: https://www.arduino.cc/en/Tutorial/AnalogInput
+
+- Requirements ::
+  - photoresistor
+  - 10kΩ resistor
+
+[[./img/photoresistor.png]]
+
+
+#+BEGIN_SRC java ./src/photoresistor.ino
+int sensorPin = A0;    // select the input pin for the potentiometer
+int ledPin = 9;      // select the pin for the LED
+int sensorValue = 0;  // variable to store the value coming from the sensor
+
+void setup() {
+  Serial.begin(9600);
+  // declare the ledPin as an OUTPUT:
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // open Serial monitor to see the values (top-right icon in menu)
+  Serial.println(sensorValue);
+  // read the value from the sensor:
+  sensorValue = analogRead(sensorPin);
+  // turn the ledPin on
+  analogWrite(ledPin, sensorValue/4);
+  delay(sensorValue/4);
+}
+#+END_SRC
+
+** Analog read - binary output
+A piezoelectric sensor that triggers a state transition.
+
+- Online example :: https://www.arduino.cc/en/Tutorial/KnockSensor
+
+- Requirements ::
+  - piezoelectric sensor
+  - 10kΩ resistor or potentiometer (depends on the sensor, see sensor's datasheet)
+  - LED
+
+http://static.flickr.com/28/53535494_73f63436cb_o.jpg
+
+
+
+#+BEGIN_SRC java
+int ledPin = 13;
+int knockSensor = 0;
+byte val = 0;
+int statePin = LOW;
+int THRESHOLD = 100;
+
+void setup()
+{
+ pinMode(ledPin, OUTPUT);
+}
+
+void loop()
+{
+  val = analogRead(knockSensor);
+
+  if (val >= THRESHOLD) {
+    statePin = !statePin;
+    digitalWrite(ledPin, statePin);
+  }
+
+  delay(100);  // we have to make a delay to avoid overloading the serial port
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:./img/piezo-states.png]]
+
+
 * Digital read
 - IC FSM to Arduino
 * Motor control
@@ -56,6 +125,27 @@ https://www.arduino.cc/en/Tutorial/RCtime
 
 - https://www.arduino.cc/en/Tutorial/Knob
 
+[[https://www.arduino.cc/en/uploads/Tutorial/knob_BB.png]]
+
+#+BEGIN_SRC java ./src/servoKnob.ino
+#include <Servo.h>
+
+Servo myservo;  // create servo object to control a servo
+
+int potpin = 0;  // analog pin used to connect the potentiometer
+int val;    // variable to read the value from the analog pin
+
+void setup() {
+  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
+}
+
+void loop() {
+  val = analogRead(potpin);            // reads the value of the potentiometer (value between 0 and 1023)
+  val = map(val, 0, 1023, 0, 180);     // scale it to use it with the servo (value between 0 and 180)
+  myservo.write(val);                  // sets the servo position according to the scaled value
+  delay(15);                           // waits for the servo to get there
+}
+#+END_SRC
 
 
 * Arduino and Processing
@@ -191,7 +281,7 @@ void loop()
 
 - Link to SC3 script :: [[./src/analogWriteDimmer.scd]]
 
-#+BEGIN_SRC sclang :tangle ./src/analogWriteDimmer.scd
+#+BEGIN_SRC sclang
 // DIMMER
 
 (
@@ -221,7 +311,7 @@ A simple protocol for serial communication, based on the example by [[http://www
 
 - Link to Arduino script :: [[./src/analogWriteDimmer.ino]]
 
-#+BEGIN_SRC java :tangle ./src/digitalWriteButtons.ino
+#+BEGIN_SRC java
 byte digPins[] = {8, 9, 10, 11, 12, 13};
 
 byte val, cnt = 0;
@@ -317,3 +407,11 @@ w.front;
 CmdPeriod.doOnce({port.putAll([10, 0, 0, 0, 0, 0, 0, 11]); port.close; w.close});
 )
 #+end_example
+
+*** Using port registers
+- https://www.arduino.cc/en/Reference/PortManipulation
+- http://playground.arduino.cc/Code/BitMath#introduction
+
+* Appendix
+** Resistor color codes
+- If you don't have a multimeter to measure the value of a resistor you can either use an online application or calculate the Ohms of your resistor using the table in the wikipedia link below :: https://en.wikipedia.org/wiki/Electronic_color_code#Resistor_color-coding

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Arduino introduction and interfacing with Processing and SuperCollider</title>
-<!-- 2016-11-08 Τρι 21:45 -->
+<!-- 2016-11-09 Τετ 02:36 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Georgios Diapoulis" />
@@ -154,18 +154,13 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1-1">1.1. Arduino <b>important links</b></a></li>
 <li><a href="#sec-1-2">1.2. Serial communication</a></li>
-<li><a href="#sec-1-3">1.3. Analog and digital pins</a>
-<ul>
-<li><a href="#sec-1-3-1">1.3.1. Capacitive sensor</a></li>
-<li><a href="#sec-1-3-2">1.3.2. RCtime</a></li>
-</ul>
-</li>
+<li><a href="#sec-1-3">1.3. Analog and digital pins</a></li>
 </ul>
 </li>
 <li><a href="#sec-2">2. Analog read</a>
 <ul>
-<li><a href="#sec-2-1">2.1. Analog read / binary output</a></li>
-<li><a href="#sec-2-2">2.2. Analog read / PWM output</a></li>
+<li><a href="#sec-2-1">2.1. Analog read - PWM output</a></li>
+<li><a href="#sec-2-2">2.2. Analog read - binary output</a></li>
 </ul>
 </li>
 <li><a href="#sec-3">3. Digital read</a></li>
@@ -183,7 +178,16 @@ for the JavaScript code in this tag.
 <li><a href="#sec-6">6. Arduino and SuperCollider</a>
 <ul>
 <li><a href="#sec-6-1">6.1. Analog write - Dimmer</a></li>
-<li><a href="#sec-6-2">6.2. Digital write - GUI with buttons</a></li>
+<li><a href="#sec-6-2">6.2. Digital write - GUI with buttons</a>
+<ul>
+<li><a href="#sec-6-2-1">6.2.1. Using port registers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-7">7. Appendix</a>
+<ul>
+<li><a href="#sec-7-1">7.1. Resistor color codes</a></li>
 </ul>
 </li>
 </ul>
@@ -266,50 +270,127 @@ digitalWrite(A0, HIGH); <span class="org-comment-delimiter">// </span><span clas
 If you would like to simulate analog output use the function <code>analogWrite()</code>, which is based on <a href="https://www.arduino.cc/en/Tutorial/PWM">Pulse Width Modulation (PWM)</a>.  <code>analogWrite()</code> range of values is 0-255.
 </p>
 </div>
-
-<div id="outline-container-sec-1-3-1" class="outline-4">
-<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> Capacitive sensor</h4>
-<div class="outline-text-4" id="text-1-3-1">
-<ul class="org-ul">
-<li><a href="http://playground.arduino.cc/Code/CapacitiveSensor">http://playground.arduino.cc/Code/CapacitiveSensor</a>
-</li>
-</ul>
 </div>
 </div>
 
-<div id="outline-container-sec-1-3-2" class="outline-4">
-<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> RCtime</h4>
-<div class="outline-text-4" id="text-1-3-2">
-<p>
-<a href="https://www.arduino.cc/en/Tutorial/RCtime">https://www.arduino.cc/en/Tutorial/RCtime</a>
-</p>
-</div>
-</div>
-</div>
-</div>
 
 <div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2"><span class="section-number-2">2</span> Analog read</h2>
 <div class="outline-text-2" id="text-2">
 </div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Analog read / binary output</h3>
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Analog read - PWM output</h3>
 <div class="outline-text-3" id="text-2-1">
-<ul class="org-ul">
-<li>Photoresistor
+<p>
+A simple example using a photoresistor for analog input and an LED for binary output.  Original article below:
+</p>
+
+<dl class="org-dl">
+<dt> Online example </dt><dd><a href="https://www.arduino.cc/en/Tutorial/AnalogInput">https://www.arduino.cc/en/Tutorial/AnalogInput</a>
+</dd>
+
+<dt> Requirements </dt><dd><ul class="org-ul">
+<li>photoresistor
+</li>
+<li>10kΩ resistor
 </li>
 </ul>
+</dd>
+</dl>
+
+
+<div class="figure">
+<p><img src="./img/photoresistor.png" alt="photoresistor.png" />
+</p>
+</div>
+
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span class="org-type">int</span> <span class="org-variable-name">sensorPin</span> = A0;    <span class="org-comment-delimiter">// </span><span class="org-comment">select the input pin for the potentiometer</span>
+<span class="org-type">int</span> <span class="org-variable-name">ledPin</span> = 9;      <span class="org-comment-delimiter">// </span><span class="org-comment">select the pin for the LED</span>
+<span class="org-type">int</span> <span class="org-variable-name">sensorValue</span> = 0;  <span class="org-comment-delimiter">// </span><span class="org-comment">variable to store the value coming from the sensor</span>
+
+<span class="org-type">void</span> <span class="org-function-name">setup</span>() {
+  Serial.begin(9600);
+  <span class="org-comment-delimiter">// </span><span class="org-comment">declare the ledPin as an OUTPUT:</span>
+  pinMode(ledPin, OUTPUT);
+}
+
+<span class="org-type">void</span> <span class="org-function-name">loop</span>() {
+  <span class="org-comment-delimiter">// </span><span class="org-comment">open Serial monitor to see the values (top-right icon in menu)</span>
+  Serial.println(sensorValue);
+  <span class="org-comment-delimiter">// </span><span class="org-comment">read the value from the sensor:</span>
+  sensorValue = analogRead(sensorPin);
+  <span class="org-comment-delimiter">// </span><span class="org-comment">turn the ledPin on</span>
+  analogWrite(ledPin, sensorValue/4);
+  delay(sensorValue/4);
+}
+</pre>
 </div>
 </div>
+</div>
+
 <div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Analog read / PWM output</h3>
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Analog read - binary output</h3>
 <div class="outline-text-3" id="text-2-2">
-<ul class="org-ul">
-<li>Piezo mic
+<p>
+A piezoelectric sensor that triggers a state transition.
+</p>
+
+<dl class="org-dl">
+<dt> Online example </dt><dd><a href="https://www.arduino.cc/en/Tutorial/KnockSensor">https://www.arduino.cc/en/Tutorial/KnockSensor</a>
+</dd>
+
+<dt> Requirements </dt><dd><ul class="org-ul">
+<li>piezoelectric sensor
+</li>
+<li>10kΩ resistor or potentiometer (depends on the sensor, see sensor's datasheet)
+</li>
+<li>LED
 </li>
 </ul>
+</dd>
+</dl>
+
+
+<div class="figure">
+<p><img src="http://static.flickr.com/28/53535494_73f63436cb_o.jpg" alt="53535494_73f63436cb_o.jpg" />
+</p>
+</div>
+
+
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span class="org-type">int</span> <span class="org-variable-name">ledPin</span> = 13;
+<span class="org-type">int</span> <span class="org-variable-name">knockSensor</span> = 0;
+<span class="org-type">byte</span> <span class="org-variable-name">val</span> = 0;
+<span class="org-type">int</span> <span class="org-variable-name">statePin</span> = LOW;
+<span class="org-type">int</span> <span class="org-variable-name">THRESHOLD</span> = 100;
+
+<span class="org-type">void</span> <span class="org-function-name">setup</span>()
+{
+ pinMode(ledPin, OUTPUT);
+}
+
+<span class="org-type">void</span> <span class="org-function-name">loop</span>()
+{
+  val = analogRead(knockSensor);
+
+  <span class="org-keyword">if</span> (val &gt;= THRESHOLD) {
+    statePin = <span class="org-negation-char">!</span>statePin;
+    digitalWrite(ledPin, statePin);
+  }
+
+  delay(100);  <span class="org-comment-delimiter">// </span><span class="org-comment">we have to make a delay to avoid overloading the serial port</span>
+}
+</pre>
 </div>
 </div>
 </div>
+</div>
+
+
 <div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3"><span class="section-number-2">3</span> Digital read</h2>
 <div class="outline-text-2" id="text-3">
@@ -334,10 +415,37 @@ If you would like to simulate analog output use the function <code>analogWrite()
 <li><a href="https://www.arduino.cc/en/Tutorial/Knob">https://www.arduino.cc/en/Tutorial/Knob</a>
 </li>
 </ul>
-</div>
-</div>
+
+
+<div class="figure">
+<p><img src="https://www.arduino.cc/en/uploads/Tutorial/knob_BB.png" alt="knob_BB.png" />
+</p>
 </div>
 
+<div class="org-src-container">
+
+<pre class="src src-java">#<span class="org-type">include</span> &lt;Servo.<span class="org-type">h</span>&gt;
+
+Servo myservo;  <span class="org-comment-delimiter">// </span><span class="org-comment">create servo object to control a servo</span>
+
+<span class="org-type">int</span> <span class="org-variable-name">potpin</span> = 0;  <span class="org-comment-delimiter">// </span><span class="org-comment">analog pin used to connect the potentiometer</span>
+<span class="org-type">int</span> <span class="org-variable-name">val</span>;    <span class="org-comment-delimiter">// </span><span class="org-comment">variable to read the value from the analog pin</span>
+
+<span class="org-type">void</span> <span class="org-function-name">setup</span>() {
+  myservo.attach(9);  <span class="org-comment-delimiter">// </span><span class="org-comment">attaches the servo on pin 9 to the servo object</span>
+}
+
+<span class="org-type">void</span> <span class="org-function-name">loop</span>() {
+  val = analogRead(potpin);            <span class="org-comment-delimiter">// </span><span class="org-comment">reads the value of the potentiometer (</span><span class="org-comment"><span class="org-whitespace-line">value between 0 and 1023)</span></span>
+  val = map(val, 0, 1023, 0, 180);     <span class="org-comment-delimiter">// </span><span class="org-comment">scale it to use it with the servo (val</span><span class="org-comment"><span class="org-whitespace-line">ue between 0 and 180)</span></span>
+  myservo.write(val);                  <span class="org-comment-delimiter">// </span><span class="org-comment">sets the servo position according to t</span><span class="org-comment"><span class="org-whitespace-line">he scaled value</span></span>
+  delay(15);                           <span class="org-comment-delimiter">// </span><span class="org-comment">waits for the servo to get there</span>
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
 
 
 <div id="outline-container-sec-5" class="outline-2">
@@ -655,6 +763,32 @@ w.front;
 )
 </pre>
 </div>
+</div>
+
+<div id="outline-container-sec-6-2-1" class="outline-4">
+<h4 id="sec-6-2-1"><span class="section-number-4">6.2.1</span> Using port registers</h4>
+<div class="outline-text-4" id="text-6-2-1">
+<ul class="org-ul">
+<li><a href="https://www.arduino.cc/en/Reference/PortManipulation">https://www.arduino.cc/en/Reference/PortManipulation</a>
+</li>
+<li><a href="http://playground.arduino.cc/Code/BitMath#introduction">http://playground.arduino.cc/Code/BitMath#introduction</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Appendix</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> Resistor color codes</h3>
+<div class="outline-text-3" id="text-7-1">
+<dl class="org-dl">
+<dt> If you don't have a multimeter to measure the value of a resistor you can either use an online application or calculate the Ohms of your resistor using the table in the wikipedia link below </dt><dd><a href="https://en.wikipedia.org/wiki/Electronic_color_code#Resistor_color-coding">https://en.wikipedia.org/wiki/Electronic_color_code#Resistor_color-coding</a>
+</dd>
+</dl>
 </div>
 </div>
 </div>
