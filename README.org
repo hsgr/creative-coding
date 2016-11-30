@@ -1,0 +1,38 @@
+* Live Coding in SuperCollider
+Creating sound with SuperCollider can be very rewarding using its
+ready made unit generators to build novel instruments and sound
+generators, but what happens when one wants to improvise the structure
+of these instruments and change them on the fly.
+
+** Live coding as a musical performance paradigm
+Dynamic or interactive programming, commonly known as live
+coding (in electronic music, and digital arts) is a performance
+paradigm that allows the performer(s) to create an instrument instead
+of interacting with it by altering its control inputs or parameters.  For
+this we will use JITLib shipped in SuperCollider optimised for just in
+time programming techniques, which allows the user to interact and
+interfere without having to stop and update the synthesis processes
+while at run. This allows the performer to improvise and change the
+state of the sound manipulation dynamically, expanding the interaction
+affordances of the software in real time. Examples made in
+SuperCollider, can be found at this repository. For more information
+about live coding as performance paradigm see this [[http://toplap.org][page]].
+** Examples:
+Define an Ndef, a synthesis proxy!
+#+BEGIN_SRC sclang
+Ndef(\x).fadeTime = 2;
+Ndef(\x).play;
+Ndef(\x, {SinOsc.ar(\freq.kr(120.0, 0.3)) * 0.1 });
+Ndef(\x, {SinOsc.ar([\freq.kr(120.0), \freq.kr + 2.01]) / 2 * 0.1});
+Ndef(\x, {LFSaw.ar([\freq.kr(120.0), \freq.kr + 2.01]) / 2 * 0.1});
+Ndef(\x, {LFSaw.ar([\freq.kr(120.0), \freq.kr + 2.01]) / 2 * Linen.kr(Impulse.kr(\speed.kr(1)))});
+// Make an Ndef mixer to control the node definitions via a GUI
+NdefMixer(s);
+#+END_SRC
+/The most interesting thing in JITlib is that things do not have to exist as long as you create them later!/
+**** For other conveniences see this repository and the JITLib Overview help file in SuperCollider
+
+**** Resources and acknowledgements
++ Download SuperCollider (latest stable) [[http://supercollider.github.io][here]].
++ [[http://doc.sccode.org/Overviews/JITLib.html][JITLib]] mainly created by Julian Rohrhuber, with contributions by Alberto De Campo.
++ [[http://ethos.bl.uk/OrderDetails.do?uin=uk.bl.ethos.682112][Chapter]] on live Coding of my PhD thesis including historical and recent practices (groups, software, etc.).
