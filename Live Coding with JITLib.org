@@ -15,7 +15,7 @@ interfere without having to stop and update the synthesis processes
 while at run. This allows the performer to improvise and change the
 state of the sound manipulation dynamically, expanding the interaction
 affordances of the software in real time. Examples made in
-SuperCollider, can be found at this repository. For more information
+SuperCollider, can be found at this [[https://github.com/KonVas/Ionio-liveCode-workshop.git][repository]]. For more information
 about live coding as performance paradigm see this [[http://toplap.org][page]].
 ** Examples:
 Define an Ndef, a synthesis proxy!
